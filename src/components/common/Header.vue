@@ -1,11 +1,11 @@
 <template>
   <div class="header">
-    <div class="logo">网络教学管理系统</div>
+    <div class="logo">网络教学管理系统-教师端</div>
     <div class="user-info">
       <el-dropdown trigger="click" @command="handleCommand">
                 <span class="el-dropdown-link">
                     <img class="user-logo" src="../../../static/img/img.jpg">
-                    {{username}}
+                    {{ username }}
                 </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="loginout">退出</el-dropdown-item>
@@ -23,15 +23,13 @@
     },
     computed:{
       username(){
-        let username = localStorage.getItem("username");
+        let username = sessionStorage.getItem('username');
         return username ? username : this.name;
       }
     },
     methods:{
       handleCommand(command) {
-        if(command == 'loginout'){
-          localStorage.removeItem('username');
-          sessionStorage.removeItem("authKey");
+        if(command === 'loginout'){
           this.$router.push('/login');
         }
       }
@@ -75,7 +73,7 @@
     height:40px;
     border-radius: 50%;
   }
-  .el-dropdown-menu__item{
+  .el-dropdown-menu_item{
     text-align: center;
   }
 </style>

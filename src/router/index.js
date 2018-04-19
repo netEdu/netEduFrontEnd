@@ -14,8 +14,8 @@ export default new Router({
       component: resolve => require(['../components/common/Home.vue'], resolve),
       children:[
         {
-          path: '/Sidebar1',
-          component: resolve => require(['../components/page/Sidebar1.vue'], resolve)
+          path: '/Course',
+          component: resolve => require(['../components/page/Course.vue'], resolve)
         },
         {
           path: '/Sidebar2',

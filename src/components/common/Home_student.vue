@@ -3,7 +3,9 @@
     <v-head> </v-head>
     <v-sidebar> </v-sidebar>
     <div class="content">
-      <transition name="move" mode="out-in"><router-view> </router-view></transition>
+      <transition name="move" mode="out-in">
+	      <router-view> </router-view>
+      </transition>
     </div>
   </div>
 </template>
@@ -13,7 +15,8 @@
   import vSidebar from './Sidebar_student.vue';
   export default {
     components:{
-      vHead, vSidebar
+      vHead,
+	    vSidebar
     }
   }
 </script>
