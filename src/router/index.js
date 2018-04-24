@@ -52,8 +52,8 @@ export default new Router({
       ]
     },
     {
-      path: '/student',
-      component: resolve => require(['../components/common/Home_student.vue'], resolve),
+      path: '/teacher',
+      component: resolve => require(['../components/common/Home.vue'], resolve),
       children:[
         {
           path: '/Sidebar7',
@@ -66,8 +66,8 @@ export default new Router({
       ]
     },
     {
-      path: '/student',
-      component: resolve => require(['../components/common/Home_student.vue'], resolve),
+      path: '/teacher',
+      component: resolve => require(['../components/common/Home.vue'], resolve),
       children:[
         {
           path: '/Sidebar9',
@@ -76,6 +76,34 @@ export default new Router({
         {
           path: '/Sidebar10',
           component: resolve => require(['../components/page/Sidebar10.vue'], resolve)
+        }
+      ]
+    },
+    {
+      path:"/student",
+      component:resole=>require(['../components/common/Home_student.vue'],resole),
+      children:[
+        {
+          path:'/studentSidebar1',
+          component:resole=>require(['../components/studentPage/studentSidebar1.vue'],resole)
+        },
+        {
+          path:'/studentSidebar2',
+          component:resolve=>require(['../components/studentPage/studentSidebar2.vue'],resolve)
+        }
+      ]
+    },
+    {
+      path:"/student",
+      component:resole=>require(['../components/common/Home_student.vue'],resole),
+      children:[
+        {
+          path:'/studentSidebar3',
+          component:resole=>require(['../components/studentPage/studentSidebar3.vue'],resole)
+        },
+        {
+          path:'/studentSidebar4',
+          component:resolve=>require(['../components/studentPage/studentSidebar4.vue'],resolve)
         }
       ]
     },
