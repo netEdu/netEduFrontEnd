@@ -18,8 +18,8 @@ export default new Router({
           component: resolve => require(['../components/page/Course.vue'], resolve)
         },
         {
-          path: '/Sidebar2',
-          component: resolve => require(['../components/page/Sidebar2.vue'], resolve)
+          path: '/ShowCourse',
+          component: resolve => require(['../components/page/ShowCourse.vue'], resolve)
         }
       ]
     },

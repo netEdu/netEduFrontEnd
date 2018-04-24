@@ -8,13 +8,14 @@
 // 5 警告
 // 6 班群信息
 
-const IPADDR = 'http://192.168.43.168:8011';
+const IPADDR = 'http://192.168.3.11:8011';
 // '0,' + 字符串
 export const SOCKET_IP = 'ws://192.168.3.11:7117/websocket';
 
 export const URL_DATA = {
   LOGIN: IPADDR + '/login',
-  APPLY_COURSE: IPADDR + '/Course/applyCourse'
+  APPLY_COURSE: IPADDR + '/Course/applyCourse',
+  COURSE_LIST: IPADDR + '/Course/courseList'
 };
 
 // 侧边索引
@@ -29,12 +30,8 @@ export const TeacherSideBarItem = [
         title: '申请课程'
       },
       {
-        index: '/Sidebar2',
+        index: '/ShowCourse',
         title: '所有课程'
-      },
-      {
-        index: '/Sidebar3',
-        title: '正在申请'
       }
     ]
   },

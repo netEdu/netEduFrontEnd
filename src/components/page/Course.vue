@@ -3,8 +3,9 @@
 		<el-form :model="formData"
 		         :rules="rules"
 		         ref="courseForm"
-		         label-position="top">
-
+						 label-width="100px"
+		         label-position="left">
+			<h2>申请课程</h2>
 			<el-form-item prop="course_name" label="课程名称">
 				<el-input v-model="formData.course_name" placeholder="请输入课程名称"/>
 			</el-form-item>
@@ -19,7 +20,7 @@
 			</el-form-item>
 			<el-form-item prop="class_num" label="上课班级">
 				<el-select v-model="formData.class_num" placeholder="请选择上课班级"
-				           multiple clearable>
+				           clearable>
 					<el-option label="一班" value="1"/>
 					<el-option label="二班" value="2"/>
 					<el-option label="三班" value="3"/>
@@ -48,77 +49,75 @@
 </template>
 
 <script>
-	import { courseRules, URL_DATA } from "../../js/util-data";
+import { courseRules, URL_DATA } from '../../js/util-data'
 
-  export default {
-    name: "sidebar1",
-	  data() {
-      return {
-        formData: {
-          course_name: '',
-	        credit: '',
-	        hours: '',
-	        teacher_id: '',
-	        class_time: '',
-	        course_introduce: '',
-	        class_num: '',
-	        assessment_method: ''
-        },
-	      rules: courseRules
-      }
-	  },
-	  methods: {
-      onSubmit(formName) {
-        let _this = this;
-        this.formData.teacher_id = '1';
-
+export default {
+  name: 'sidebar1',
+  data () {
+    return {
+      formData: {
+        course_name: '',
+        credit: '',
+        hours: '',
+        teacher_id: '',
+        class_time: '',
+        course_introduce: '',
+        class_num: '',
+        assessment_method: ''
+      },
+      rules: courseRules
+    }
+  },
+  methods: {
+    onSubmit (formName) {
+      let _this = this
+      this.formData.teacher_id = sessionStorage.getItem('userId')
+      this.$refs[formName].validate(valid => {
         const loading = this.$loading({
           lock: true,
           text: '拼命上传中',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
-        });
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$axios({
-	            method: 'post',
-	            url: URL_DATA.APPLY_COURSE,
-	            data: _this.formData
-            }).then( (res) => {
-              if(res.data === 'FAIL'){
-                _this.$notify.error({
-                  title: '添加失败了',
-                  message: '课程：' + _this.formData.course_name
-                });
-	              loading.close();
-              } else if(res.data === 'REPEAT'){
-                _this.$notify.warn({
-                  title: '课程重复了',
-                  message: '课程：' + _this.formData.course_name
-                });
-                loading.close();
-              } else{
-                _this.$notify.success({
-                  title: '添加成功啦！',
-                  message: '课程：' + _this.formData.course_name
-                });
-                loading.close();
-              }
-            })
-          } else {
-            console.log('error submit!!');
-            loading.close();
-            return false;
-          }
-        });
-      }
-	  }
+        })
+        if (valid) {
+          this.$axios({
+            method: 'post',
+            url: URL_DATA.APPLY_COURSE,
+            data: _this.formData
+          }).then(res => {
+            if (res.data === 'FAIL') {
+              _this.$notify.error({
+                title: '添加失败了',
+                message: '课程：' + _this.formData.course_name
+              })
+              loading.close()
+            } else if (res.data === 'REPEAT') {
+              _this.$notify.warning({
+                title: '课程重复了',
+                message: '课程：' + _this.formData.course_name
+              })
+              loading.close()
+            } else {
+              _this.$notify.success({
+                title: '添加成功啦！',
+                message: '课程：' + _this.formData.course_name
+              })
+              loading.close()
+            }
+          })
+        } else {
+          loading.close()
+          return false
+        }
+      })
+    }
   }
+}
 </script>
 
 <style scoped>
-.el-card{
-	width: 40%;
-	margin: 0 auto;
+.el-card {
+  width: 70%;
+  margin: 0 auto;
 }
 </style>
