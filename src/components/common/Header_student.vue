@@ -3,10 +3,10 @@
     <div class="logo">网络教学系统</div>
     <div class="user-info">
       <el-dropdown trigger="click" @command="handleCommand">
-                <span class="el-dropdown-link">
-                    <img class="user-logo" src="../../../static/img/img.jpg">
-                    {{username}}
-                </span>
+          <span class="el-dropdown-link">
+            <img class="user-logo" src="../../../static/img/img.jpg">
+            {{username}}
+          </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="loginout">退出</el-dropdown-item>
         </el-dropdown-menu>
@@ -23,16 +23,16 @@
     },
     computed:{
       username(){
-        let username = localStorage.getItem("username");
-        return username ? username : this.name;
+        let username = localStorage.getItem('username')
+        return username ? username : this.name
       }
     },
     methods:{
       handleCommand(command) {
         if(command == 'loginout'){
-          localStorage.removeItem('username');
-          sessionStorage.removeItem("authKey");
-          this.$router.push('/login');
+          localStorage.removeItem('username')
+          sessionStorage.removeItem('authKey')
+          this.$router.push('/login')
         }
       }
     }

@@ -7,16 +7,18 @@
 // 4 学生互评
 // 5 警告
 // 6 班群信息
-
-const IPADDR = 'http://192.168.3.11:8011';
+// 39.105.58.192
+// /netEdu-1.0-SNAPSHOT
+const IPADDR = 'http://39.105.58.192:8080'
 // '0,' + 字符串
-export const SOCKET_IP = 'ws://192.168.3.11:7117/websocket';
+export const SOCKET_IP = 'ws://192.168.3.11:7117/websocket'
+let WAR_NAME = '/netEdu-1.0-SNAPSHOT'
 
 export const URL_DATA = {
-  LOGIN: IPADDR + '/login',
-  APPLY_COURSE: IPADDR + '/Course/applyCourse',
-  COURSE_LIST: IPADDR + '/Course/courseList'
-};
+  LOGIN: IPADDR + WAR_NAME + '/login',
+  APPLY_COURSE: IPADDR + WAR_NAME + '/Course/applyCourse',
+  COURSE_LIST: IPADDR + WAR_NAME + '/Course/courseList'
+}
 
 // 侧边索引
 export const TeacherSideBarItem = [
@@ -99,7 +101,7 @@ export const TeacherSideBarItem = [
       }
     ]
   }
-];
+]
 
 // 申请课程规则
 export const courseRules = {
@@ -124,4 +126,4 @@ export const courseRules = {
   assessment_method: [
     { required: true, message: '请输入考核方法'}
   ]
-};
+}

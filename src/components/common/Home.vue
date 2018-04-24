@@ -11,14 +11,14 @@
 </template>
 
 <script>
-import vHead from "./Header.vue";
-import vSidebar from "./Sidebar.vue";
+import vHead from './Header.vue'
+import vSidebar from './Sidebar.vue'
 export default {
   components: {
     vHead,
     vSidebar
   }
-};
+}
 </script>
 <style scoped>
 /* 设置持续时间和动画函数 */

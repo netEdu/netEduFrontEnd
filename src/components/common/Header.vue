@@ -3,10 +3,10 @@
     <div class="logo">网络教学管理系统-教师端</div>
     <div class="user-info">
       <el-dropdown trigger="click" @command="handleCommand">
-                <span class="el-dropdown-link">
-                    <img class="user-logo" src="../../../static/img/img.jpg">
-                    {{ username }}
-                </span>
+        <span class="el-dropdown-link">
+            <img class="user-logo" src="../../../static/img/img.jpg">
+            {{ username }}
+        </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="loginout">退出</el-dropdown-item>
         </el-dropdown-menu>
@@ -18,23 +18,23 @@
 export default {
   data() {
     return {
-      name: "请登录"
-    };
+      name: '请登录'
+    }
   },
   computed: {
     username() {
-      let username = sessionStorage.getItem("username");
-      return username ? username : this.name;
+      let username = sessionStorage.getItem('username')
+      return username ? username : this.name
     }
   },
   methods: {
     handleCommand(command) {
-      if (command === "loginout") {
-        this.$router.push("/login");
+      if (command === 'loginout') {
+        this.$router.push('/login')
       }
     }
   }
-};
+}
 </script>
 <style scoped>
 .header {

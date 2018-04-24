@@ -6,14 +6,17 @@
 <style>
   @import "../static/css/main.css";
   @import "../static/css/color-dark.css";     /*深色主题*/
-  .el-table .warning-row {
+  .warning-card {
     background: oldlace;
   }
-  .el-table .danger-row {
+  .danger-card {
     background: rgb(253, 183, 183);
   }
-  .el-table .success-row {
+  .success-card {
     background: #f0f9eb;
+  }
+  ::-webkit-scrollbar {
+    display:none
   }
   h2 {
     margin: 0 auto 20px auto;
