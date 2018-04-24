@@ -60,8 +60,15 @@ export default {
           if (res.data !== 'BAD REQUEST') {
             // session中放入用户名和用户id
             sessionStorage.setItem('username', username)
-            sessionStorage.setItem('userId', res.data.split(':')[1])
-            this.$router.push({ path: '/Course' })
+
+            var identified=res.data.split(":")[0]
+            if (identified=="Teacher"){
+              sessionStorage.setItem('userId', res.data.split(':')[1])
+              this.$router.push({ path: '/Course' })
+            }else if(identified=="Student"){
+              sessionStorage.setItem('userId', res.data.split(':')[1].split(",")[1])
+              this.$router.push({path:'/studentSidebar1'})
+            }
           } else {
             this.$message.error('用户名或密码错误')
           }

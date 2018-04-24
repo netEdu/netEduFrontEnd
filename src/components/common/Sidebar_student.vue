@@ -20,41 +20,11 @@
 </template>
 
 <script>
+  import { StudentSideBarItem } from "../../js/util-data";
   export default {
     data() {
       return {
-        items: [
-          {
-            icon: 'el-icon-menu',
-            index: '0',
-            title: 'One',
-            subs: [
-              {
-                index: '/Sidebar7',
-                title: 'Sidebar7'
-              },
-              {
-                index: '/Sidebar8',
-                title: 'Sidebar8'
-              }
-            ]
-          },
-          {
-            icon: 'el-icon-menu',
-            index: '1',
-            title: 'Two',
-            subs: [
-              {
-                index: '/Sidebar9',
-                title: 'Sidebar9'
-              },
-              {
-                index: '/Sidebar10',
-                title: 'Sidebar10'
-              }
-            ]
-          }
-        ]
+        items:StudentSideBarItem
       }
     },
     computed:{

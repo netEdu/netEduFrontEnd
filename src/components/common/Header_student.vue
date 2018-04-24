@@ -23,7 +23,7 @@
     },
     computed:{
       username(){
-        let username = localStorage.getItem("username");
+        let username = sessionStorage.getItem("username");
         return username ? username : this.name;
       }
     },

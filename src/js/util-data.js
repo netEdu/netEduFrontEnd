@@ -8,17 +8,18 @@
 // 5 警告
 // 6 班群信息
 
-const IPADDR = 'http://192.168.3.11:8011';
+const IPADDR = 'http://localhost:8011';
 // '0,' + 字符串
 export const SOCKET_IP = 'ws://192.168.3.11:7117/websocket';
 
 export const URL_DATA = {
   LOGIN: IPADDR + '/login',
   APPLY_COURSE: IPADDR + '/Course/applyCourse',
-  COURSE_LIST: IPADDR + '/Course/courseList'
+  COURSE_LIST: IPADDR + '/Course/courseList',
+  QUERY_STUDENT_INFO:IPADDR+'/Client/studentInfo'
 };
 
-// 侧边索引
+// 教师端侧边索引
 export const TeacherSideBarItem = [
   {
     icon: 'el-icon-menu',
@@ -98,6 +99,83 @@ export const TeacherSideBarItem = [
         title: '编辑问题'
       }
     ]
+  }
+];
+
+// 学生端侧边索引
+export const StudentSideBarItem = [
+  {
+    icon: 'el-icon-menu',
+    index: '0',
+    title: '个人信息管理',
+    subs: [
+      {
+        index: '/studentSidebar1',
+        title: '查看个人信息'
+      },
+      {
+        index: '/studentSidebar2',
+        title: '修改个人信息'
+      }
+    ]
+  },
+  {
+    icon: 'el-icon-menu',
+    index: '1',
+    title: '资料',
+    subs: [
+      {
+        index: '/studentSidebar3',
+        title: '删除个人资料'
+      },
+      {
+        index: '/studentSidebar4',
+        title: '下载资料'
+      },
+      {
+        index: '/studentSidebar4',
+        title: '查看可用课程'
+      },
+      {
+        index: '/studentSidebar4',
+        title: '查看个人资料'
+      },
+      {
+        index: '/studentSidebar4',
+        title: '查看教师资料'
+      },
+      {
+        index: '/studentSidebar4',
+        title: '批量添加资料'
+      },
+      {
+        index: '/studentSidebar4',
+        title: '添加资料'
+      }
+    ]
+  },
+  {
+    icon: 'el-icon-menu',
+    index: '2',
+    title: '评价教师',
+    subs:[
+      {
+        index:'/studentSidebar4',
+        title:'添加教师评价'
+      },
+      {
+        index:'/studentSidebar4',
+        title:'删除教师评价'
+      },
+      {
+        index:'/studentSidebar4',
+        title:'查询教师评价'
+      },
+      {
+        index:'/studentSidebar4',
+        title:'修改教师评价'
+      }
+      ]
   }
 ];
 
