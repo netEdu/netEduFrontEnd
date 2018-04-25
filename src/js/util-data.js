@@ -16,9 +16,12 @@ let WAR_NAME = '/netEdu-1.0-SNAPSHOT'
 
 export const URL_DATA = {
   LOGIN: IPADDR + WAR_NAME + '/login',
+  // 教师端
   APPLY_COURSE: IPADDR + WAR_NAME + '/Course/applyCourse',
   COURSE_LIST: IPADDR + WAR_NAME + '/Course/courseList',
-  QUERY_STUDENT_INFO: IPADDR + WAR_NAME + '/Client/studentInfo'
+  UPDATE_COURSE: IPADDR + WAR_NAME + '/Course/updateApplication',
+  // 学生端
+  QUERY_STUDENT_INFO: IPADDR + WAR_NAME + '/Client/studentInfo',
 }
 
 // 教师端侧边索引

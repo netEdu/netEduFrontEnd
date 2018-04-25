@@ -1,6 +1,12 @@
 <template>
   <el-card class="box-card" shadow="always">
-    <h2>申请课程查询</h2>
+    <h2>申请课程查询
+      <span class="tips">
+        <span class="tips-warning">待审核&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="tips-success">审核通过&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="tips-danger">审核不通过</span>
+      </span>
+    </h2>
     <!-- 查询参数表单 -->
     <el-form class="card-form" :inline="true" :model="selectForm" ref="courseList">
       <el-form-item label="课程名称">
@@ -23,15 +29,15 @@
     </el-form>
     <div class="courses-card-container">
       <transition-group name="el-zoom-in-top">
-        <el-card class="card-courses" v-for="course of courses" :class="{
+        <el-card shadow="hover" class="card-courses" v-for="course of courses" :class="{
             'warning-card': course.audit_status === '0',
             'success-card': course.audit_status === '1',
             'danger-card': course.audit_status === '2'
           }" :key="course.course_id">
           <div slot="header" class="clearfix">
-            <el-button v-show="course.aduit_status === '0'" class="card-modify-btn" type="text">取消</el-button>
-            <el-button v-show="course.aduit_status === '0'" class="card-modify-btn" type="text">修改</el-button>
-            <div class="card-header-title">{{ course.course_name }}</div>
+            <el-button v-show="course.audit_status === '0'" class="card-modify-btn" type="text">取消申请</el-button>
+            <el-button @click="modifyCourse(course)" v-show="course.audit_status === '0'" class="card-modify-btn" type="text">修改</el-button>
+            <h4 class="card-header-title">{{ course.course_name }}</h4>
             <div class="card-header-container">
               <el-col :span="4">
                 <span>班号</span>
@@ -75,16 +81,27 @@
           </div>
         </el-card>
       </transition-group>
+      <transition name="el-zoom-in-top">
+        <el-card class="card-courses none-data" v-if="ifNoCourses">
+          <center>
+            <p>暂时没有数据噢</p>
+          </center>
+        </el-card>
+      </transition>
+
     </div>
+    <form-dialog :dialog-form-visible.sync="dialogFormVisible" :obj-data="objData" current-view="courseForm" title="修改课程申请"></form-dialog>
   </el-card>
 </template>
 
 <script>
-  import {
-    URL_DATA
-  } from '../../js/util-data'
+  import { URL_DATA } from '../../js/util-data'
+  import formDialog from '../common/dialog'
   export default {
     name: 'showCourse',
+    components: {
+      formDialog
+    },
     data() {
       return {
         selectForm: {
@@ -96,13 +113,27 @@
         // 课程列表
         courses: [],
         // 当课程列表长度为0
-        ifNoCourses: true
+        ifNoCourses: true,
+        // 对话框显示隐藏
+        dialogFormVisible: false,
+        // 点击修改后的表单数据
+        objData: {
+          initFormData: {}
+        }
       }
     },
     methods: {
+      // 点击修改按钮
+      modifyCourse(course) {
+        this.objData.initFormData = Object.assign({}, course)
+        this.dialogFormVisible = true
+      },
+      // 表单提交
       onSubmit() {
-        let _this = this
-        _this.courses = []
+        // 清空课程
+        this.courses = []
+        // 隐藏‘没有数据’块
+        this.ifNoCourses = false
         const loading = this.$loading({
           lock: true,
           text: '读取中',
@@ -110,17 +141,18 @@
           background: 'rgba(0, 0, 0, 0.7)',
           target: document.getElementsByClassName('box-card')[0]
         })
+        // _(:з」∠)_
         setTimeout(() => {
           this.$axios({
             method: 'post',
             url: URL_DATA.COURSE_LIST,
-            data: _this.selectForm
+            data: this.selectForm
           }).then(res => {
             loading.close()
             for (let data of res.data) {
-              _this.courses.push(data)
+              this.courses.push(data)
             }
-            _this.ifNoCourses = _this.courses.length === 0
+            this.ifNoCourses = this.courses.length === 0
           }).catch((err) => {
             loading.close()
             console.log(err)
@@ -133,6 +165,7 @@
       this.onSubmit()
     }
   }
+
 </script>
 
 <style scoped>
@@ -140,8 +173,37 @@
     font-size: 14px;
   }
 
+  .tips {
+    font-size: 10px;
+    padding-left: 15px;
+  }
+
+  .tips-warning {
+    color: rgb(146, 95, 0);
+    background: rgb(252, 221, 164);
+    border: 1px rgb(252, 221, 164) solid;
+    padding: 3px 0 3px 12px;
+    border-radius: 4px;
+  }
+
+  .tips-danger {
+    color: rgb(172, 0, 0);
+    background: rgb(253, 183, 183);
+    border: 1px rgb(253, 183, 183) solid;
+    padding: 3px 10px 3px 12px;
+    border-radius: 4px;
+  }
+
+  .tips-success {
+    color: #3dad00;
+    background: #bcfc99;
+    border: 1px #bcfc99 solid;
+    padding: 3px 0 3px 12px;
+    border-radius: 4px;
+  }
+
   .card-modify-btn {
-    float: right; 
+    float: right;
     padding: 3px 5px;
   }
 
@@ -158,10 +220,12 @@
     border: 1px #cccccc solid;
     border-radius: 4px;
     padding: 15px 10px 0 10px;
-    -moz-box-shadow:0px 0px 5px #f5f5f5;
-    -webkit-box-shadow:0px 0px 5px #f5f5f5;
-    box-shadow:0px 0px 5px #f5f5f5;
-    background: #ffffff;
+    -moz-box-shadow: 0px 10px 20px #696969;
+    -webkit-box-shadow: 0px 10px 20px #696969;
+    box-shadow: 0px 10px 20px #696969;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 101;
   }
 
   .clearfix:before,
@@ -175,19 +239,22 @@
   }
 
   .card-courses {
-    margin: 0 0 1rem 0;
+    margin: 10px 0 1rem 0;
+  }
+
+  .none-data{
+    margin-top: 3rem;
   }
 
   .courses-card-container {
+    position: relative;
+    height: 500px;
     overflow-y: auto;
+    z-index: 99;
   }
 
   .box-card {
-    height: 35rem;
-    overflow-y: auto;
+    height: 42rem;
   }
 
-  .el-form {
-    margin-bottom: 10px
-  }
 </style>

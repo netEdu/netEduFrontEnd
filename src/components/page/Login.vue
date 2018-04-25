@@ -61,12 +61,12 @@ export default {
             // session中放入用户名和用户id
             sessionStorage.setItem('username', username)
 
-            var identified=res.data.split(":")[0]
-            if (identified=="Teacher"){
+            var identified=res.data.split(':')[0]
+            if (identified=='Teacher'){
               sessionStorage.setItem('userId', res.data.split(':')[1])
               this.$router.push({ path: '/Course' })
-            }else if(identified=="Student"){
-              sessionStorage.setItem('userId', res.data.split(':')[1].split(",")[1])
+            }else if(identified=='Student'){
+              sessionStorage.setItem('userId', res.data.split(':')[1].split(',')[1])
               this.$router.push({path:'/studentSidebar1'})
             }
           } else {
