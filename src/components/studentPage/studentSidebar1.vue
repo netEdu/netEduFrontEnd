@@ -36,8 +36,7 @@
     },
     created(){
       this.formData.studentId=sessionStorage.getItem("userId")
-      console.info(this.formData.studentId)
-      var url=URL_DATA.QUERY_STUDENT_INFO+"?student_id="+1
+      var url=URL_DATA.QUERY_STUDENT_INFO+"?student_id="+this.formData.studentId
       this.$axios({
         method: 'get',
         url: url,
