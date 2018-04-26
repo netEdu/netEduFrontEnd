@@ -15,16 +15,19 @@ export const SOCKET_IP = 'ws://192.168.3.11:7117/websocket'
 let WAR_NAME = '/netEdu-1.0-SNAPSHOT'
 
 export const URL_DATA = {
-  LOGIN: IPADDR  + '/login',
-  APPLY_COURSE: IPADDR  + '/Course/applyCourse',
-  COURSE_LIST: IPADDR  + '/Course/courseList',
-  QUERY_STUDENT_INFO: IPADDR  + '/Client/studentInfo',
-  UPDATE_STUDENT_INFORMATION:IPADDR + '/Client/updateStudentInfo',
-  QUERY_STUDENT_COURSE_INFORMATION:IPADDR + '/StudentData/queryCourse',
-  QUERY_STUDENT_DATA : IPADDR + '/StudentData/queryStudentData',
-  QUERY_TEACHER_DATA : IPADDR + '/StudentData/queryTeacherData',
-  STUDENT_DOWNLOAD_FILE : IPADDR + '/StudentData/downloadFile',
-  DELETE_PERSON_FILE:IPADDR + '/StudentData/deleteFiles'
+  LOGIN: IPADDR  + WAR_NAME + '/login',
+    // 教师端
+  APPLY_COURSE: IPADDR + WAR_NAME + '/Course/applyCourse',
+  COURSE_LIST: IPADDR + WAR_NAME + '/Course/courseList',
+  UPDATE_COURSE: IPADDR + WAR_NAME + '/Course/updateApplication',
+  // 学生端
+  QUERY_STUDENT_INFO: IPADDR + WAR_NAME + '/Client/studentInfo',
+  UPDATE_STUDENT_INFORMATION:IPADDR + WAR_NAME + '/Client/updateStudentInfo',
+  QUERY_STUDENT_COURSE_INFORMATION:IPADDR + WAR_NAME + '/StudentData/queryCourse',
+  QUERY_STUDENT_DATA : IPADDR + WAR_NAME + '/StudentData/queryStudentData',
+  QUERY_TEACHER_DATA : IPADDR + WAR_NAME + '/StudentData/queryTeacherData',
+  STUDENT_DOWNLOAD_FILE : IPADDR + WAR_NAME + '/StudentData/downloadFile',
+  DELETE_PERSON_FILE:IPADDR + WAR_NAME + '/StudentData/deleteFiles'
 }
 
 // 教师端侧边索引
