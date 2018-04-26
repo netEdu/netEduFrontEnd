@@ -29,13 +29,13 @@
     </el-form>
     <div class="courses-card-container">
       <transition-group name="el-zoom-in-top">
-        <el-card shadow="hover" class="card-courses" v-for="course of courses" :class="{
+        <el-card shadow="hover" class="card-courses" v-for="(course, index) of courses" :class="{
             'warning-card': course.audit_status === '0',
             'success-card': course.audit_status === '1',
             'danger-card': course.audit_status === '2'
           }" :key="course.course_id">
           <div slot="header" class="clearfix">
-            <el-button v-show="course.audit_status === '0'" class="card-modify-btn" type="text">取消申请</el-button>
+            <el-button @click="deleteCourse(course, index)" v-show="course.audit_status === '0'" class="card-modify-btn" type="text">取消申请</el-button>
             <el-button @click="modifyCourse(course)" v-show="course.audit_status === '0'" class="card-modify-btn" type="text">修改</el-button>
             <h4 class="card-header-title">{{ course.course_name }}</h4>
             <div class="card-header-container">
@@ -127,6 +127,25 @@
       modifyCourse(course) {
         this.objData.initFormData = Object.assign({}, course)
         this.dialogFormVisible = true
+      },
+      // 点击删除按钮
+      deleteCourse(course, index){
+        this.$confirm('此操作将永久删除该课程, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$axios({
+            method: 'delete',
+            url: URL_DATA.CANCEL_COURSE,
+            params: {ids: course.course_id}
+          }).then(() => {
+            this.courses.splice(index, 1)
+            this.$message.success('删除成功')
+          })
+        }).catch(() => {
+          this.$message.info('已取消删除')          
+        })
       },
       // 表单提交
       onSubmit() {

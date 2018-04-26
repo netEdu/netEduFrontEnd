@@ -90,7 +90,7 @@ export default {
         })
         if (valid) {
           this.$axios({
-            method: this.objData === {} ? 'post' : 'put',
+            method: 'post',
             url: this.objData === {} ? URL_DATA.APPLY_COURSE : URL_DATA.UPDATE_COURSE,
             data: this.formData
           }).then(res => {

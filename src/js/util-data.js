@@ -7,21 +7,26 @@
 // 4 学生互评
 // 5 警告
 // 6 班群信息
+
+// 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-const IPADDR = 'http://39.105.58.192:8080'
+const IPADDR = '192.168.137.1:8011'
+const PROTOCOL_HTTP = 'http://'
+const PROTOCOL_WEBSOCKET = 'ws://'
 // '0,' + 字符串
-export const SOCKET_IP = 'ws://192.168.3.11:7117/websocket'
-let WAR_NAME = '/netEdu-1.0-SNAPSHOT'
+export const SOCKET_IP = PROTOCOL_WEBSOCKET + '192.168.137.1:7117/websocket'
+let WAR_NAME = ''
 
 export const URL_DATA = {
-  LOGIN: IPADDR + WAR_NAME + '/login',
+  LOGIN: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/login',
   // 教师端
-  APPLY_COURSE: IPADDR + WAR_NAME + '/Course/applyCourse',
-  COURSE_LIST: IPADDR + WAR_NAME + '/Course/courseList',
-  UPDATE_COURSE: IPADDR + WAR_NAME + '/Course/updateApplication',
+  APPLY_COURSE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Course/applyCourse',
+  COURSE_LIST: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Course/courseList',
+  UPDATE_COURSE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Course/updateApplication',
+  CANCEL_COURSE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Course/cancelCourse',
   // 学生端
-  QUERY_STUDENT_INFO: IPADDR + WAR_NAME + '/Client/studentInfo',
+  QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
 }
 
 // 教师端侧边索引
