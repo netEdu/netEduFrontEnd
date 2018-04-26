@@ -9,16 +9,22 @@
 // 6 班群信息
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-const IPADDR = 'http://39.105.58.192:8080'
+const IPADDR = 'http://localhost:8011'
 // '0,' + 字符串
 export const SOCKET_IP = 'ws://192.168.3.11:7117/websocket'
 let WAR_NAME = '/netEdu-1.0-SNAPSHOT'
 
 export const URL_DATA = {
-  LOGIN: IPADDR + WAR_NAME + '/login',
-  APPLY_COURSE: IPADDR + WAR_NAME + '/Course/applyCourse',
-  COURSE_LIST: IPADDR + WAR_NAME + '/Course/courseList',
-  QUERY_STUDENT_INFO: IPADDR + WAR_NAME + '/Client/studentInfo'
+  LOGIN: IPADDR  + '/login',
+  APPLY_COURSE: IPADDR  + '/Course/applyCourse',
+  COURSE_LIST: IPADDR  + '/Course/courseList',
+  QUERY_STUDENT_INFO: IPADDR  + '/Client/studentInfo',
+  UPDATE_STUDENT_INFORMATION:IPADDR + '/Client/updateStudentInfo',
+  QUERY_STUDENT_COURSE_INFORMATION:IPADDR + '/StudentData/queryCourse',
+  QUERY_STUDENT_DATA : IPADDR + '/StudentData/queryStudentData',
+  QUERY_TEACHER_DATA : IPADDR + '/StudentData/queryTeacherData',
+  STUDENT_DOWNLOAD_FILE : IPADDR + '/StudentData/downloadFile',
+  DELETE_PERSON_FILE:IPADDR + '/StudentData/deleteFiles'
 }
 
 // 教师端侧边索引
@@ -135,7 +141,7 @@ export const StudentSideBarItem = [
         title: '下载资料'
       },
       {
-        index: '/studentSidebar4',
+        index: '/studentSidebar5',
         title: '查看可用课程'
       },
       {
@@ -143,7 +149,7 @@ export const StudentSideBarItem = [
         title: '查看个人资料'
       },
       {
-        index: '/studentSidebar4',
+        index: '/studentSidebar6',
         title: '查看教师资料'
       },
       {

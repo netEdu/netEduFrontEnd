@@ -6,6 +6,7 @@ import router from './router';
 import axios from 'axios';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import '../node_modules/animate.css/animate.css';
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
