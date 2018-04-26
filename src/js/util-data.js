@@ -11,19 +11,14 @@
 // 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-<<<<<<< HEAD
 const IPADDR = '192.168.137.1:8011'
 const PROTOCOL_HTTP = 'http://'
 const PROTOCOL_WEBSOCKET = 'ws://'
-=======
-const IPADDR = 'http://localhost:8011'
->>>>>>> d9a92ea25e36e85c94cf1dbf19aeb6942e395f25
 // '0,' + 字符串
 export const SOCKET_IP = PROTOCOL_WEBSOCKET + '192.168.137.1:7117/websocket'
 let WAR_NAME = ''
 
 export const URL_DATA = {
-<<<<<<< HEAD
   LOGIN: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/login',
   // 教师端
   APPLY_COURSE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Course/applyCourse',
@@ -32,21 +27,12 @@ export const URL_DATA = {
   CANCEL_COURSE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Course/cancelCourse',
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
-=======
-  LOGIN: IPADDR  + WAR_NAME + '/login',
-    // 教师端
-  APPLY_COURSE: IPADDR + WAR_NAME + '/Course/applyCourse',
-  COURSE_LIST: IPADDR + WAR_NAME + '/Course/courseList',
-  UPDATE_COURSE: IPADDR + WAR_NAME + '/Course/updateApplication',
-  // 学生端
-  QUERY_STUDENT_INFO: IPADDR + WAR_NAME + '/Client/studentInfo',
-  UPDATE_STUDENT_INFORMATION:IPADDR + WAR_NAME + '/Client/updateStudentInfo',
-  QUERY_STUDENT_COURSE_INFORMATION:IPADDR + WAR_NAME + '/StudentData/queryCourse',
-  QUERY_STUDENT_DATA : IPADDR + WAR_NAME + '/StudentData/queryStudentData',
-  QUERY_TEACHER_DATA : IPADDR + WAR_NAME + '/StudentData/queryTeacherData',
-  STUDENT_DOWNLOAD_FILE : IPADDR + WAR_NAME + '/StudentData/downloadFile',
-  DELETE_PERSON_FILE:IPADDR + WAR_NAME + '/StudentData/deleteFiles'
->>>>>>> d9a92ea25e36e85c94cf1dbf19aeb6942e395f25
+  UPDATE_STUDENT_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/updateStudentInfo',
+  QUERY_STUDENT_COURSE_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/queryCourse',
+  QUERY_STUDENT_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/queryStudentData',
+  QUERY_TEACHER_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/queryTeacherData',
+  STUDENT_DOWNLOAD_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/downloadFile',
+  DELETE_PERSON_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/deleteFiles'
 }
 
 // 教师端侧边索引
