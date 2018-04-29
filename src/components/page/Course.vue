@@ -1,5 +1,5 @@
 <template>
-	<el-card class="box-card" shadow="always">
+	<el-card>
     <course-form title="申请课程"> </course-form>
 	</el-card>
 </template>

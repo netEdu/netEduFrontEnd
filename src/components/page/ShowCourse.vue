@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card" shadow="always">
+  <el-card class="box-card">
     <h2>申请课程查询
       <span class="tips">
         <span class="tips-warning">待审核&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -124,8 +124,8 @@
     computed: {
       // 对象展开运算符, es2015 stage-4阶段
       ...mapGetters({
-        courses: 'courses',
-        coursesLength: 'coursesLength'
+        courses: 'teacher/courses',
+        coursesLength: 'teacher/coursesLength'
       })
     },
     methods: {
@@ -142,7 +142,7 @@
           type: 'warning'
         }).then(() => {
           // 调用action删除课程
-          this.$store.dispatch('cancelCourse', {
+          this.$store.dispatch('teacher/cancelCourse', {
             ids: course.course_id
           })
           setTimeout(() => {
@@ -164,7 +164,7 @@
           target: document.getElementsByClassName('box-card')[0]
         })
         // 调用action更改状态树
-        this.$store.dispatch('getAllCourses', {
+        this.$store.dispatch('teacher/getAllCourses', {
           selectForm: this.selectForm,
           loading: loading
         })

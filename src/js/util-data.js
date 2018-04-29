@@ -11,12 +11,12 @@
 // 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-const IPADDR = '39.105.58.192:8080'
+const IPADDR = 'localhost:8011'
+let WAR_NAME = ''
 const PROTOCOL_HTTP = 'http://'
 const PROTOCOL_WEBSOCKET = 'ws://'
 // '0,' + 字符串
-export const SOCKET_IP = PROTOCOL_WEBSOCKET + '39.105.58.192:8080/websocket'
-let WAR_NAME = '/netEdu-1.0-SNAPSHOT'
+export const SOCKET_IP = PROTOCOL_WEBSOCKET + 'localhost:7117' + WAR_NAME + '/websocket'
 
 export const URL_DATA = {
   LOGIN: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/login',
@@ -39,7 +39,12 @@ export const URL_DATA = {
 export const TeacherSideBarItem = [
   {
     icon: 'el-icon-menu',
-    index: '0',
+    index: '/ChatRoom',
+    title: '聊天室'
+  },
+  {
+    icon: 'el-icon-menu',
+    index: '1',
     title: '课程管理',
     subs: [
       {
@@ -49,17 +54,6 @@ export const TeacherSideBarItem = [
       {
         index: '/ShowCourse',
         title: '所有课程'
-      }
-    ]
-  },
-  {
-    icon: 'el-icon-menu',
-    index: '1',
-    title: '讨论组管理',
-    subs: [
-      {
-        index: '/Sidebar4',
-        title: '分组管理'
       }
     ]
   },

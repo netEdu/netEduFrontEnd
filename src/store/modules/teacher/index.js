@@ -4,6 +4,7 @@ import TeacherMutations from './mutations'
 
 // 状态树模块化
 export default {
+  namespaced: true,
   state: {
     // 教师端数据
     // 课程

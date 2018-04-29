@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from 'vue'
+import Router from 'vue-router'
 
-Vue.use(Router);
+Vue.use(Router)
 export default new Router({
   mode:'history',
   routes: [
@@ -15,11 +15,11 @@ export default new Router({
       children:[
         {
           path: '/Course',
-          component: resolve => require(['../components/page/Course.vue'], resolve)
+          component: resolve => require(['../components/page/course.vue'], resolve)
         },
         {
           path: '/ShowCourse',
-          component: resolve => require(['../components/page/ShowCourse.vue'], resolve)
+          component: resolve => require(['../components/page/showCourse.vue'], resolve)
         }
       ]
     },
@@ -28,12 +28,8 @@ export default new Router({
       component: resolve => require(['../components/common/Home.vue'], resolve),
       children:[
         {
-          path: '/Sidebar3',
-          component: resolve => require(['../components/page/Sidebar3.vue'], resolve)
-        },
-        {
-          path: '/Sidebar4',
-          component: resolve => require(['../components/page/Sidebar4.vue'], resolve)
+          path: '/ChatRoom',
+          component: resolve => require(['../components/common/chat/chatRoom.vue'], resolve)
         }
       ]
     },
@@ -80,7 +76,7 @@ export default new Router({
       ]
     },
     {
-      path:"/student",
+      path:'/student',
       component:resole=>require(['../components/common/Home_student.vue'],resole),
       children:[
         {
@@ -94,7 +90,7 @@ export default new Router({
       ]
     },
     {
-      path:"/student",
+      path:'/student',
       component:resole=>require(['../components/common/Home_student.vue'],resole),
       children:[
         {
@@ -108,7 +104,7 @@ export default new Router({
       ]
     },
     {
-      path:"/student",
+      path:'/student',
       component:resole=>require(['../components/common/Home_student.vue'],resole),
       children:[
         {

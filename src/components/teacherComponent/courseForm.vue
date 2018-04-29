@@ -58,7 +58,7 @@ export default {
     objData: {
       handler(val) {
         if(JSON.stringify(this.objData) !== '{}'){
-          this.formData = Object.assign({}, this.$store.getters.currentCourse(this.objData.course_id))
+          this.formData = Object.assign({}, this.$store.getters['teacher/currentCourse'](this.objData.course_id))
         }
       },
       deep: true
@@ -133,7 +133,7 @@ export default {
   mounted() {
     console.log('mounted')
     if(JSON.stringify(this.objData) !== '{}'){
-      this.formData = Object.assign({}, this.$store.getters.currentCourse(this.objData.course_id))
+      this.formData = Object.assign({}, this.$store.getters['teacher/currentCourse'](this.objData.course_id))
     }
   }
 }
