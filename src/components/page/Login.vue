@@ -65,7 +65,7 @@ export default {
           if (identified=='Teacher'){
             const ws = new WebSocket(SOCKET_IP)
             ws.onopen = () => {
-              console.log('CONNECTING')
+              console.log('TEACHER CONNECTING')
               // 添加  0,  并将字符串返回
               ws.send('0,' + res.data)
             }
@@ -76,7 +76,7 @@ export default {
           }else if(identified=='Student'){
             const ws = new WebSocket(SOCKET_IP)
             ws.onopen = () => {
-              console.log('CONNECTING')
+              console.log('STUDENT CONNECTING')
               // 添加  0,  并将字符串返回
               ws.send('0,' + res.data)
             }
