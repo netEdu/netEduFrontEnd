@@ -1,6 +1,6 @@
 import * as TeacherGetters from './getters'
 import * as TeacherActions from './actions'
-import * as TeacherMutations from './mutations'
+import TeacherMutations from './mutations'
 
 // 状态树模块化
 export default {
@@ -21,9 +21,10 @@ export default {
       }
       */
     },
+    coursesLength: 0,
     // TODO: 试卷，题库，资料
   },
-  TeacherGetters,
-  TeacherActions,
-  TeacherMutations
+  getters: TeacherGetters,
+  actions: TeacherActions,
+  mutations: TeacherMutations
 }

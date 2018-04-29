@@ -9,6 +9,5 @@ export default new Vuex.Store({
   modules: {
     // 将所有的状态树装填至vuex modules中
     teacher
-  },
-  plugins: process.env.NODE_ENV !== 'production'
+  }
 })

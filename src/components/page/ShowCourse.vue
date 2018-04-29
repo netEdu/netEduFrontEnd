@@ -10,7 +10,7 @@
     <!-- 查询参数表单 -->
     <el-form class="card-form" :inline="true" :model="selectForm" ref="courseList">
       <el-form-item label="课程名称">
-        <el-input v-model="selectForm.course_name" placeholder="审批人" />
+        <el-input v-model="selectForm.course_name" placeholder="课程名称" />
       </el-form-item>
       <el-form-item label="班号">
         <el-input v-model="selectForm.class_num" placeholder="班号" />
@@ -29,13 +29,13 @@
     </el-form>
     <div class="courses-card-container">
       <transition-group name="el-zoom-in-top">
-        <el-card shadow="hover" class="card-courses" v-for="(course, index) of courses" :class="{
+        <el-card shadow="hover" class="card-courses" v-for="course in courses" :class="{
             'warning-card': course.audit_status === '0',
             'success-card': course.audit_status === '1',
             'danger-card': course.audit_status === '2'
           }" :key="course.course_id">
           <div slot="header" class="clearfix">
-            <el-button @click="deleteCourse(course, index)" v-show="course.audit_status === '0'" class="card-modify-btn" type="text">取消申请</el-button>
+            <el-button @click="deleteCourse(course)" v-show="course.audit_status === '0'" class="card-modify-btn" type="text">取消申请</el-button>
             <el-button @click="modifyCourse(course)" v-show="course.audit_status === '0'" class="card-modify-btn" type="text">修改</el-button>
             <h4 class="card-header-title">{{ course.course_name }}</h4>
             <div class="card-header-container">
@@ -97,6 +97,7 @@
 <script>
   import { URL_DATA } from '../../js/util-data'
   import formDialog from '../common/dialog'
+  import { mapGetters } from 'vuex'
   export default {
     name: 'showCourse',
     components: {
@@ -110,48 +111,50 @@
           class_num: '',
           teacher_id: sessionStorage.getItem('userId')
         },
-        // 课程列表
-        courses: [],
         // 当课程列表长度为0
-        ifNoCourses: true,
+        ifNoCourses: false,
         // 对话框显示隐藏
         dialogFormVisible: false,
         // 点击修改后的表单数据
         objData: {
-          initFormData: {}
+          course_id: 0
         }
       }
+    },
+    computed: {
+      // 对象展开运算符, es2015 stage-4阶段
+      ...mapGetters({
+        courses: 'courses',
+        coursesLength: 'coursesLength'
+      })
     },
     methods: {
       // 点击修改按钮
       modifyCourse(course) {
-        this.objData.initFormData = Object.assign({}, course)
+        this.objData.course_id = course.course_id
         this.dialogFormVisible = true
       },
       // 点击删除按钮
-      deleteCourse(course, index){
+      deleteCourse(course){
         this.$confirm('此操作将永久删除该课程, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$axios({
-            method: 'delete',
-            url: URL_DATA.CANCEL_COURSE,
-            params: {ids: course.course_id}
-          }).then(() => {
-            this.courses.splice(index, 1)
-            this.$message.success('删除成功')
+          // 调用action删除课程
+          this.$store.dispatch('cancelCourse', {
+            ids: course.course_id
           })
+          setTimeout(() => {
+            if(this.coursesLength === 0)
+              this.ifNoCourses = true
+          }, 1000)
         }).catch(() => {
-          this.$message.info('已取消删除')          
+          this.$message.info('已取消删除')
         })
       },
       // 表单提交
       onSubmit() {
-        // 清空课程
-        this.courses = []
-        // 隐藏‘没有数据’块
         this.ifNoCourses = false
         const loading = this.$loading({
           lock: true,
@@ -160,29 +163,21 @@
           background: 'rgba(0, 0, 0, 0.7)',
           target: document.getElementsByClassName('box-card')[0]
         })
-        // _(:з」∠)_
+        // 调用action更改状态树
+        this.$store.dispatch('getAllCourses', {
+          selectForm: this.selectForm,
+          loading: loading
+        })
         setTimeout(() => {
-          this.$axios({
-            method: 'post',
-            url: URL_DATA.COURSE_LIST,
-            data: this.selectForm
-          }).then(res => {
-            loading.close()
-            for (let data of res.data) {
-              this.courses.push(data)
-            }
-            this.ifNoCourses = this.courses.length === 0
-          }).catch((err) => {
-            loading.close()
-            console.log(err)
-            this.$message.error('网络错误')
-          })
-        }, 500)
+          if(this.coursesLength === 0)
+            this.ifNoCourses = true
+        }, 1000)
       }
     },
-    created() {
-      this.onSubmit()
-    }
+    mounted() {
+      if(!this.coursesLength)
+        this.onSubmit()
+    },
   }
 
 </script>
@@ -228,6 +223,14 @@
 
   .card-header-title {
     margin: 0 0 15px 0;
+    width: 10rem;
+    text-align: center;
+    -moz-box-shadow: 0px 1px 5px #bababa;
+    -webkit-box-shadow: 0px 1px 5px #bababa;
+    box-shadow: 0px 1px 5px #bababa;
+    border-radius: 4px;
+    padding: 5px;
+    background: #ffffff;
   }
 
   .card-info-container {
@@ -262,7 +265,8 @@
   }
 
   .none-data{
-    margin-top: 3rem;
+    margin-top: 1rem;
+    padding: 50px 0;
   }
 
   .courses-card-container {

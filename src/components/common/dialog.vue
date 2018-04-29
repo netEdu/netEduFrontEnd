@@ -26,7 +26,7 @@
         default: () => {
           return {
             // 自己要使用的参数在这里要返回空数据类型，避免undefined错误
-            initFormData: {}
+            course_id: 0
           }
         }
       },

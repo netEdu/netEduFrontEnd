@@ -57,8 +57,9 @@ export default {
   watch: {
     objData: {
       handler(val) {
-        console.log(val)
-        this.formData = Object.assign({}, val.initFormData)
+        if(JSON.stringify(this.objData) !== '{}'){
+          this.formData = Object.assign({}, this.$store.getters.currentCourse(this.objData.course_id))
+        }
       },
       deep: true
     }
@@ -129,9 +130,11 @@ export default {
       })
     }
   },
-  created() {
-    console.log('created')
-    this.formData = Object.assign({}, this.objData.initFormData)
+  mounted() {
+    console.log('mounted')
+    if(JSON.stringify(this.objData) !== '{}'){
+      this.formData = Object.assign({}, this.$store.getters.currentCourse(this.objData.course_id))
+    }
   }
 }
 </script>
