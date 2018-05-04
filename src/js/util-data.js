@@ -11,12 +11,12 @@
 // 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-const IPADDR = 'localhost:8011'
-let WAR_NAME = ''
+const IPADDR = '39.105.58.192:8080'
+let WAR_NAME = '/netEdu-1.0-SNAPSHOT'
 const PROTOCOL_HTTP = 'http://'
 const PROTOCOL_WEBSOCKET = 'ws://'
 // '0,' + 字符串
-export const SOCKET_IP = PROTOCOL_WEBSOCKET + 'localhost:7117' + WAR_NAME + '/websocket'
+export const SOCKET_IP = PROTOCOL_WEBSOCKET + '39.105.58.192:7117' + WAR_NAME + '/websocket'
 
 export const URL_DATA = {
   LOGIN: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/login',
@@ -25,6 +25,11 @@ export const URL_DATA = {
   COURSE_LIST: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Course/courseList',
   UPDATE_COURSE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Course/updateApplication',
   CANCEL_COURSE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Course/cancelCourse',
+  PAPER_ADD: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/addPaper',
+  PAPER_LIST: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/showPaperList',
+  PAPER_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/showPaper',
+  PAPER_DELETE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/deletePaper',
+  PAPER_UPDATE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/updatePaper',
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
   UPDATE_STUDENT_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/updateStudentInfo',
@@ -63,33 +68,18 @@ export const TeacherSideBarItem = [
     title: '试卷管理',
     subs: [
       {
-        index: '/Sidebar5',
-        title: '添加试卷'
+        index: '/paper',
+        title: '组装/查看试卷'
       },
       {
-        index: '/Sidebar6',
-        title: '查看试卷'
-      }
+        index: '/question',
+        title: '添加/编辑考题'
+      },
     ]
   },
   {
     icon: 'el-icon-menu',
     index: '3',
-    title: '考题编辑',
-    subs: [
-      {
-        index: '/Sidebar7',
-        title: '添加考题'
-      },
-      {
-        index: '/Sidebar8',
-        title: '编辑考题'
-      }
-    ]
-  },
-  {
-    icon: 'el-icon-menu',
-    index: '4',
     title: '问卷',
     subs: [
       {

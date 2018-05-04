@@ -16,5 +16,15 @@ export default {
   // 删除state中的课程
   [types.CANCEL_COURSE] (state, courseId) {
     delete state.courses[courseId]
+  },
+
+  // 获取所有的试卷
+  [types.RECEIVE_ALL_PAPER] (state, { papers }) {
+    state.papers = {}
+    // 更新state
+    papers.forEach(paper => {
+      Vue.set(state.papers, paper.paper_id, paper)
+    })
+    state.papersLength = papers.length
   }
 }

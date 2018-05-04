@@ -38,12 +38,12 @@ export default new Router({
       component: resolve => require(['../components/common/Home.vue'], resolve),
       children:[
         {
-          path: '/Sidebar5',
-          component: resolve => require(['../components/page/Sidebar5.vue'], resolve)
+          path: '/paper',
+          component: resolve => require(['../components/page/paper.vue'], resolve)
         },
         {
-          path: '/Sidebar6',
-          component: resolve => require(['../components/page/Sidebar6.vue'], resolve)
+          path: '/question',
+          component: resolve => require(['../components/page/question.vue'], resolve)
         }
       ]
     },

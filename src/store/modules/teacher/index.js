@@ -22,8 +22,18 @@ export default {
       }
       */
     },
+    // 课程数据长度
     coursesLength: 0,
-    // TODO: 试卷，题库，资料
+    
+    // 试卷列表
+    papers: {},
+    // 课程长度
+    papersLength: 0,
+    // 考题列表
+    questions: {},
+    // 已添加的考题
+    addedQuestions: {},
+    // TODO: 资料
   },
   getters: TeacherGetters,
   actions: TeacherActions,

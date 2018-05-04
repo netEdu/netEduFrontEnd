@@ -35,3 +35,18 @@ export function cancelCourse(payload, cb) {
     Message.error('网络错误')
   })
 }
+
+// 获取所有试卷
+export function getAllPapers(payload, cb) {
+  axios({
+    method: 'post',
+    url: URL_DATA.PAPER_LIST,
+    params: payload.selectForm
+  }).then( res => {
+    payload.loading.close()
+    cb(res.data)
+  }).catch( err => {
+    Message.error('网络错误')
+    payload.loading.close()
+  })
+}

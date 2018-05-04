@@ -14,3 +14,10 @@ export const cancelCourse = ({ commit }, payload) => {
     commit(types.CANCEL_COURSE)
   })
 }
+
+// 获取所有试卷
+export const getAllPaper = ({ commit }, payload) => {
+  api.getAllPapers(payload, papers => {
+    commit(types.RECEIVE_ALL_PAPER, { papers })
+  })
+}
