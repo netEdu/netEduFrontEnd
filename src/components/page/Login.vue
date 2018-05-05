@@ -1,7 +1,7 @@
 <template>
 	<div class="login-wrap">
 		<div class="ms-title">网络教学管理系统</div>
-		<div class="ms-login">
+		<div id="canvas" class="ms-login" @mousemove="updateXY" @mouseout="clearXY">
 			<el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="0px" class="demo-ruleForm">
 				<el-form-item prop="username">
 					<el-input v-model="loginForm.username" placeholder="username"/>
@@ -26,6 +26,9 @@ import { URL_DATA, SOCKET_IP } from '../../js/util-data'
 export default {
   data: function() {
     return {
+      // 鼠标坐标
+      x: 0,
+      y: 0,
       loginForm: {
         username: '',
         password: ''
@@ -39,6 +42,16 @@ export default {
     }
   },
   methods: {
+    // 刷新鼠标坐标，更改图层旋转角度
+    updateXY(event) {
+      this.x = event.x;
+      this.y = event.y;
+      document.getElementById('canvas').style.transform = 'rotateY(' + (-(this.x - 436) + 190) / 40 + 'deg) rotateX(' + (this.y - 200 - 120) / 40 + 'deg)'
+    },
+    // 鼠标离开时清空角度
+    clearXY(event) {
+      document.getElementById('canvas').style.transform = 'rotateY(0deg) rotateX(0deg)'
+    },
     login(username, password) {
       const loading = this.$loading({
         lock: true,
@@ -101,6 +114,12 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  background: #d2d2d2;
+  perspective: 600;
+  perspective-origin: 50% 50%;
+  -webkit-perspective: 600;
+  -webkit-perspective-origin: 50% 50%;
+  
 }
 
 .ms-title {
@@ -110,19 +129,24 @@ export default {
   margin-top: -230px;
   text-align: center;
   font-size: 30px;
-  color: #fff;
+  color: #000000;
 }
 
 .ms-login {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 300px;
-  height: 160px;
+  box-sizing: border-box;
+  width: 380px;
+  height: 240px;
   margin: -150px 0 0 -190px;
   padding: 40px;
-  /*border-radius: 5px;*/
-  background: #fff;
+  border-radius: 5px;
+  border: 1px #cccccc solid;
+  -moz-box-shadow: 0px 10px 20px #696969;
+  -webkit-box-shadow: 0px 10px 20px #696969;
+  box-shadow: 0px 10px 20px #696969;
+  background: #ffffff;
 }
 
 .login-btn {
