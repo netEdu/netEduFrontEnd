@@ -87,13 +87,22 @@
     },
     methods:{
       onSubmit(){
+        const loading = this.$loading({
+          lock: true,
+          text: '搜索中...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        })
         var url=URL_DATA.QUERY_TEACHER_DATA
         this.$axios({
           method: 'post',
           url: url,
           data:this.submitData
         }).then(res=>{
-          this.formData=res.data
+          setTimeout(_=>{
+            loading.close()
+            this.formData=res.data
+          },500)
         })
       },
       downloadFile(dataId){
