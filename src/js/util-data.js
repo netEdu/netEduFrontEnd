@@ -11,12 +11,12 @@
 // 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-const IPADDR = '39.105.58.192:8080'
-let WAR_NAME = '/netEdu-1.0-SNAPSHOT'
+const IPADDR = 'localhost:8011'
+let WAR_NAME = ''
 const PROTOCOL_HTTP = 'http://'
 const PROTOCOL_WEBSOCKET = 'ws://'
 // '0,' + 字符串
-export const SOCKET_IP = PROTOCOL_WEBSOCKET + '39.105.58.192:7117' + WAR_NAME + '/websocket'
+export const SOCKET_IP = PROTOCOL_WEBSOCKET + 'localhost:7117' + WAR_NAME + '/websocket'
 
 export const URL_DATA = {
   LOGIN: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/login',

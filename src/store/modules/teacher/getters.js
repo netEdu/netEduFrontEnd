@@ -10,3 +10,15 @@ export const currentCourse = (state) => (courseId) => {
     ? state.courses[courseId]
     : {}
 }
+// 获取当前的试卷map
+export const currentPapers = (state) => state.papers
+// 获取当前的试卷array
+export const currentPapersList = (state) => {
+  let papersList = []
+  for(let paper in state.papers) {
+    papersList.push(state.papers[paper])
+  }
+  return papersList
+}
+// 试卷总数
+export const papersLength = (state) => state.papersLength

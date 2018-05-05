@@ -41,11 +41,12 @@ export function getAllPapers(payload, cb) {
   axios({
     method: 'post',
     url: URL_DATA.PAPER_LIST,
-    params: payload.selectForm
+    data: payload.selectForm
   }).then( res => {
     payload.loading.close()
-    cb(res.data)
+    cb(res.data.data.list)
   }).catch( err => {
+    console.log(err)
     Message.error('网络错误')
     payload.loading.close()
   })
