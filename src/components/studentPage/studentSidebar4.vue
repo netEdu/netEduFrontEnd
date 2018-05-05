@@ -48,7 +48,7 @@
             <el-button
               size="mini"
               type="danger"
-              @click="deleteFile(scope.row.data_id)">删除</el-button>
+              @click="deleteFile(scope.row.data_id,scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -94,6 +94,12 @@
     },
     methods:{
       onSubmit(){
+        const loading = this.$loading({
+          lock: true,
+          text: '搜索中...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        })
         var url=URL_DATA.QUERY_STUDENT_DATA
         this.submitData.student_id=sessionStorage.getItem("userId")
         this.$axios({
@@ -101,7 +107,10 @@
           url: url,
           data:this.submitData
         }).then(res=>{
-          this.formData=res.data
+          setTimeout(_=>{
+            loading.close()
+            this.formData=res.data
+          },500)
         })
       },
       downloadFile(dataId){
@@ -114,14 +123,24 @@
           console.info(res)
         })
       },
-      deleteFile(dataId){
+      deleteFile(dataId,index){
+        const loading = this.$loading({
+          lock: true,
+          text: '删除中...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        })
         var url=URL_DATA.DELETE_PERSON_FILE
         this.$axios({
           method:'delete',
           url:url,
-          params:{data_id:dataId}
+          params:{data_ids:dataId}
         }).then(res=>{
-          console.info(res)
+          setTimeout(_=>{
+            loading.close()
+            this.formData.splice(index, 1)
+          },500)
+
         })
       }
     }
