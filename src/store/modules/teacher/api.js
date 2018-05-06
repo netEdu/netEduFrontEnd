@@ -63,7 +63,7 @@ export function getExistQuestions(payload, cb) {
       url: URL_DATA.PAPER_SHOW,
       params: { id: payload.paper_id }
     }).then( res => {
-      cb(res.data)
+      cb(res.data, payload.paper_id)
       payload.loadingMiddle.close()
     }).catch( err => {
       console.log(err)
@@ -82,11 +82,34 @@ export function getUnExistQuestsions(payload, cb) {
       url: URL_DATA.QUESTION_NOT_EXIST,
       params: { existIds: payload.questions }
     }).then( res => {
-      cb(res.data.data)
+      cb(res.data.data, payload.questions)
       payload.loadingRight.close()
     }).catch( err => {
       console.log(err)
       Message.error('网络错误')
+      payload.loadingRight.close()
+    })
+  }, LATENCY)
+}
+
+// 编辑当前试卷
+export function modifyCurrentPaper(payload, cb) {
+  setTimeout( () => {
+    axios({
+      method: 'put',
+      url: URL_DATA.PAPER_MODIFY,
+      data: {
+        paper_id: payload.currentPaperId,
+        questions: payload.idAfterModify
+      }
+    }).then( () => {
+      cb(payload.currentQuestion, payload.idAfterModify, payload.currentPaperId)
+      payload.loadingMiddle.close()
+      payload.loadingRight.close()
+    }).catch( err => {
+      console.log(err)
+      Message.error('网络错误')
+      payload.loadingMiddle.close()
       payload.loadingRight.close()
     })
   }, LATENCY)

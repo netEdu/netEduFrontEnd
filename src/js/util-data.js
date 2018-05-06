@@ -29,9 +29,9 @@ export const URL_DATA = {
   PAPER_LIST: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/showPaperList',
   PAPER_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/showPaper',
   PAPER_DELETE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/deletePaper',
-  PAPER_UPDATE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/updatePaper',
   PAPER_SHOW: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/showPaper',
   QUESTION_NOT_EXIST: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/selectNotExistQuestion',
+  PAPER_MODIFY: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/updatePaper',
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
   UPDATE_STUDENT_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/updateStudentInfo',

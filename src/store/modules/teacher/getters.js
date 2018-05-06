@@ -11,8 +11,6 @@ export const currentCourse = (state) => (courseId) => {
     : {}
 }
 
-// 获取当前的试卷map
-export const currentPapers = (state) => state.papers
 // 获取当前的试卷array
 export const currentPapersList = (state) => {
   let papersList = []
@@ -23,19 +21,29 @@ export const currentPapersList = (state) => {
 }
 // 试卷总数
 export const papersLength = (state) => state.papersLength
+// 当前试卷的id
+export const currentPaperId = (state) => state.currentPaperId
+// 当前试卷已添加的题目id
+export const existQuestionsId = (state) => state.existQuestionsId
+// 判断当前的试卷是否和当前登录人相同
+export const isLoginUserPaper = (state, getters) => (currentTeacherId) => {
+  return getters.currentPaperId == 0 
+    ? false 
+    : state.papers[getters.currentPaperId].teacher_id == currentTeacherId
+}
 // 获取当前试卷的已添加题目
 export const existQuestions = (state) => {
   let existQuestions = []
-  for(let question in state.currentPaperQuestionsState.existQuestions) {
-    existQuestions.push(state.currentPaperQuestionsState.existQuestions[question])
+  for(let question in state.existQuestions) {
+    existQuestions.push(state.existQuestions[question])
   }
   return existQuestions || []
 }
 // 获取当前试卷未添加的题目
 export const unExistQuestions = (state) => {
   let unExistQuestions = []
-  for(let question in state.currentPaperQuestionsState.unExistQuestions) {
-    unExistQuestions.push(state.currentPaperQuestionsState.unExistQuestions[question])
+  for(let question in state.unExistQuestions) {
+    unExistQuestions.push(state.unExistQuestions[question])
   }
   return unExistQuestions || []
 }

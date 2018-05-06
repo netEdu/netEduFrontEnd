@@ -107,7 +107,7 @@
           </el-table-column>
           <el-table-column label="操作" width="80">
             <template slot-scope="props">
-              <el-button type="text">移除</el-button>
+              <el-button type="text" @click="removeQuestion(props.row)" :disabled="!isMyPaper">移除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -116,18 +116,18 @@
       <div class="table-right">
         <el-table :data="unExistQuestions" max-height="500" height="500">
           <el-table-column type="expand" width="30">
-            <template slot-scope="props" v-if="props.row.question_type == 1">
+            <template slot-scope="props">
               <el-form label-position="left" inline class="paper-table-expand">
-                <el-form-item label="A:">
+                <el-form-item label="A:" v-if="props.row.question_type == 1">
                   <span>{{ props.row.questionOptionList[0].option_content }}</span>
                 </el-form-item>
-                <el-form-item label="B:">
+                <el-form-item label="B:" v-if="props.row.question_type == 1">
                   <span>{{ props.row.questionOptionList[1].option_content }}</span>
                 </el-form-item>
-                <el-form-item label="C:">
+                <el-form-item label="C:" v-if="props.row.question_type == 1">
                   <span>{{ props.row.questionOptionList[2].option_content }}</span>
                 </el-form-item>
-                <el-form-item label="D:">
+                <el-form-item label="D:" v-if="props.row.question_type == 1">
                   <span>{{ props.row.questionOptionList[3].option_content }}</span>
                 </el-form-item>
                 <el-form-item label="答案:">
@@ -157,8 +157,7 @@
           </el-table-column>
           <el-table-column label="操作" width="60">
             <template slot-scope="props">
-              <el-button
-                size="mini" icon="el-icon-d-arrow-right" circle></el-button>
+              <el-button type="text" :disabled="!isMyPaper" @click="addQuestion(props.row)">添加</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -184,15 +183,20 @@
       }
     },
     computed: {
-      ...mapGetters({
-        papers: 'teacher/currentPapersList',
-        papersLength: 'teacher/papersLength',
-        existQuestions: 'teacher/existQuestions',
-        unExistQuestions: 'teacher/unExistQuestions'
+      ...mapGetters('teacher', {
+        papers: 'currentPapersList',
+        papersLength: 'papersLength',
+        existQuestions: 'existQuestions',
+        unExistQuestions: 'unExistQuestions',
+        currentPaperId: 'currentPaperId',
+        existQuestionsId: 'existQuestionsId'
       }),
       // 当前登录的teacher_id
       currentTeacherId() {
         return sessionStorage.getItem('userId')
+      },
+      isMyPaper() {
+        return this.$store.getters['teacher/isLoginUserPaper'](this.currentTeacherId)
       }
     },
     methods: {
@@ -225,6 +229,7 @@
               break
           }
         } else {
+          console.log(row.question_answer)
           return row.question_answer == 0 ? '错误' : '正确'
         }
       },
@@ -241,6 +246,60 @@
             return '困难'
             break
         }
+      },
+      // 从试卷中移除考题
+      removeQuestion(row) {
+        const loadingMiddle = this.$loading({
+          lock: true,
+          text: '读取中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+          target: document.getElementsByClassName('table-middle')[0]
+        })
+        const loadingRight = this.$loading({
+          lock: true,
+          text: '读取中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+          target: document.getElementsByClassName('table-right')[0]
+        })
+        let reg1 = new RegExp(',?[' + row.question_id + '],?')
+        let reg2 = new RegExp(',[' + row.question_id + '],')
+        this.$store.dispatch('teacher/removeQuestion', {
+          currentQuestion: row,
+          idAfterModify: reg2.exec(this.existQuestionsId) 
+            ? this.existQuestionsId.replace(reg1, ',') 
+            : this.existQuestionsId.replace(reg1, ''),
+          currentPaperId: this.currentPaperId,
+          loadingMiddle,
+          loadingRight
+        })
+      },
+      // 向试卷中添加考题
+      addQuestion(row) {
+        const loadingMiddle = this.$loading({
+          lock: true,
+          text: '读取中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+          target: document.getElementsByClassName('table-middle')[0]
+        })
+        const loadingRight = this.$loading({
+          lock: true,
+          text: '读取中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+          target: document.getElementsByClassName('table-right')[0]
+        })
+        this.$store.dispatch('teacher/addQuestion', {
+          currentQuestion: row,
+          idAfterModify: this.existQuestionsId === '' 
+            ? row.question_id 
+            : this.existQuestionsId + ',' + row.question_id,
+          currentPaperId: this.currentPaperId,
+          loadingMiddle,
+          loadingRight
+        })
       },
       // 查看试卷的添加和未添加的考题
       showQuestions(row) {
@@ -283,12 +342,10 @@
           background: 'rgba(0, 0, 0, 0.7)',
           target: document.getElementsByClassName('table-left')[0]
         })
-        setTimeout(() => {
-          this.$store.dispatch('teacher/getAllPaper', {
-            selectForm: this.selectForm,
-            loading: loadingLeft
-          })
-        }, 500)
+        this.$store.dispatch('teacher/getAllPaper', {
+          selectForm: this.selectForm,
+          loading: loadingLeft
+        })
       }
     },
   }

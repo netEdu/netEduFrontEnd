@@ -27,23 +27,23 @@ export default {
     
     // 试卷列表
     papers: {
-      
     },
     // 课程长度
     papersLength: 0,
-    // 当前试卷的考题状态
-    currentPaperQuestionsState: {
-      // 已添加的考题
-      existQuestions: {
-
-      },
-      // 未添加的考题
-      unExistQuestions: {
-
-      },
-      existQuestionsLength: 0,
-      unExistQuestionsLength: 0
-    }
+    // 已添加的考题
+    existQuestions: {
+    },
+    // 未添加的考题
+    unExistQuestions: {
+    },
+    // 已添加的题目id
+    existQuestionsId: '',
+    // 当前的试卷id
+    currentPaperId: 0,
+    // 已添加题目总数
+    existQuestionsLength: 0,
+    // 未添加题目总数
+    unExistQuestionsLength: 0
     // TODO: 资料
   },
   getters: TeacherGetters,
