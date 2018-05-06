@@ -1,22 +1,55 @@
 <template>
   <div class="student-information">
     <div class="el-card box-card">
+      <h2>查看学生个人资料</h2>
       <el-row :gutter="20">
-        <el-col :span="16"><div class="grid-content bg-purple">
-          <span>{{$data.formData.studentInformation.name}}</span>
+        <el-col :span="12"><div class="grid-content">
+          <span class="fstyle">学生ID:</span><span class="fstyle">{{$data.formData.studentInformation.student_id}}</span>
         </div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple"><span></span></div></el-col>
+        <el-col :span="12">
+          <div class="grid-content">
+            <span class="fstyle">学生姓名:</span><span class="fstyle">{{$data.formData.studentInformation.name}}</span>
+          </div></el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="8"><div class="grid-content bg-purple"><span></span></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple"><span></span></div></el-col>
-        <el-col :span="4"><div class="grid-content bg-purple"><span></span></div></el-col>
-        <el-col :span="4"><div class="grid-content bg-purple"><span></span></div></el-col>
+        <el-col :span="12">
+          <div class="grid-content">
+            <span class="fstyle">性别:</span><span class="fstyle">{{$data.formData.studentInformation.sex}}</span>
+          </div></el-col>
+        <el-col :span="12">
+          <div class="grid-content">
+            <span class="fstyle">生日:</span><span class="fstyle">{{$data.formData.studentInformation.birth}}</span>
+          </div></el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="4"><div class="grid-content bg-purple"><span></span></div></el-col>
-        <el-col :span="16"><div class="grid-content bg-purple"><span></span></div></el-col>
-        <el-col :span="4"><div class="grid-content bg-purple"><span></span></div></el-col>
+        <el-col :span="12">
+          <div class="grid-content">
+            <span class="fstyle">身份证号:</span><span class="fstyle">{{$data.formData.studentInformation.identity}}</span>
+          </div></el-col>
+        <el-col :span="12">
+          <div class="grid-content">
+            <span class="fstyle">邮箱:</span><span class="fstyle">{{$data.formData.studentInformation.email}}</span>
+          </div></el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <div class="grid-content">
+            <span class="fstyle">籍贯:</span><span class="fstyle">{{$data.formData.studentInformation.origin}}</span>
+          </div></el-col>
+        <el-col :span="12">
+          <div class="grid-content">
+            <span class="fstyle">电话:</span><span class="fstyle">{{$data.formData.studentInformation.phone}}</span>
+          </div></el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <div class="grid-content">
+            <span class="fstyle">班级:</span><span class="fstyle">{{$data.formData.studentInformation.class_num}}班</span>
+          </div></el-col>
+        <el-col :span="12">
+          <div class="grid-content">
+
+          </div></el-col>
       </el-row>
     </div>
   </div>
@@ -41,8 +74,18 @@
         method: 'get',
         url: url,
         data: this.formData
-      }).then(res => {
+      }).then(res => {;
+        if (res.data.sex==0){
+            res.data.sex="男";
+        }else if (res.data.sex==1){
+            res.data.sex="女";
+        }
+        if ("birth" in res.data){
+          var birth= res.data.birth
+          res.data.birth=birth.split('-')[0]+"年"+birth.split('-')[1]+"月"+birth.split('-')[2]+"日"
+        }
         this.formData.studentInformation=res.data
+        console.info(this.formData.studentInformation)
       })
     },
     methods:{
@@ -84,11 +127,18 @@
   }
   .grid-content {
     border-radius: 4px;
+    max-height: 36px;
     min-height: 36px;
   }
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
+  }
+
+
+  .fstyle{
+    font-size:20px;
+    line-height: 36px;
   }
 
 </style>

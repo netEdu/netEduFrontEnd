@@ -39,7 +39,8 @@ export const URL_DATA = {
   QUERY_STUDENT_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/queryStudentData',
   QUERY_TEACHER_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/queryTeacherData',
   STUDENT_DOWNLOAD_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/downloadFile',
-  DELETE_PERSON_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/deleteFiles'
+  DELETE_PERSON_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/deleteFiles',
+  UPLOAD_MANY_FILES:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/StudentData/uploadMany'
 }
 
 // 教师端侧边索引
@@ -127,14 +128,6 @@ export const StudentSideBarItem = [
     title: '资料',
     subs: [
       {
-        index: '/studentSidebar3',
-        title: '删除个人资料'
-      },
-      {
-        index: '/studentSidebar4',
-        title: '下载资料'
-      },
-      {
         index: '/studentSidebar5',
         title: '查看可用课程'
       },
@@ -147,12 +140,8 @@ export const StudentSideBarItem = [
         title: '查看教师资料'
       },
       {
-        index: '/studentSidebar4',
+        index: '/studentSidebar3',
         title: '批量添加资料'
-      },
-      {
-        index: '/studentSidebar4',
-        title: '添加资料'
       }
     ]
   },
@@ -181,6 +170,24 @@ export const StudentSideBarItem = [
   }
 ]
 
+//管理员侧边索引栏
+export const AdminSideBarItem = [
+  {
+    icon: 'el-icon-menu',
+    index: '0',
+    title: '个人信息管理',
+    subs: [
+      {
+        index: '/adminSidebar1',
+        title: '查看个人信息'
+      },
+      {
+        index: '/adminSidebar2',
+        title: '修改个人信息'
+      }
+    ]
+  }
+]
 // 申请课程规则
 export const courseRules = {
   course_name: [
