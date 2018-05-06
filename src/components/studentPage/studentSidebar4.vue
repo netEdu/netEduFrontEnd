@@ -114,14 +114,8 @@
         })
       },
       downloadFile(dataId){
-        var url=URL_DATA.STUDENT_DOWNLOAD_FILE
-        this.$axios({
-          method:'get',
-          url:url,
-          params:{data_id:dataId}
-        }).then(res=>{
-          console.info(res)
-        })
+        var url=URL_DATA.STUDENT_DOWNLOAD_FILE+"?data_id="+dataId
+        window.location.href=url
       },
       deleteFile(dataId,index){
         const loading = this.$loading({

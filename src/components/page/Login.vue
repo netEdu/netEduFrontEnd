@@ -59,30 +59,34 @@ export default {
         if (res.data !== 'BAD REQUEST') {
           // session中放入用户名和用户id
           sessionStorage.setItem('username', username)
-
-          var identified=res.data.split(':')[0]
-          // 教师
-          if (identified=='Teacher'){
-            const ws = new WebSocket(SOCKET_IP)
-            ws.onopen = () => {
-              console.log('TEACHER CONNECTING')
-              // 添加  0,  并将字符串返回
-              ws.send('0,' + res.data)
+          if (res.data=="ADMIN"){
+            sessionStorage.setItem('userId',res.data)
+            this.$router.push({path:'/adminSidebar1'})
+          }else{
+            var identified=res.data.split(':')[0]
+            // 教师
+            if (identified=='Teacher'){
+              const ws = new WebSocket(SOCKET_IP)
+              ws.onopen = () => {
+                console.log('TEACHER CONNECTING')
+                // 添加  0,  并将字符串返回
+                ws.send('0,' + res.data)
+              }
+              sessionStorage.setItem('webSocket', ws)
+              sessionStorage.setItem('userId', res.data.split(':')[1])
+              this.$router.push({ path: '/Course' })
+              // 学生
+            }else if(identified=='Student'){
+              const ws = new WebSocket(SOCKET_IP)
+              ws.onopen = () => {
+                console.log('STUDENT CONNECTING')
+                // 添加  0,  并将字符串返回
+                ws.send('0,' + res.data)
+              }
+              sessionStorage.setItem('webSocket', ws)
+              sessionStorage.setItem('userId', res.data.split(':')[1].split(',')[1])
+              this.$router.push({path:'/studentSidebar1'})
             }
-            sessionStorage.setItem('webSocket', ws)
-            sessionStorage.setItem('userId', res.data.split(':')[1])
-            this.$router.push({ path: '/Course' })
-          // 学生
-          }else if(identified=='Student'){
-            const ws = new WebSocket(SOCKET_IP)
-            ws.onopen = () => {
-              console.log('STUDENT CONNECTING')
-              // 添加  0,  并将字符串返回
-              ws.send('0,' + res.data)
-            }
-            sessionStorage.setItem('webSocket', ws)
-            sessionStorage.setItem('userId', res.data.split(':')[1].split(',')[1])
-            this.$router.push({path:'/studentSidebar1'})
           }
         } else {
           this.$message.error('用户名或密码错误')
