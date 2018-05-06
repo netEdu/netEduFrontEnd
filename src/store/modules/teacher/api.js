@@ -38,16 +38,56 @@ export function cancelCourse(payload, cb) {
 
 // 获取所有试卷
 export function getAllPapers(payload, cb) {
-  axios({
-    method: 'post',
-    url: URL_DATA.PAPER_LIST,
-    data: payload.selectForm
-  }).then( res => {
-    payload.loading.close()
-    cb(res.data.data.list)
-  }).catch( err => {
-    console.log(err)
-    Message.error('网络错误')
-    payload.loading.close()
-  })
+  setTimeout( () => {
+    axios({
+      method: 'post',
+      url: URL_DATA.PAPER_LIST,
+      data: payload.selectForm
+    }).then( res => {
+      payload.loading.close()
+      cb(res.data.data.list)
+    }).catch( err => {
+      console.log(err)
+      Message.error('网络错误')
+      payload.loading.close()
+    })
+  }, LATENCY)
+
+}
+
+// 获取试卷已添加的考题
+export function getExistQuestions(payload, cb) {
+  setTimeout( () => {
+    axios({
+      method: 'get',
+      url: URL_DATA.PAPER_SHOW,
+      params: { id: payload.paper_id }
+    }).then( res => {
+      cb(res.data)
+      payload.loadingMiddle.close()
+    }).catch( err => {
+      console.log(err)
+      Message.error('网络错误')
+      payload.loadingMiddle.close()
+    })
+  }, LATENCY)
+
+}
+
+// 获取试卷未添加的考题
+export function getUnExistQuestsions(payload, cb) {
+  setTimeout( () => {
+    axios({
+      method: 'post',
+      url: URL_DATA.QUESTION_NOT_EXIST,
+      params: { existIds: payload.questions }
+    }).then( res => {
+      cb(res.data.data)
+      payload.loadingRight.close()
+    }).catch( err => {
+      console.log(err)
+      Message.error('网络错误')
+      payload.loadingRight.close()
+    })
+  }, LATENCY)
 }

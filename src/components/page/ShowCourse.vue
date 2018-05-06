@@ -23,7 +23,7 @@
           <el-option label="审核失败" value="2" />
         </el-select>
       </el-form-item>
-      <el-form-item>
+      <el-form-item style="float: right">
         <el-button type="primary" @click="onSubmit()">查询</el-button>
       </el-form-item>
     </el-form>

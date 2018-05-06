@@ -1,13 +1,14 @@
 <template>
 	<div class="login-wrap">
+    {{x}}&nbsp;{{y}}
 		<div class="ms-title">网络教学管理系统</div>
 		<div id="canvas" class="ms-login" @mousemove="updateXY" @mouseout="clearXY">
 			<el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="0px" class="demo-ruleForm">
-				<el-form-item prop="username">
-					<el-input v-model="loginForm.username" placeholder="username"/>
+				<el-form-item prop="username-input">
+					<el-input v-model="loginForm.username" placeholder="用户名（您的姓名）"/>
 				</el-form-item>
-				<el-form-item prop="password">
-					<el-input type="password" placeholder="password" v-model="loginForm.password"
+				<el-form-item prop="password-input">
+					<el-input type="password" placeholder="密码" v-model="loginForm.password"
 					          @keyup.enter.native="submitForm('loginForm')"/>
 				</el-form-item>
 				<div class="login-btn">
@@ -46,7 +47,7 @@ export default {
     updateXY(event) {
       this.x = event.x;
       this.y = event.y;
-      document.getElementById('canvas').style.transform = 'rotateY(' + (-(this.x - 436) + 190) / 40 + 'deg) rotateX(' + (this.y - 200 - 120) / 40 + 'deg)'
+      document.getElementById('canvas').style.transform = 'rotateY(' + (-(event.x - 436) + 190) / 40 + 'deg) rotateX(' + (event.y - 200 - 120) / 40 + 'deg)'
     },
     // 鼠标离开时清空角度
     clearXY(event) {
@@ -115,11 +116,11 @@ export default {
   width: 100%;
   height: 100%;
   background: #d2d2d2;
+  /* 给父元素添加视距600 */
   perspective: 600;
   perspective-origin: 50% 50%;
   -webkit-perspective: 600;
   -webkit-perspective-origin: 50% 50%;
-  
 }
 
 .ms-title {
