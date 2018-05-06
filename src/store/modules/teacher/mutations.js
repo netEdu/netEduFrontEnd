@@ -26,5 +26,25 @@ export default {
       Vue.set(state.papers, paper.paper_id, paper)
     })
     state.papersLength = papers.length
+  },
+
+  // 获取试卷已添加的考题
+  [types.RECEIVE_EXIST_QUESTIONS] (state, { questions }) {
+    state.currentPaperQuestionsState.existQuestions = {}
+    // 更新state
+    questions.forEach(question => {
+      Vue.set(state.currentPaperQuestionsState.existQuestions, question.question_id, question)
+    })
+    state.currentPaperQuestionsState.existQuestionsLength = questions.length
+  },
+
+  // 获取试卷未添加的考题
+  [types.RECEIVE_UNEXIST_QUESTIONS] (state, { questions }) {
+    state.currentPaperQuestionsState.unExistQuestions = {}
+    // 更新state
+    questions.forEach(question => {
+      Vue.set(state.currentPaperQuestionsState.unExistQuestions, question.question_id, question)
+    })
+    state.currentPaperQuestionsState.unExistQuestionsLength = questions.length
   }
 }

@@ -21,3 +21,15 @@ export const getAllPaper = ({ commit }, payload) => {
     commit(types.RECEIVE_ALL_PAPER, { papers })
   })
 }
+
+// 获取已添加和未添加的考题
+export const getCurrentPaperQuestionState = ({ commit }, payload) => {
+  // 已添加的考题
+  api.getExistQuestions(payload, questions => {
+    commit(types.RECEIVE_EXIST_QUESTIONS, { questions })
+  })
+  // 未添加的考题
+  api.getUnExistQuestsions(payload, questions => {
+    commit(types.RECEIVE_UNEXIST_QUESTIONS, { questions })
+  })
+}

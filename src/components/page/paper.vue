@@ -19,82 +19,147 @@
           end-placeholder="结束日期">
         </el-date-picker>
       </el-form-item>
-      <el-form-item>
+      <el-form-item style="float: right">
         <el-button type="primary" @click="onSubmit()">查询</el-button>
       </el-form-item>
     </el-form>
     <div class="table-container">
+      <!-- 试卷列表 -->
       <div class="table-left">
-        <el-table max-height="500" height="300">
-          <el-table-column label="试卷" type="expend">
+        <el-table 
+          :data="papers" 
+          max-height="500" 
+          height="500" 
+          @row-click="showQuestions">
+          <el-table-column type="expand" width="20">
+            <template slot-scope="props">
+              <div class="table-expand-remarks-card">
+                <div>试卷备注: </div>
+                <div>{{ props.row.remarks }}</div>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="paper_name" label="试卷">
+          </el-table-column>
+          <el-table-column 
+            label="试卷所属" 
+            width="100" 
+            prop="teacher_id"
+            :filter-method="filterPeople" 
+            :filter-multiple="false"
+            :filters="[
+              { text: '本人', value: '本人' },
+              { text: '他人', value: '他人' }]">
+            <template slot-scope="scope">
+              <el-tag class="my-tag"
+                :type="scope.row.teacher_id == currentTeacherId ? 'success' : 'warning'"
+                disable-transitions>{{scope.row.teacher_id == currentTeacherId ? '本人' : '他人'}}</el-tag>
+            </template>
           </el-table-column>
         </el-table>
       </div>
+      <!-- 已添加考题列表 -->
       <div class="table-middle">
-        <el-table max-height="500" height="300">
-          <el-table-column label="未添加的考题">
+        <el-table :data="existQuestions" max-height="500" height="500">
+          <el-table-column type="expand" width="30">
             <template slot-scope="props">
               <el-form label-position="left" inline class="paper-table-expand">
-                <el-form-item label="试卷标题">
-                  <span>{{ props.row.name }}</span>
+                <el-form-item label="题目:" style="width: 100%">
+                  <span>{{ props.row.question_content }}</span>
                 </el-form-item>
-                <el-form-item label="所属店铺">
-                  <span>{{ props.row.shop }}</span>
+                <el-form-item label="A:" v-if="props.row.question_type == 1">
+                  <span>{{ props.row.questionOptionList[0].option_content }}</span>
                 </el-form-item>
-                <el-form-item label="商品 ID">
-                  <span>{{ props.row.id }}</span>
+                <el-form-item label="B:" v-if="props.row.question_type == 1">
+                  <span>{{ props.row.questionOptionList[1].option_content }}</span>
                 </el-form-item>
-                <el-form-item label="店铺 ID">
-                  <span>{{ props.row.shopId }}</span>
+                <el-form-item label="C:" v-if="props.row.question_type == 1">
+                  <span>{{ props.row.questionOptionList[2].option_content }}</span>
                 </el-form-item>
-                <el-form-item label="商品分类">
-                  <span>{{ props.row.category }}</span>
+                <el-form-item label="D:" v-if="props.row.question_type == 1">
+                  <span>{{ props.row.questionOptionList[3].option_content }}</span>
                 </el-form-item>
-                <el-form-item label="店铺地址">
-                  <span>{{ props.row.address }}</span>
+                <el-form-item label="答案:">
+                  <span>{{ showCorrectAns(props.row) }}</span>
                 </el-form-item>
-                <el-form-item label="商品描述">
-                  <span>{{ props.row.desc }}</span>
+                <el-form-item label="难度:">
+                  <span>{{ showDifficulty(props.row) }}</span>
                 </el-form-item>
               </el-form>
             </template>
           </el-table-column>
+          <el-table-column prop="question_content" label="已添加的考题">
+          </el-table-column>
           <el-table-column 
             label="题目类型" 
             width="100" 
+            prop="question_type" 
+            :filter-multiple="false"
             :filter-method="filterType" 
             :filters="[
               { text: '判断', value: '0' }, 
-              { text: '选择', value: '1' }, 
-              { text: '主观', value: '2' }]">
-            <template slot-scope="scope">
+              { text: '选择', value: '1' }]">
+            <template slot-scope="props">
               <el-tag
-                :type="scope.row.question_type === '0' ? 'primary' : 'success'"
-                disable-transitions>{{scope.row.question_type === '0' ? '判断' : '选择'}}</el-tag>
+                :type="props.row.question_type === '0' ? 'primary' : 'success'"
+                disable-transitions>{{props.row.question_type === '0' ? '判断' : '选择'}}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="60">
+          <el-table-column label="操作" width="80">
+            <template slot-scope="props">
+              <el-button type="text">移除</el-button>
+            </template>
           </el-table-column>
         </el-table>
       </div>
+      <!-- 未添加考题列表 -->
       <div class="table-right">
-        <el-table max-height="500" height="300">
-          <el-table-column label="已添加的考题" height="100">
+        <el-table :data="unExistQuestions" max-height="500" height="500">
+          <el-table-column type="expand" width="30">
+            <template slot-scope="props" v-if="props.row.question_type == 1">
+              <el-form label-position="left" inline class="paper-table-expand">
+                <el-form-item label="A:">
+                  <span>{{ props.row.questionOptionList[0].option_content }}</span>
+                </el-form-item>
+                <el-form-item label="B:">
+                  <span>{{ props.row.questionOptionList[1].option_content }}</span>
+                </el-form-item>
+                <el-form-item label="C:">
+                  <span>{{ props.row.questionOptionList[2].option_content }}</span>
+                </el-form-item>
+                <el-form-item label="D:">
+                  <span>{{ props.row.questionOptionList[3].option_content }}</span>
+                </el-form-item>
+                <el-form-item label="答案:">
+                  <span>{{ showCorrectAns(props.row) }}</span>
+                </el-form-item>
+                <el-form-item label="难度:">
+                  <span>{{ showDifficulty(props.row) }}</span>
+                </el-form-item>
+              </el-form>
+            </template>
+          </el-table-column>
+          <el-table-column prop="question_content" label="未添加的考题">
           </el-table-column>
           <el-table-column 
             label="题目类型" 
             width="100" 
+            prop="question_type"
+            :filter-multiple="false"
             :filters="[
               { text: '判断', value: '0' }, 
-              { text: '选择', value: '1' }, 
-              { text: '主观', value: '2' }]">
-            <template slot-scope="scope">
+              { text: '选择', value: '1' }]">
+            <template slot-scope="props">
               <el-tag
-                :type="scope.row.question_type === '0' ? 'primary' : 'success'"
-                disable-transitions>{{scope.row.question_type === '0' ? '判断' : '选择'}}</el-tag>
+                :type="props.row.question_type == '0' ? 'primary' : 'success'"
+                disable-transitions>{{props.row.question_type == '0' ? '判断' : '选择'}}</el-tag>
             </template>
           </el-table-column>
           <el-table-column label="操作" width="60">
+            <template slot-scope="props">
+              <el-button
+                size="mini" icon="el-icon-d-arrow-right" circle></el-button>
+            </template>
           </el-table-column>
         </el-table>
       </div>
@@ -103,26 +168,129 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     name: "paper",
     data() {
       return {
         selectForm: {
           paper_name: '',
-          remarks: ''
+          remarks: '',
+          startDate: '',
+          endDate: ''
         },
         // 时间范围，是一个数组
-        selectDate: []
+        selectDate: null
+      }
+    },
+    computed: {
+      ...mapGetters({
+        papers: 'teacher/currentPapersList',
+        papersLength: 'teacher/papersLength',
+        existQuestions: 'teacher/existQuestions',
+        unExistQuestions: 'teacher/unExistQuestions'
+      }),
+      // 当前登录的teacher_id
+      currentTeacherId() {
+        return sessionStorage.getItem('userId')
       }
     },
     methods: {
+      // 表单根据标签过滤（单选、多选）
       filterType(value, row) {
-        return row.question_type === value;
+        return row.question_type === value
       },
+      // 表单根据人物id过滤
+      filterPeople(value, row) {
+        let scope = row.teacher_id == this.currentTeacherId ? '本人' : '他人'
+        return scope === value
+      },
+      // 计算正确答案
+      showCorrectAns(row) {
+        if(row.question_type == 1){
+          switch(row.question_answer){
+            case 1:
+              return 'A'
+              break
+            case 2:
+              return 'B'
+              break
+            case 2:
+              return 'C'
+              break
+            case 2:
+              return 'D'
+              break
+            default:
+              break
+          }
+        } else {
+          return row.question_answer == 0 ? '错误' : '正确'
+        }
+      },
+      // 计算题目难度
+      showDifficulty(row) {
+        switch(row.difficulty){
+          case '1':
+            return '简单'
+            break
+          case '2':
+            return '中等'
+            break
+          case '3':
+            return '困难'
+            break
+        }
+      },
+      // 查看试卷的添加和未添加的考题
+      showQuestions(row) {
+        const loadingMiddle = this.$loading({
+          lock: true,
+          text: '读取中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+          target: document.getElementsByClassName('table-middle')[0]
+        })
+        const loadingRight = this.$loading({
+          lock: true,
+          text: '读取中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+          target: document.getElementsByClassName('table-right')[0]
+        })
+        this.$store.dispatch('teacher/getCurrentPaperQuestionState', {
+          paper_id: row.paper_id,
+          questions: row.questions,
+          loadingMiddle,
+          loadingRight
+        })
+      },
+      // 查询表单提交
       onSubmit() {
-
+        // 处理表单
+        if(this.selectDate !== null){
+          this.selectForm.startDate = this.selectDate[0]
+          this.selectForm.endDate = this.selectDate[1]
+        } else {
+          this.selectForm.startDate = ''
+          this.selectForm.endDate = ''
+        }
+        // 生成loading
+        const loadingLeft = this.$loading({
+          lock: true,
+          text: '读取中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+          target: document.getElementsByClassName('table-left')[0]
+        })
+        setTimeout(() => {
+          this.$store.dispatch('teacher/getAllPaper', {
+            selectForm: this.selectForm,
+            loading: loadingLeft
+          })
+        }, 500)
       }
-    }
+    },
   }
 </script>
 
@@ -135,31 +303,21 @@
     margin: 10px 0;
   }
   .table-left {
+    box-sizing: border-box;
     width: 20%;
     border-right: 1px #ababab solid;
     float: left;
   }
   .table-middle {
-    width: 39.5%;
+    box-sizing: border-box;
+    width: 40%;
     border-right: 1px #ababab solid;
     float: left;
   }
   .table-right {
-    width: 39.5%;
+    box-sizing: border-box;
+    width: 40%;
     float: left;
-  }
-  /* 折叠表格卡片 */
-  .paper-table-expand {
-    font-size: 0;
-  }
-  .paper-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-  .paper-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
   }
   /* 表单 */
   .card-form {

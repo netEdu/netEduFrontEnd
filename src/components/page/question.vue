@@ -3,9 +3,9 @@
 </template>
 
 <script>
-    export default {
-        name: "sidebar5"
-    }
+  export default {
+    name: "question"
+  }
 </script>
 
 <style scoped>

@@ -26,13 +26,24 @@ export default {
     coursesLength: 0,
     
     // 试卷列表
-    papers: {},
+    papers: {
+      
+    },
     // 课程长度
     papersLength: 0,
-    // 考题列表
-    questions: {},
-    // 已添加的考题
-    addedQuestions: {},
+    // 当前试卷的考题状态
+    currentPaperQuestionsState: {
+      // 已添加的考题
+      existQuestions: {
+
+      },
+      // 未添加的考题
+      unExistQuestions: {
+
+      },
+      existQuestionsLength: 0,
+      unExistQuestionsLength: 0
+    }
     // TODO: 资料
   },
   getters: TeacherGetters,
