@@ -128,20 +128,6 @@ export default new Router({
       ]
     },
     {
-      path:'/admin',
-      component:resole=>require(['../components/common/Home_admin.vue'],resole),
-      children:[
-        {
-          path:'/adminSidebar1',
-          component:resole=>require(['../components/adminPage/adminSidebar1.vue'],resole)
-        },
-        {
-          path:'/adminSidebar2',
-          component:resolve=>require(['../components/adminPage/adminSidebar2.vue'],resolve)
-        }
-      ]
-    },
-    {
       path: '/login',
       component: resolve => require(['../components/page/Login.vue'], resolve)
     },

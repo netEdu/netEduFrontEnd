@@ -1,13 +1,17 @@
 <template>
 	<div class="login-wrap">
-    {{x}}&nbsp;{{y}}
-		<div class="ms-title">网络教学管理系统</div>
-		<div id="canvas" class="ms-login" @mousemove="updateXY" @mouseout="clearXY">
+		<div class="ms-title"><strong>网络教学管理系统</strong></div>
+    <div class="ms-banner ms-blocker" @mousemove="updateXY" @mouseout="clearXY"></div>
+    <div id="ms-banner-nav" class="ms-banner-nav ms-shadow"></div>
+    <div id="ms-banner-aside" class="ms-banner-aside ms-shadow"></div>
+    <div id="ms-banner" class="ms-banner ms-shadow">
+    </div>
+		<div id="canvas" class="ms-login ms-shadow">
 			<el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="0px" class="demo-ruleForm">
-				<el-form-item prop="username-input">
+				<el-form-item prop="username">
 					<el-input v-model="loginForm.username" placeholder="用户名（您的姓名）"/>
 				</el-form-item>
-				<el-form-item prop="password-input">
+				<el-form-item prop="password">
 					<el-input type="password" placeholder="密码" v-model="loginForm.password"
 					          @keyup.enter.native="submitForm('loginForm')"/>
 				</el-form-item>
@@ -45,13 +49,20 @@ export default {
   methods: {
     // 刷新鼠标坐标，更改图层旋转角度
     updateXY(event) {
-      this.x = event.x;
-      this.y = event.y;
-      document.getElementById('canvas').style.transform = 'rotateY(' + (-(event.x - 436) + 190) / 40 + 'deg) rotateX(' + (event.y - 200 - 120) / 40 + 'deg)'
+      this.x = event.offsetX;
+      this.y = event.offsetY;
+      document.getElementById('canvas').style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
+      document.getElementById('ms-banner').style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
+      document.getElementById('ms-banner-aside').style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
+      document.getElementById('ms-banner-nav').style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
+
     },
     // 鼠标离开时清空角度
     clearXY(event) {
       document.getElementById('canvas').style.transform = 'rotateY(0deg) rotateX(0deg)'
+      document.getElementById('ms-banner').style.transform = 'rotateY(0deg) rotateX(0deg)'
+      document.getElementById('ms-banner-aside').style.transform = 'rotateY(0deg) rotateX(0deg)'
+      document.getElementById('ms-banner-nav').style.transform = 'rotateY(0deg) rotateX(0deg)'
     },
     login(username, password) {
       const loading = this.$loading({
@@ -119,25 +130,75 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background: #d2d2d2;
+  background: #ffffff;
   /* 给父元素添加视距600 */
   perspective: 600;
   perspective-origin: 50% 50%;
   -webkit-perspective: 600;
   -webkit-perspective-origin: 50% 50%;
 }
-
-.ms-title {
+.ms-shadow {
+  -moz-box-shadow: 0px 0px 20px #969696;
+  -webkit-box-shadow: 0px 0px 20px #969696;
+  box-shadow: 0px 0px 20px #969696;
+}
+.login-wrap>.ms-blocker {
+  z-index: 95;
+  background:rgba(0, 0, 0, 0)
+}
+.ms-banner {
+  background: #9ae7ff;
+  z-index: 90;
   position: absolute;
+  left: 50%;
   top: 50%;
-  width: 100%;
-  margin-top: -230px;
+  width: 900px;
+  height: 550px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin: -290px 0 0 -460px;
+}
+.ms-banner-nav {
+  z-index: 91;
+  background: #ffffff;
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 870px;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -278px 0 0 -445px;
+}
+.ms-banner-aside {
+  z-index: 91;
+  width: 140px;
+  height: 460px;
+  background: #ffffff;
+  box-sizing: border-box;
+  border-radius: 5px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -214px 0 0 -445px;
+}
+.ms-title {
+  z-index: 95;
+  position: absolute;
+  box-sizing: border-box;
+  padding-top: 5px;
+  top: 11%;
+  left: 35%;
+  width: 30%;
+  height: 50px;
   text-align: center;
   font-size: 30px;
-  color: #000000;
+  color: #606060;
+  border-radius: 5px;
 }
 
 .ms-login {
+  z-index: 200;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -148,9 +209,6 @@ export default {
   padding: 40px;
   border-radius: 5px;
   border: 1px #cccccc solid;
-  -moz-box-shadow: 0px 10px 20px #696969;
-  -webkit-box-shadow: 0px 10px 20px #696969;
-  box-shadow: 0px 10px 20px #696969;
   background: #ffffff;
 }
 
