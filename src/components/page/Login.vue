@@ -147,7 +147,7 @@ export default {
   background:rgba(0, 0, 0, 0)
 }
 .ms-banner {
-  background: #9ae7ff;
+  background-image: url('../../../static/img/bg.png');
   z-index: 90;
   position: absolute;
   left: 50%;
@@ -155,14 +155,14 @@ export default {
   width: 900px;
   height: 550px;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 10px;
   margin: -290px 0 0 -460px;
 }
 .ms-banner-nav {
   z-index: 91;
-  background: #ffffff;
+  background-image: url('../../../static/img/header.png');
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 10px;
   width: 870px;
   height: 50px;
   position: absolute;
@@ -174,9 +174,9 @@ export default {
   z-index: 91;
   width: 140px;
   height: 460px;
-  background: #ffffff;
+  background-image: url('../../../static/img/aside.png');
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 10px;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -187,7 +187,7 @@ export default {
   position: absolute;
   box-sizing: border-box;
   padding-top: 5px;
-  top: 11%;
+  top: 7%;
   left: 35%;
   width: 30%;
   height: 50px;
