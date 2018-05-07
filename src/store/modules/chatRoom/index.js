@@ -22,9 +22,13 @@ export default {
     threads: {
       /*
       id: {
+        // 组id
         id,
+        // 组名
         name,
+        // 信息流
         messages: [...ids],
+        // 最新信息
         lastMessage
       }
       */

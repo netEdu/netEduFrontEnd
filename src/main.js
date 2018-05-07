@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 // 设置超时时间为3000毫秒
-axios.defaults.timeout = 3000
+axios.defaults.timeout = 10000
 // 将axios添加进vue原型链
 Vue.prototype.$axios = axios
 

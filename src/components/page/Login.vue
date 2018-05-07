@@ -13,7 +13,7 @@
 				</el-form-item>
 				<el-form-item prop="password">
 					<el-input type="password" placeholder="密码" v-model="loginForm.password"
-					          @keyup.enter.native="submitForm('loginForm')"/>
+					          @keyup.enter.native="login($data.loginForm.username, $data.loginForm.password)"/>
 				</el-form-item>
 				<div class="login-btn">
 					<el-button type="primary" @click.prevent="login($data.loginForm.username, $data.loginForm.password)">
@@ -91,12 +91,14 @@ export default {
             var identified=res.data.split(':')[0]
             // 教师
             if (identified=='Teacher'){
+              // 开启webSocket连接
               const ws = new WebSocket(SOCKET_IP)
               ws.onopen = () => {
                 console.log('TEACHER CONNECTING')
                 // 添加  0,  并将字符串返回
                 ws.send('0,' + res.data)
               }
+              // 将webSocket存入socket
               sessionStorage.setItem('webSocket', ws)
               sessionStorage.setItem('userId', res.data.split(':')[1])
               this.$router.push({ path: '/Course' })

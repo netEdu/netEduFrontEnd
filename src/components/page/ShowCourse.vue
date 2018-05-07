@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card">
+  <el-card class="box-card" id="box-card">
     <h2>申请课程查询
       <span class="tips">
         <span class="tips-warning">待审核&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -95,6 +95,7 @@
 </template>
 
 <script>
+  // let i = 0
   import { URL_DATA } from '../../js/util-data'
   import formDialog from '../common/dialog'
   import { mapGetters } from 'vuex'
@@ -177,6 +178,14 @@
     mounted() {
       if(!this.coursesLength)
         this.onSubmit()
+      // // 请你千万不要解开这段代码的注释。
+      // setInterval( () => {
+      //   document.getElementById('box-card').style.transform = 'rotateX('+i+'deg) rotateY('+i+'deg) rotateZ('+i+'deg)'
+      //   i+=30
+      //   if(i === 360) {
+      //     i = 0;
+      //   }
+      // }, 4)
     },
   }
 
