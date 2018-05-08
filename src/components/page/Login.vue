@@ -2,11 +2,10 @@
 	<div class="login-wrap">
 		<div class="ms-title"><strong>网络教学管理系统</strong></div>
     <div class="ms-banner ms-blocker" @mousemove="updateXY" @mouseout="clearXY"></div>
-    <div id="ms-banner-nav" class="ms-banner-nav ms-shadow"></div>
-    <div id="ms-banner-aside" class="ms-banner-aside ms-shadow"></div>
-    <div id="ms-banner" class="ms-banner ms-shadow">
-    </div>
-		<div id="canvas" class="ms-login ms-shadow">
+    <div ref="msBannerNav" class="ms-banner-nav ms-shadow"></div>
+    <div ref="msBannerAside" class="ms-banner-aside ms-shadow"></div>
+    <div ref="msBanner" class="ms-banner ms-shadow"></div>
+		<div ref="canvas" class="ms-login ms-shadow">
 			<el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="0px" class="demo-ruleForm">
 				<el-form-item prop="username">
 					<el-input v-model="loginForm.username" placeholder="用户名（您的姓名）"/>
@@ -27,6 +26,7 @@
 
 <script>
 import { URL_DATA, SOCKET_IP } from '../../js/util-data'
+import { webSocket } from '../../js/web-socket'
 
 export default {
   data: function() {
@@ -51,18 +51,17 @@ export default {
     updateXY(event) {
       this.x = event.offsetX;
       this.y = event.offsetY;
-      document.getElementById('canvas').style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
-      document.getElementById('ms-banner').style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
-      document.getElementById('ms-banner-aside').style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
-      document.getElementById('ms-banner-nav').style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
-
+      this.$refs.canvas.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
+      this.$refs.msBanner.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
+      this.$refs.msBannerAside.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
+      this.$refs.msBannerNav.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
     },
     // 鼠标离开时清空角度
     clearXY(event) {
-      document.getElementById('canvas').style.transform = 'rotateY(0deg) rotateX(0deg)'
-      document.getElementById('ms-banner').style.transform = 'rotateY(0deg) rotateX(0deg)'
-      document.getElementById('ms-banner-aside').style.transform = 'rotateY(0deg) rotateX(0deg)'
-      document.getElementById('ms-banner-nav').style.transform = 'rotateY(0deg) rotateX(0deg)'
+      this.$refs.canvas.style.transform = 'rotateY(0deg) rotateX(0deg)'
+      this.$refs.msBanner.style.transform = 'rotateY(0deg) rotateX(0deg)'
+      this.$refs.msBannerAside.style.transform = 'rotateY(0deg) rotateX(0deg)'
+      this.$refs.msBannerNav.style.transform = 'rotateY(0deg) rotateX(0deg)'
     },
     login(username, password) {
       const loading = this.$loading({
@@ -84,6 +83,7 @@ export default {
         if (res.data !== 'BAD REQUEST') {
           // session中放入用户名和用户id
           sessionStorage.setItem('username', username)
+          // 管理员
           if (res.data=="ADMIN"){
             sessionStorage.setItem('userId',res.data)
             this.$router.push({path:'/adminSidebar1'})
@@ -92,25 +92,30 @@ export default {
             // 教师
             if (identified=='Teacher'){
               // 开启webSocket连接
-              const ws = new WebSocket(SOCKET_IP)
+              const ws = webSocket(SOCKET_IP)
               ws.onopen = () => {
                 console.log('TEACHER CONNECTING')
                 // 添加  0,  并将字符串返回
                 ws.send('0,' + res.data)
               }
-              // 将webSocket存入socket
-              sessionStorage.setItem('webSocket', ws)
+              // 初始化讨论组
+              this.$store.dispatch('chat/initThreads', {
+                person_id: res.data.split(':')[1]
+              })
               sessionStorage.setItem('userId', res.data.split(':')[1])
               this.$router.push({ path: '/Course' })
               // 学生
             }else if(identified=='Student'){
-              const ws = new WebSocket(SOCKET_IP)
+              const ws = webSocket(SOCKET_IP)
               ws.onopen = () => {
                 console.log('STUDENT CONNECTING')
                 // 添加  0,  并将字符串返回
                 ws.send('0,' + res.data)
               }
-              sessionStorage.setItem('webSocket', ws)
+              // 初始化讨论组
+              this.$store.dispatch('chat/initThreads', {
+                person_id: res.data.split(':')[1]
+              })
               sessionStorage.setItem('userId', res.data.split(':')[1].split(',')[1])
               this.$router.push({path:'/studentSidebar1'})
             }

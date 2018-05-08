@@ -8,14 +8,30 @@ import * as types from './mutation-types'
 //   })
 // }
 
-export const sendMessage = ({ commit }, payload) => {
-  api.sendMessage(payload)
+// export const sendMessage = ({ commit }, payload) => {
+//   api.sendMessage(payload)
+// }
+// 初始化讨论组
+export const initThreads = ({ commit }, payload) => {
+  api.receiveAllThreads(payload, threads => {
+    commit(types.INIT_THREADS, { threads })
+  })
 }
 
+// 接收到消息
 export const receiveMessage = ({ commit }, payload) => {
-  
+  // TODO: 接收消息方法
+  commit(types.RECEIVE_MESSAGE, { message: payload })
 }
 
+// 切换讨论组
 export const switchThread = ({ commit }, payload) => {
-  commit(types.SWITCH_THREAD, payload)
+  // TODO: 当人数为空时，添加人数
+  if(payload.membersLength == 0){
+    api.receiveAllMembers(payload, members => {
+      commit(types.SWITCH_THREAD, { id: payload.id, members })
+    })
+  }else {
+    commit(types.SWITCH_THREAD, { id: payload.id, members: [] })
+  }
 }

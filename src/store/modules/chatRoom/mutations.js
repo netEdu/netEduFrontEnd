@@ -2,55 +2,48 @@ import Vue from 'vue'
 import * as types from './mutation-types'
 
 export default {
-  // // 接收所有的消息
-  // [types.RECEIVE_ALL] (state, { messages }) {
-  //   let latestMessage
-  //   messages.forEach(message => {
-  //     // create new thread if the thread doesn't exist
-  //     if (!state.threads[message.threadID]) {
-  //       createThread(state, message.threadID, message.threadName)
-  //     }
-  //     // mark the latest message
-  //     if (!latestMessage || message.timestamp > latestMessage.timestamp) {
-  //       latestMessage = message
-  //     }
-  //     // add message
-  //     addMessage(state, message)
-  //   })
-  //   // set initial thread to the one with the latest message
-  //   setCurrentThread(state, latestMessage.threadID)
-  // },
-
-  // 发送单个消息
+  // 初始化组
+  [types.INIT_THREADS] (state, { threads }) {
+    threads.forEach(thread => {
+      createThread (state, thread)
+    })
+  },
+  // 接收单个消息
   [types.RECEIVE_MESSAGE] (state, { message }) {
     // 如果这个组不存在，就创建新的组
-    if (!state.threads[message.threadID]) {
-      createThread(state, message.threadID, message.threadName)
+    if (!state.threads[message.group_id]) {
+      createThread(state, message.group_id, message.group_name)
     }
     addMessage(state, message)
   },
-  // 切换聊天线程
-  [types.SWITCH_THREAD] (state, { id }) {
-    setCurrentThread(state, id)
+  // 切换讨论组
+  [types.SWITCH_THREAD] (state, { id, members }) {
+    console.log(members)
+    if(members.length != 0) {
+      addMember(state, members, id)
+      setCurrentThread(state, id)
+    } else {
+      setCurrentThread(state, id)
+    }
   }
 }
 
 // Vue.set(obj, newProp, value)
-function createThread (state, id, name) {
-  Vue.set(state.threads, id, {
-    id,
-    name,
+function createThread (state, thread) {
+  Vue.set(state.threads, thread.group_id, {
+    ...thread,
     messages: [],
+    members: [],
     lastMessage: null
   })
 }
 
 function addMessage (state, message) {
   // add a `isRead` field before adding the message
-  message.isRead = message.threadID === state.currentThreadID
+  message.isRead = message.group_id === state.currentThreadID
 
   // 添加到对应的聊天线程中
-  const thread = state.threads[message.threadID]
+  const thread = state.threads[message.group_id]
   // 如果消息不存在就添加进组消息流中
   if (!thread.messages.some(id => id === message.id)) {
     thread.messages.push(message.id)
@@ -60,11 +53,22 @@ function addMessage (state, message) {
   Vue.set(state.messages, message.id, message)
 }
 
+// 添加讨论组成员
+function addMember (state, members, threadID) {
+  const thread = state.threads[threadID]
+  members.forEach(member => {
+    thread.members.push(member)
+  })
+}
+
 function setCurrentThread (state, id) {
   state.currentThreadID = id
+  console.log(id)
   if (!state.threads[id]) {
-    console.log('[setCurrentThread]Unexist thread')
+    console.warn('[setCurrentThread]Unexist thread')
   }
   // mark thread as read
-  state.threads[id].lastMessage.isRead = true
+  if(state.threads[id].lastMessage) {
+    state.threads[id].lastMessage.isRead = true
+  }
 }

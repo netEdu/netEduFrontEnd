@@ -13,12 +13,13 @@
 .chatapp {
   font-family: 'Muli', 'Helvetica Neue', helvetica, arial;
   max-width: 760px;
-  margin: 20px auto;
+  margin: 10px auto;
   overflow: hidden;
 }
 
 .message-list, .thread-list {
   border: 1px solid #ccf;
+  border-radius: 4px;
   font-size: 16px;
   height: 400px;
   margin: 0;
