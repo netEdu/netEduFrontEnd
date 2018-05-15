@@ -40,7 +40,7 @@ function createThread (state, thread) {
 
 function addMessage (state, message) {
   // add a `isRead` field before adding the message
-  message.isRead = message.group_id === state.currentThreadID
+  message.isRead = message.group_id == state.currentThreadID
 
   // 添加到对应的聊天线程中
   const thread = state.threads[message.group_id]

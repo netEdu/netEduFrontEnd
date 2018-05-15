@@ -4,6 +4,9 @@
     <div class="ms-banner ms-blocker" @mousemove="updateXY" @mouseout="clearXY"></div>
     <div ref="msBannerNav" class="ms-banner-nav ms-shadow"></div>
     <div ref="msBannerAside" class="ms-banner-aside ms-shadow"></div>
+    <div ref="msBannerBlock" class="ms-banner-block ms-shadow"></div>
+    <img ref="msBannerWindow1" class="ms-banner-window-1" src="../../../static/img/window1.png"/>
+    <img ref="msBannerWindow2" class="ms-banner-window-2" src="../../../static/img/window2.png"/>
     <div ref="msBanner" class="ms-banner ms-shadow"></div>
 		<div ref="canvas" class="ms-login ms-shadow">
 			<el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="0px" class="demo-ruleForm">
@@ -51,10 +54,19 @@ export default {
     updateXY(event) {
       this.x = event.offsetX;
       this.y = event.offsetY;
-      this.$refs.canvas.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
       this.$refs.msBanner.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
-      this.$refs.msBannerAside.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
-      this.$refs.msBannerNav.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
+      this.$refs.canvas.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)' 
+        + ' matrix(1, 0, 0, 1, '+ Math.round((-event.offsetX + 450) / 90) +', ' + Math.round(-(event.offsetY - 250) / 50) + ')'
+      this.$refs.msBannerAside.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)' 
+        + ' matrix(1, 0, 0, 1, '+ Math.round((-event.offsetX + 450) / 90) +', ' + Math.round(-(event.offsetY - 250) / 50) + ')'
+      this.$refs.msBannerNav.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)' 
+        + ' matrix(1, 0, 0, 1, '+ Math.round((-event.offsetX + 450) / 90) +', ' + Math.round(-(event.offsetY - 250) / 50) + ')'
+      this.$refs.msBannerBlock.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)' 
+        + ' matrix(1, 0, 0, 1, '+ Math.round((-event.offsetX + 450) / 45) +', ' + Math.round(-(event.offsetY - 250) / 25) + ')'
+      this.$refs.msBannerWindow1.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)' 
+        + ' matrix(1, 0, 0, 1, '+ Math.round((-event.offsetX + 450) / 45) +', ' + Math.round(-(event.offsetY - 250) / 25) + ')'
+      this.$refs.msBannerWindow2.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)' 
+        + ' matrix(1, 0, 0, 1, '+ Math.round((-event.offsetX + 450) / 45) +', ' + Math.round(-(event.offsetY - 250) / 25) + ')'
     },
     // 鼠标离开时清空角度
     clearXY(event) {
@@ -62,6 +74,9 @@ export default {
       this.$refs.msBanner.style.transform = 'rotateY(0deg) rotateX(0deg)'
       this.$refs.msBannerAside.style.transform = 'rotateY(0deg) rotateX(0deg)'
       this.$refs.msBannerNav.style.transform = 'rotateY(0deg) rotateX(0deg)'
+      this.$refs.msBannerBlock.style.transform = 'rotateY(0deg) rotateX(0deg)'
+      this.$refs.msBannerWindow1.style.transform = 'rotateY(0deg) rotateX(0deg)'
+      this.$refs.msBannerWindow2.style.transform = 'rotateY(0deg) rotateX(0deg)'
     },
     login(username, password) {
       const loading = this.$loading({
@@ -86,7 +101,7 @@ export default {
           // 管理员
           if (res.data=="ADMIN"){
             sessionStorage.setItem('userId',res.data)
-            this.$router.push({path:'/adminSidebar1'})
+            this.$router.push({path: '/adminSidebar1'})
           }else{
             var identified=res.data.split(':')[0]
             // 教师
@@ -117,7 +132,7 @@ export default {
                 person_id: res.data.split(':')[1]
               })
               sessionStorage.setItem('userId', res.data.split(':')[1].split(',')[1])
-              this.$router.push({path:'/studentSidebar1'})
+              this.$router.push({path: '/studentSidebar1'})
             }
           }
         } else {
@@ -139,15 +154,16 @@ export default {
   height: 100%;
   background: #ffffff;
   /* 给父元素添加视距600 */
-  perspective: 600;
+  perspective: 50;
   perspective-origin: 50% 50%;
-  -webkit-perspective: 600;
+  -webkit-perspective: 550;
   -webkit-perspective-origin: 50% 50%;
 }
 .ms-shadow {
   -moz-box-shadow: 0px 0px 20px #969696;
   -webkit-box-shadow: 0px 0px 20px #969696;
   box-shadow: 0px 0px 20px #969696;
+  transition: 300ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
 }
 .login-wrap>.ms-blocker {
   z-index: 95;
@@ -189,12 +205,53 @@ export default {
   top: 50%;
   margin: -214px 0 0 -445px;
 }
+.ms-banner-block {
+  transform: translateZ(800);
+  z-index: 92;
+  width: 140px;
+  height: 60px;
+  background: url('../../../static/img/block.png');
+  box-sizing: border-box;
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 70px 0 0 -464px;
+}
+.ms-banner-window-1 {
+  transform: translateZ(800);
+  z-index: 91;
+  border: 0;
+  width: 238px;
+  height: 153px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -240px 0 0 280px;
+  transition: 300ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
+}
+.ms-banner-window-2 {
+  transform: translateZ(800);
+  z-index: 91;
+  padding: 0;
+  border: 0;
+  width: 182px;
+  height: 149px;
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -50px 0 0 380px;
+  transition: 300ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
+}
 .ms-title {
   z-index: 95;
   position: absolute;
   box-sizing: border-box;
   padding-top: 5px;
-  top: 7%;
+  top: 5%;
   left: 35%;
   width: 30%;
   height: 50px;

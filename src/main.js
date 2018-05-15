@@ -17,6 +17,7 @@ axios.defaults.timeout = 10000
 Vue.prototype.$axios = axios
 // 设置时间过滤器
 Vue.filter('time', timestamp => {
+  timestamp = typeof timestamp === 'string' ? Number(timestamp) : timestamp
   return new Date(timestamp).toLocaleTimeString()
 })
 
