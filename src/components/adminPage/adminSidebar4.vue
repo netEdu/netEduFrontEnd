@@ -6,7 +6,7 @@
              status-icon
              label-width="100px"
              label-position="left">
-      <h2>添加学生信息</h2>
+      <h2>添加教师信息</h2>
       <el-form-item label="登录名" prop="username">
         <el-input v-model="formData.username" id="username"/>
       </el-form-item>
@@ -18,10 +18,10 @@
         <el-radio v-model="formData.sex" label="1" border>女</el-radio>
       </el-form-item>
       <el-form-item label="出生日期" prop="birth">
-        <el-date-picker type="date"  :editable="false"  format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" v-model="formData.birth"></el-date-picker>
+        <el-date-picker type="date"  :editable="false" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" v-model="formData.birth"></el-date-picker>
       </el-form-item>
-      <el-form-item label="职务" prop="position">
-        <el-input v-model="formData.position" placeholder="请输入职务"/>
+      <el-form-item label="班号" prop="class_num">
+        <el-input v-model="formData.class_num" placeholder="请输入班号"/>
       </el-form-item>
       <el-form-item label="籍贯" prop="origin">
         <el-input v-model="formData.origin" placeholder="请输入籍贯"/>
@@ -44,12 +44,12 @@
 <script>
   import { URL_DATA } from '../../js/util-data'
   export default {
-    name: "adminSidebar2",
+    name: "adminSidebar4",
     data(){
       var validatePhone = (rule, value, callback) => {
         if (value==""){
-          callback(new Error("联系电话不能为空"))
-        }else{
+            callback(new Error("联系电话不能为空"))
+        }else {
           if (value.match('^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$')) {
             callback();
           }else{
@@ -58,21 +58,21 @@
         }
       }
       var testTeacherUsernameRepeat = (rule, value, callback) =>{
-          if(this.formData.username!=""){
-            var url=URL_DATA.TEST_TEACHER_USERNAME_REPEAT+"?username="+this.formData.username
-            this.$axios({
-              method:"get",
-              url:url
-            }).then(res=>{
-              if (res.data=="ALREADY EXIST"){
-                callback(new Error("登录名已存在"))
-              }else{
-                callback()
-              }
-            })
-          }else{
-            callback(new Error("请输入登录名"))
-          }
+        if(this.formData.username!=""){
+          var url=URL_DATA.TEST_STUDENT_USERNAME_REPEAT+"?username="+this.formData.username
+          this.$axios({
+            method:"get",
+            url:url
+          }).then(res=>{
+            if (res.data=="ALREADY EXIST"){
+              callback(new Error("登录名已存在"))
+            }else{
+              callback()
+            }
+          })
+        }else{
+          callback(new Error("请输入登录名"))
+        }
       }
       return {
         formData:{
@@ -84,7 +84,7 @@
           origin:"",
           email:"",
           phone:"",
-          position:""
+          class_num:""
         },
         rules:{
           username:[{required:true,validator: testTeacherUsernameRepeat,trigger: 'blur'}],
@@ -93,7 +93,7 @@
           identity:[{required:true,message:"请输入身份证号"}],
           birth:[{required:true,message:"请输入生日"}],
           origin:[{required:true,message:"请输入籍贯"}],
-          position:[{required:true,message:"请输入职位"}],
+          class_num:[{required:true,message:"请输入班号"}],
           phone:[ {required: true, validator: validatePhone}],
           email:[
             {required: true,message:"请输入邮箱"},
@@ -113,26 +113,27 @@
           if (valid){
             this.$axios({
               method:"post",
-              url:URL_DATA.ADD_TEACHER_INFORMATION,
+              url:URL_DATA.ADD_STUDENT_INFORMATION,
               data:this.formData
             }).then(res=>{
+              if (res.status==200){
+                this.$message({
+                  showClose: true,
+                  message: '添加成功',
+                  type: 'success'
+                });
+                this.formData={}
+              }else{
+                this.$message({
+                  showClose: true,
+                  message: '添加失败',
+                  type: 'error'
+                });
+              }
               setTimeout(()=>{
-                if (res.status==200){
-                  this.$message({
-                    showClose: true,
-                    message: '添加成功',
-                    type: 'success'
-                  });
-                  this.formData={}
-                }else{
-                  this.$message({
-                    showClose: true,
-                    message: '添加失败',
-                    type: 'error'
-                  });
-                }
                 loading.close()
-              },1000)
+              })
+
             })
           }else{
             loading.close()

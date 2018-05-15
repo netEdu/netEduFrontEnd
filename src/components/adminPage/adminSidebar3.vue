@@ -3,12 +3,12 @@
     <div class="div-margins">
       <el-row :gutter="24">
         <el-col :span="10"><div class="grid-content bg-purple">
-          <span>请输入教师姓名：</span>
+          <span>请输入学生姓名：</span>
           <el-input v-model="submitData.name" placeholder="请输入内容" class="input-widths"></el-input>
         </div></el-col>
         <el-col :span="10"><div class="grid-content bg-purple">
-          <span>请输入职务：</span>
-          <el-input v-model="submitData.position" placeholder="请输入内容" class="input-widths"></el-input>
+          <span>请输入班号：</span>
+          <el-input v-model="submitData.class_num" placeholder="请输入内容" class="input-widths"></el-input>
         </div></el-col>
         <el-col :span="4"><div class="grid-content bg-purple">
           <el-button type="primary" @click.prevent="onSubmit()">提交筛选</el-button>
@@ -22,13 +22,13 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="教师id:">
-                <span>{{ props.row.teacher_id }}</span>
+              <el-form-item label="学生id:">
+                <span>{{ props.row.student_id}}</span>
               </el-form-item>
-              <el-form-item label="教师登录名:">
+              <el-form-item label="学生登录名:">
                 <span>{{ props.row.username }}</span>
               </el-form-item>
-              <el-form-item label="教师姓名:">
+              <el-form-item label="学生姓名:">
                 <span>{{ props.row.name }}</span>
               </el-form-item>
               <el-form-item label="性别:">
@@ -49,22 +49,22 @@
               <el-form-item label="联系方式:">
                 <span>{{ props.row.phone }}</span>
               </el-form-item>
-              <el-form-item label="职位:">
-                <span>{{ props.row.position }}</span>
+              <el-form-item label="班号:">
+                <span>{{ props.row.class_num }}班</span>
               </el-form-item>
             </el-form>
           </template>
         </el-table-column>
         <el-table-column
-          label="教师id"
-          prop="teacher_id">
+          label="学生id"
+          prop="student_id">
         </el-table-column>
         <el-table-column
-          label="教师登录名"
+          label="学生登录名"
           prop="username">
         </el-table-column>
         <el-table-column
-          label="教师姓名"
+          label="学生姓名"
           prop="name">
         </el-table-column>
         <el-table-column
@@ -94,14 +94,14 @@
 <script>
   import { URL_DATA } from '../../js/util-data'
   export default {
-    name: "adminSidebar1",
+    name: "adminSidebar3",
     data(){
       return {
         total:0,
         formData:[],
         submitData:{
           name:"",
-          position:"",
+          class_num:"",
           page:1,
           pageSize:5
         }
@@ -109,7 +109,7 @@
     },
     created(){
       this.formData.studentId=sessionStorage.getItem("userId")
-      var url=URL_DATA.QUERY_TEACHER_INFORMATION
+      var url=URL_DATA.QUERY_STUDENT_INFORMATION
       this.$axios({
         method: 'post',
         url: url,
@@ -126,7 +126,7 @@
           if ("birth" in res.data.data.list[index]){
             var birth= res.data.data.list[index].birth
             //birth=birth.substring(0,9)
-           // res.data.data.list[index].birth=birth.split('-')[0]+"年"+birth.split('-')[1]+"月"+birth.split('-')[2]+"日"
+            // res.data.data.list[index].birth=birth.split('-')[0]+"年"+birth.split('-')[1]+"月"+birth.split('-')[2]+"日"
           }
         })
         this.formData=res.data.data.list
@@ -135,10 +135,10 @@
     methods: {
       handleSizeChange(val) {
         this.submitData.pageSize=val
-        var url=URL_DATA.QUERY_TEACHER_INFORMATION
+        var url=URL_DATA.QUERY_STUDENT_INFORMATION
         const loading = this.$loading({
           lock: true,
-          text: '拼命加载中',
+          text: '拼命添加中',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         })
@@ -168,10 +168,10 @@
       },
       handleCurrentChange(val) {
         this.submitData.page=val
-        var url=URL_DATA.QUERY_TEACHER_INFORMATION
+        var url=URL_DATA.QUERY_STUDENT_INFORMATION
         const loading = this.$loading({
           lock: true,
-          text: '拼命加载中',
+          text: '拼命添加中',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         })
@@ -202,10 +202,10 @@
       handleprevclick(val){
         this.submitData.page=val
         console.info(val)
-        var url=URL_DATA.QUERY_TEACHER_INFORMATION
+        var url=URL_DATA.QUERY_STUDENT_INFORMATION
         const loading = this.$loading({
           lock: true,
-          text: '拼命加载中',
+          text: '拼命添加中',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         })
@@ -235,10 +235,10 @@
       },
       handlenextclick(val){
         this.submitData.page=val
-        var url=URL_DATA.QUERY_TEACHER_INFORMATION
+        var url=URL_DATA.QUERY_STUDENT_INFORMATION
         const loading = this.$loading({
           lock: true,
-          text: '拼命加载中',
+          text: '拼命添加中',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         })
@@ -262,16 +262,15 @@
           })
           setTimeout(()=>{
             loading.close()
-          this.formData=res.data.data.list
+            this.formData=res.data.data.list
           },1000)
-
         })
       },
       onSubmit(){
-        var url=URL_DATA.QUERY_TEACHER_INFORMATION
+        var url=URL_DATA.QUERY_STUDENT_INFORMATION
         const loading = this.$loading({
           lock: true,
-          text: '拼命加载中',
+          text: '拼命添加中',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         })

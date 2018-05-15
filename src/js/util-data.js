@@ -40,7 +40,26 @@ export const URL_DATA = {
   QUERY_TEACHER_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/queryTeacherData',
   STUDENT_DOWNLOAD_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/downloadFile',
   DELETE_PERSON_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/deleteFiles',
-  UPLOAD_MANY_FILES:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/StudentData/uploadMany'
+  UPLOAD_MANY_FILES:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/StudentData/uploadMany',
+  //管理员端
+  QUERY_TEACHER_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/queryTeacher',
+  ADD_TEACHER_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/addTeacher',
+  TEST_TEACHER_USERNAME_REPEAT:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/checkTeacher',
+  QUERY_STUDENT_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/queryStudent',
+  ADD_STUDENT_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/addStudent',
+  TEST_STUDENT_USERNAME_REPEAT:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/checkStudent',
+  QUERY_COURSE_LIST:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Admin/courseList',
+  VERIFY_COURSE:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Admin/verify',
+  ADD_SURVEY_QUESTION: PROTOCOL_HTTP+IPADDR+WAR_NAME+'/SurveyQuestion/addSurveyQuestion',
+  QUERY_SURVEY_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/SurveyQuestion/selectBypage',
+  DELETE_SURVEY_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/SurveyQuestion/delSurveyQuestion',
+  QUERY_ONE_SURVEY_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/SurveyQuestion/selectByQuestionid',
+  UPDATE_SURVEY_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/SurveyQuestion/upSurveyQuestion',
+  ADD_TEACHER_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/addQuestionnaire',
+  QUERY_TEACHER_QUESTION_LIST:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/pageQuestionnaire',
+  DELETE_TEACHER_QUESTION_LIST:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/deleteQuestionnaire',
+  QUERY_ONE_QUESTIONNAIRE:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/selectByQuestionnaireId',
+  UPADTE_TEACHER_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/upQuestionnaire'
 }
 
 // 教师端侧边索引
@@ -175,15 +194,71 @@ export const AdminSideBarItem = [
   {
     icon: 'el-icon-menu',
     index: '0',
-    title: '个人信息管理',
+    title: '教师管理',
     subs: [
       {
         index: '/adminSidebar1',
-        title: '查看个人信息'
+        title: '查询教师信息'
       },
       {
         index: '/adminSidebar2',
-        title: '修改个人信息'
+        title: '添加教师'
+      }
+    ]
+  },
+  {
+    icon: 'el-icon-menu',
+    index: '1',
+    title: '学生管理',
+    subs: [
+      {
+        index: '/adminSidebar3',
+        title: '查询学生信息'
+      },
+      {
+        index: '/adminSidebar4',
+        title: '添加学生'
+      }
+    ]
+  },
+  {
+    icon: 'el-icon-menu',
+    index: '2',
+    title: '课程审核',
+    subs: [
+      {
+        index: '/adminSidebar5',
+        title: '查看申请列表'
+      }
+    ]
+  },
+  {
+    icon: 'el-icon-menu',
+    index: '3',
+    title: '问卷问题',
+    subs: [
+      {
+        index: '/adminSidebar6',
+        title: '查询教师问卷问题'
+      },
+      {
+        index: '/adminSidebar7',
+        title: '添加教师问卷问题'
+      }
+    ]
+  },
+  {
+    icon: 'el-icon-menu',
+    index: '4',
+    title: '教师评价问卷',
+    subs: [
+      {
+        index: '/adminSidebar8',
+        title: '查询教师问卷'
+      },
+      {
+        index: '/adminSidebar9',
+        title: '添加教师问卷'
       }
     ]
   }
