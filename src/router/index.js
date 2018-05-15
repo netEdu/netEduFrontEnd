@@ -77,7 +77,7 @@ export default new Router({
     },
     {
       path:'/student',
-      component:resole=>require(['../components/common/Home_student.vue'],resole),
+      component: resole => require(['../components/common/Home_student.vue'],resole),
       children:[
         {
           path:'/studentSidebar1',

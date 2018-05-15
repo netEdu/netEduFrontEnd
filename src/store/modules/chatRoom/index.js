@@ -3,9 +3,9 @@ import * as actions from './actions'
 import mutations from './mutations'
 
 export default {
+  // 启用命名空间
+  namespaced: true,
   state: {
-    // 启用命名空间
-    namespaced: true,
     messages: {
       /*
       id: {
@@ -21,15 +21,22 @@ export default {
     },
     threads: {
       /*
-      id: {
-        id,
-        name,
+      group_id: {
+        // 组id
+        group_id,
+        // 组名
+        group_name,
+        // 讨论组参与者
+        members: [...{personInfo}],
+        // 信息流
         messages: [...ids],
+        // 最新信息
         lastMessage
       }
       */
     },
-    currentThread: null
+    currentThread: null,
+    currentThreadID: null,
   },
   getters,
   actions,

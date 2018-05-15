@@ -11,12 +11,12 @@
 // 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-const IPADDR = 'localhost:8011'
+const IPADDR = '192.168.137.1:8011'
 let WAR_NAME = ''
 const PROTOCOL_HTTP = 'http://'
 const PROTOCOL_WEBSOCKET = 'ws://'
 // '0,' + 字符串
-export const SOCKET_IP = PROTOCOL_WEBSOCKET + 'localhost:7117' + WAR_NAME + '/websocket'
+export const SOCKET_IP = PROTOCOL_WEBSOCKET + '192.168.137.1:7117' + WAR_NAME + '/websocket'
 
 export const URL_DATA = {
   LOGIN: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/login',
@@ -60,6 +60,10 @@ export const URL_DATA = {
   DELETE_TEACHER_QUESTION_LIST:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/deleteQuestionnaire',
   QUERY_ONE_QUESTIONNAIRE:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/selectByQuestionnaireId',
   UPADTE_TEACHER_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/upQuestionnaire'
+  UPLOAD_MANY_FILES:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/StudentData/uploadMany',
+  // 聊天室
+  INIT_THREADS: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/getGroupById',
+  THREAD_PERSON: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/selectPersonWithId'
 }
 
 // 教师端侧边索引

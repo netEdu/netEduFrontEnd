@@ -118,6 +118,9 @@
           <el-table-column type="expand" width="30">
             <template slot-scope="props">
               <el-form label-position="left" inline class="paper-table-expand">
+                <el-form-item label="题目:" style="width: 100%">
+                  <span>{{ props.row.question_content }}</span>
+                </el-form-item>
                 <el-form-item label="A:" v-if="props.row.question_type == 1">
                   <span>{{ props.row.questionOptionList[0].option_content }}</span>
                 </el-form-item>
@@ -146,6 +149,7 @@
             width="100" 
             prop="question_type"
             :filter-multiple="false"
+            :filter-method="filterType" 
             :filters="[
               { text: '判断', value: '0' }, 
               { text: '选择', value: '1' }]">
@@ -347,12 +351,16 @@
           loading: loadingLeft
         })
       }
-    },
+    }
   }
 </script>
 
 <style scoped>
   .el-card {
+    perspective: 600;
+    perspective-origin: 50% 50%;
+    -webkit-perspective: 600;
+    -webkit-perspective-origin: 50% 50%;
     padding-bottom: 20px;
   }
   /* 试卷和题目显示区域 */

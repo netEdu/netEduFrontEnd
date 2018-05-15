@@ -92,7 +92,7 @@ export default {
         if (valid) {
           this.$axios({
             method: 'post',
-            url: this.objData === {} ? URL_DATA.APPLY_COURSE : URL_DATA.UPDATE_COURSE,
+            url: JSON.stringify(this.objData) === '{}' ? URL_DATA.APPLY_COURSE : URL_DATA.UPDATE_COURSE,
             data: this.formData
           }).then(res => {
             if (res.data === 'FAIL') {
