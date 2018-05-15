@@ -2,19 +2,30 @@
   <div class="message-section">
     {{ currentMessage }}
     <h3 class="message-thread-heading">{{ thread.group_name }}</h3>
-    <ul class="message-list" ref="list">
-      <message
-        v-for="message in sortedMessages"
-        :key="message.id"
-        :message="message">
-      </message>
-    </ul>
-    <textarea class="message-composer"
-              @keyup.enter="sendMessage"
-              placeholder="请输入你的消息"></textarea>
-	<input type="text"
+    <el-card class="message-list-container">
+      <ul class="message-list" ref="list">
+        <message
+          v-for="message in sortedMessages"
+          :key="message.id"
+          :message="message">
+        </message>
+      </ul>
+      <textarea class="message-composer"
+                type="textarea"
+                rows="4"
+                @keyup.enter="sendMessage"
+                placeholder="请输入你的消息"></textarea>
+    </el-card>
+    <!-- <el-input
+      type="textarea"
+      :rows="2"
+      placeholder="请输入您的消息"
+      class="message-composer"
+      @keyup.enter="sendMessage">
+    </el-input> -->
+	  <!-- <el-input
 	       v-model="author"
-	       placeholder="please input author here">
+	       placeholder="你的userName"></el-input> -->
   </div>
 </template>
 

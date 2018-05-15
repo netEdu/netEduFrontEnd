@@ -1,7 +1,7 @@
 <template>
 	<div class="login-wrap">
 		<div class="ms-title"><strong>网络教学管理系统</strong></div>
-    <div class="ms-banner ms-blocker" @mousemove="updateXY" @mouseout="clearXY"></div>
+    <div class="ms-banner ms-blocker" @mouseover="setTransition" @mousemove="updateXY" @mouseout="clearXY"></div>
     <div ref="msBannerNav" class="ms-banner-nav ms-shadow"></div>
     <div ref="msBannerAside" class="ms-banner-aside ms-shadow"></div>
     <div ref="msBannerBlock" class="ms-banner-block ms-shadow"></div>
@@ -52,8 +52,15 @@ export default {
   methods: {
     // 刷新鼠标坐标，更改图层旋转角度
     updateXY(event) {
-      this.x = event.offsetX;
-      this.y = event.offsetY;
+      this.x = event.offsetX
+      this.y = event.offsetY
+      this.$refs.canvas.style.transition = ''
+      this.$refs.msBanner.style.transition = ''
+      this.$refs.msBannerAside.style.transition = ''
+      this.$refs.msBannerNav.style.transition = ''
+      this.$refs.msBannerBlock.style.transition = ''
+      this.$refs.msBannerWindow1.style.transition = ''
+      this.$refs.msBannerWindow2.style.transition = ''
       this.$refs.msBanner.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)'
       this.$refs.canvas.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)' 
         + ' matrix(1, 0, 0, 1, '+ Math.round((-event.offsetX + 450) / 90) +', ' + Math.round(-(event.offsetY - 250) / 50) + ')'
@@ -68,6 +75,15 @@ export default {
       this.$refs.msBannerWindow2.style.transform = 'rotateY(' + (-event.offsetX + 450) / 140 + 'deg) rotateX(' + (event.offsetY - 250) / 140 + 'deg)' 
         + ' matrix(1, 0, 0, 1, '+ Math.round((-event.offsetX + 450) / 45) +', ' + Math.round(-(event.offsetY - 250) / 25) + ')'
     },
+    setTransition() {
+      this.$refs.canvas.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBanner.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBannerAside.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBannerNav.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBannerBlock.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBannerWindow1.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBannerWindow2.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+    },
     // 鼠标离开时清空角度
     clearXY(event) {
       this.$refs.canvas.style.transform = 'rotateY(0deg) rotateX(0deg)'
@@ -77,6 +93,13 @@ export default {
       this.$refs.msBannerBlock.style.transform = 'rotateY(0deg) rotateX(0deg)'
       this.$refs.msBannerWindow1.style.transform = 'rotateY(0deg) rotateX(0deg)'
       this.$refs.msBannerWindow2.style.transform = 'rotateY(0deg) rotateX(0deg)'
+      this.$refs.canvas.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBanner.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBannerAside.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBannerNav.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBannerBlock.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBannerWindow1.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
+      this.$refs.msBannerWindow2.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
     },
     login(username, password) {
       const loading = this.$loading({
@@ -163,7 +186,6 @@ export default {
   -moz-box-shadow: 0px 0px 20px #969696;
   -webkit-box-shadow: 0px 0px 20px #969696;
   box-shadow: 0px 0px 20px #969696;
-  transition: 300ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
 }
 .login-wrap>.ms-blocker {
   z-index: 95;
@@ -230,7 +252,6 @@ export default {
   left: 50%;
   top: 50%;
   margin: -240px 0 0 280px;
-  transition: 300ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
 }
 .ms-banner-window-2 {
   transform: translateZ(800);
@@ -244,7 +265,6 @@ export default {
   left: 50%;
   top: 50%;
   margin: -50px 0 0 380px;
-  transition: 300ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
 }
 .ms-title {
   z-index: 95;

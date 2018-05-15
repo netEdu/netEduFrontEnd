@@ -5,15 +5,17 @@
         Unread threads: {{ unreadCount }}
       </span>
     </div>
-    <ul class="thread-list">
-      <thread
-        v-for="thread in threads"
-        :key="thread.group_id"
-        :thread="thread"
-        :active="thread.group_id === currentThread.group_id"
-        @switch-thread="switchThread">
-      </thread>
-    </ul>
+    <el-card class="thread-list">
+      <ul>
+        <thread
+          v-for="thread in threads"
+          :key="thread.group_id"
+          :thread="thread"
+          :active="thread.group_id === currentThread.group_id"
+          @switch-thread="switchThread">
+        </thread>
+      </ul>
+    </el-card>
   </div>
 </template>
 
