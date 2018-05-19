@@ -3,7 +3,7 @@
     <v-head> </v-head>
     <v-sidebar> </v-sidebar>
     <div class="content">
-      <transition enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
+      <transition enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight"  mode="out-in">
         <router-view> </router-view>
       </transition>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="formData" style="width: 100%">
+  <el-table :data="formData" class="table-widths">
     <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
@@ -89,5 +89,7 @@
     margin-bottom: 0;
     width: 50%;
   }
-
+  .table-widths{
+    width: 100%
+  }
 </style>

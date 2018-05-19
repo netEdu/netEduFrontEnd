@@ -1,6 +1,7 @@
 <template>
   <div class="student-information">
     <div class="el-card box-card">
+      <div class="card-style">
       <h2>查看学生个人资料</h2>
       <el-row :gutter="20">
         <el-col :span="12"><div class="grid-content">
@@ -51,6 +52,7 @@
 
           </div></el-col>
       </el-row>
+      </div>
     </div>
   </div>
 </template>
@@ -74,7 +76,7 @@
         method: 'get',
         url: url,
         data: this.formData
-      }).then(res => {;
+      }).then(res => {
         if (res.data.sex==0){
             res.data.sex="男";
         }else if (res.data.sex==1){
@@ -82,15 +84,13 @@
         }
         if ("birth" in res.data){
           var birth= res.data.birth
-          res.data.birth=birth.split('-')[0]+"年"+birth.split('-')[1]+"月"+birth.split('-')[2]+"日"
+          //birth=birth.substring(0,9)
+         // res.data.birth=birth.split('-')[0]+"年"+birth.split('-')[1]+"月"+birth.split('-')[2]+"日"
         }
         this.formData.studentInformation=res.data
-        console.info(this.formData.studentInformation)
       })
     },
-    methods:{
 
-    }
   }
 
 </script>
@@ -140,5 +140,7 @@
     font-size:20px;
     line-height: 36px;
   }
-
+  .card-style{
+    padding: 20px
+  }
 </style>

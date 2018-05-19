@@ -1,5 +1,4 @@
 <template>
-
   <el-card class="box-card" shadow="always">
     <el-form :model="formData"
              :rules="rules"
