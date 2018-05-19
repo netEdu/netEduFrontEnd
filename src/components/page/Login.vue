@@ -2,12 +2,12 @@
 	<div class="login-wrap">
 		<div class="ms-title"><strong>网络教学管理系统</strong></div>
     <div class="ms-banner ms-blocker" @mouseover="setTransition" @mousemove="updateXY" @mouseout="clearXY"></div>
-    <div ref="msBannerNav" class="ms-banner-nav ms-shadow"></div>
-    <div ref="msBannerAside" class="ms-banner-aside ms-shadow"></div>
-    <div ref="msBannerBlock" class="ms-banner-block ms-shadow"></div>
+    <img ref="msBannerNav" class="ms-banner-nav ms-shadow" src="../../../static/img/header.png"/>
+    <img ref="msBannerAside" class="ms-banner-aside ms-shadow" src="../../../static/img/aside.png"/>
+    <img ref="msBannerBlock" class="ms-banner-block ms-shadow" src="../../../static/img/block.png"/>
     <img ref="msBannerWindow1" class="ms-banner-window-1" src="../../../static/img/window1.png"/>
     <img ref="msBannerWindow2" class="ms-banner-window-2" src="../../../static/img/window2.png"/>
-    <div ref="msBanner" class="ms-banner ms-shadow"></div>
+    <img ref="msBanner" class="ms-banner ms-shadow"/>
 		<div ref="canvas" class="ms-login ms-shadow">
 			<el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="0px" class="demo-ruleForm">
 				<el-form-item prop="username">
@@ -181,6 +181,7 @@ export default {
   perspective-origin: 50% 50%;
   -webkit-perspective: 550;
   -webkit-perspective-origin: 50% 50%;
+  transform: scale3d(1, 1, 1);
 }
 .ms-shadow {
   -moz-box-shadow: 0px 0px 20px #969696;
@@ -205,7 +206,6 @@ export default {
 }
 .ms-banner-nav {
   z-index: 91;
-  background-image: url('../../../static/img/header.png');
   box-sizing: border-box;
   border-radius: 10px;
   width: 870px;
@@ -219,7 +219,6 @@ export default {
   z-index: 91;
   width: 140px;
   height: 460px;
-  background-image: url('../../../static/img/aside.png');
   box-sizing: border-box;
   border-radius: 10px;
   position: absolute;
@@ -228,11 +227,9 @@ export default {
   margin: -214px 0 0 -445px;
 }
 .ms-banner-block {
-  transform: translateZ(800);
   z-index: 92;
   width: 140px;
   height: 60px;
-  background: url('../../../static/img/block.png');
   box-sizing: border-box;
   border-radius: 10px;
   position: absolute;
@@ -241,7 +238,6 @@ export default {
   margin: 70px 0 0 -464px;
 }
 .ms-banner-window-1 {
-  transform: translateZ(800);
   z-index: 91;
   border: 0;
   width: 238px;
@@ -254,7 +250,6 @@ export default {
   margin: -240px 0 0 280px;
 }
 .ms-banner-window-2 {
-  transform: translateZ(800);
   z-index: 91;
   padding: 0;
   border: 0;

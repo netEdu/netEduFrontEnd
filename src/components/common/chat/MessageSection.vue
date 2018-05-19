@@ -1,7 +1,7 @@
 <template>
   <div class="message-section">
     {{ currentMessage }}
-    <h3 class="message-thread-heading">{{ thread.group_name }}</h3>
+    <h3 class="message-thread-heading">当前讨论组：{{ thread.group_name }}</h3>
     <el-card class="message-list-container">
       <ul class="message-list" ref="list">
         <message

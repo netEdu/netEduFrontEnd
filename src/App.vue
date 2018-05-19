@@ -6,6 +6,9 @@
 <style>
   @import "../static/css/main.css";
   @import "../static/css/color-dark.css";     /*深色主题*/
+  #app {
+    -webkit-font-smoothing: antialiased;
+  }
   .warning-card {
     background: oldlace;
   }

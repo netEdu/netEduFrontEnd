@@ -62,20 +62,6 @@ export default new Router({
       ]
     },
     {
-      path: '/teacher',
-      component: resolve => require(['../components/common/Home.vue'], resolve),
-      children:[
-        {
-          path: '/Sidebar9',
-          component: resolve => require(['../components/page/Sidebar9.vue'], resolve)
-        },
-        {
-          path: '/Sidebar10',
-          component: resolve => require(['../components/page/Sidebar10.vue'], resolve)
-        }
-      ]
-    },
-    {
       path:'/student',
       component: resole => require(['../components/common/Home_student.vue'],resole),
       children:[

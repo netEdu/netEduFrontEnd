@@ -2,7 +2,10 @@
   <div class="thread-section">
     <div class="thread-count">
       <span v-show="unreadCount">
-        Unread threads: {{ unreadCount }}
+        未读: {{ unreadCount }}
+      </span>
+      <span v-show="!unreadCount">
+        <h3>讨论组</h3>
       </span>
     </div>
     <el-card class="thread-list">
