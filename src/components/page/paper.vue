@@ -357,10 +357,6 @@
 
 <style scoped>
   .el-card {
-    perspective: 600;
-    perspective-origin: 50% 50%;
-    -webkit-perspective: 600;
-    -webkit-perspective-origin: 50% 50%;
     padding-bottom: 20px;
   }
   /* 试卷和题目显示区域 */

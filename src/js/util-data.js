@@ -11,12 +11,12 @@
 // 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-const IPADDR = 'localhost:8011'
+const IPADDR = '192.168.137.1:8011'
 let WAR_NAME = ''
 const PROTOCOL_HTTP = 'http://'
 const PROTOCOL_WEBSOCKET = 'ws://'
 // '0,' + 字符串
-export const SOCKET_IP = PROTOCOL_WEBSOCKET + 'localhost:7117' + WAR_NAME + '/websocket'
+export const SOCKET_IP = PROTOCOL_WEBSOCKET + '192.168.137.1:7117' + WAR_NAME + '/websocket'
 
 export const URL_DATA = {
   LOGIN: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/login',
@@ -40,8 +40,8 @@ export const URL_DATA = {
   QUERY_TEACHER_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/queryTeacherData',
   STUDENT_DOWNLOAD_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/downloadFile',
   DELETE_PERSON_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/deleteFiles',
-  UPLOAD_MANY_FILES:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/StudentData/uploadMany',
-  //管理员端
+
+  // 管理员端
   QUERY_TEACHER_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/queryTeacher',
   ADD_TEACHER_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/addTeacher',
   TEST_TEACHER_USERNAME_REPEAT:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/checkTeacher',

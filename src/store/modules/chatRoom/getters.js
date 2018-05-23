@@ -16,3 +16,4 @@ export const currentMessages = state => {
     ? thread.messages.map(id => state.messages[id])
     : []
 }
+
