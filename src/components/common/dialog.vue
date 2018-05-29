@@ -8,7 +8,6 @@
 <script>
   import courseForm from '../teacherComponent/courseForm'
   import questionForm from '../teacherComponent/questionForm'
-  import printPaper from '../teacherComponent/printPaper'
   export default {
     name: 'formDialog',
     props: {
@@ -53,8 +52,7 @@
     // 组件都在这里注册
     components: {
       courseForm,
-      questionForm,
-      printPaper
+      questionForm
     }
   }
 </script>
