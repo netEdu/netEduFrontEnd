@@ -113,6 +113,16 @@ export default new Router({
       component:resole=>require(['../components/common/Home_student.vue'],resole),
       children:[
         {
+          path: '/ChatStudentRoom',
+          component: resolve => require(['../components/common/chat/chatRoom.vue'], resolve)
+        }
+      ]
+    },
+    {
+      path:'/student',
+      component:resole=>require(['../components/common/Home_student.vue'],resole),
+      children:[
+        {
           path:'/studentSidebar3',
           component:resole=>require(['../components/studentPage/studentSidebar3.vue'],resole)
         }

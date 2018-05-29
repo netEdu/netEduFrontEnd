@@ -6,7 +6,7 @@
              status-icon
              label-width="100px"
              label-position="left">
-      <h2>添加教师信息</h2>
+      <h2>添加学生信息</h2>
       <el-form-item label="登录名" prop="username">
         <el-input v-model="formData.username" id="username"/>
       </el-form-item>

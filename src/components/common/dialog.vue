@@ -1,13 +1,14 @@
 <template>
   <el-dialog :title="title" :visible.sync="_this_dialogFormVisible">
-    <component :is="currentView" 
-               :obj-data="objData" 
+    <component :is="currentView"
+               :obj-data="objData"
                :dialog-form-visible.sync="_this_dialogFormVisible"></component>
   </el-dialog>
 </template>
 <script>
   import courseForm from '../teacherComponent/courseForm'
   import questionForm from '../teacherComponent/questionForm'
+  import printPaper from '../teacherComponent/printPaper'
   export default {
     name: 'formDialog',
     props: {
@@ -28,7 +29,8 @@
           return {
             // 自己要使用的参数在这里要返回空数据类型，避免undefined错误
             course_id: 0,
-            question_id: 0
+            question_id: 0,
+            paper_id:0
           }
         }
       },
@@ -51,7 +53,8 @@
     // 组件都在这里注册
     components: {
       courseForm,
-      questionForm
+      questionForm,
+      printPaper
     }
   }
 </script>

@@ -119,6 +119,11 @@ export const TeacherSideBarItem = [
 // 学生端侧边索引
 export const StudentSideBarItem = [
   {
+    icon: 'el-icon-news',
+    index: '/ChatStudentRoom',
+    title: '聊天室'
+  },
+  {
     icon: 'el-icon-menu',
     index: '0',
     title: '个人信息管理',
