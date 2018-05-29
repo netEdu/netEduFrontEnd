@@ -2,6 +2,7 @@ import Vue from 'vue'
 import * as types from './mutation-types'
 
 export default {
+  /*************************************** 课程 ***************************************/
   // 向state中添加课程
   [types.RECEIVE_ALL_COURSES] (state, { courses }) {
     // 清空原有的课程
@@ -18,6 +19,7 @@ export default {
     Vue.delete(state.courses, courseId)
   },
 
+  /*************************************** 试卷 ***************************************/
   // 获取所有的试卷
   [types.RECEIVE_ALL_PAPER] (state, { papers }) {
     state.papers = {}
@@ -69,5 +71,14 @@ export default {
     Vue.delete(state.unExistQuestions, currentQuestion.question_id)
     // 增加state中的 已添加 问题
     Vue.set(state.existQuestions, currentQuestion.question_id, currentQuestion)
+  },
+
+  /*************************************** 考题 ***************************************/
+  // 获取所有的考题
+  [types.RECEIVE_QUESTION] (state, { questions }) {
+    Vue.set(state, 'questions', {})
+    questions.forEach( question => {
+      Vue.set(state.questions, question.question_id, question)
+    })
   }
 }

@@ -4,6 +4,7 @@ import * as types from './mutation-types'
 export default {
   // 初始化组
   [types.INIT_THREADS] (state, { threads }) {
+    Vue.set(state, 'threads', {})
     threads.forEach(thread => {
       createThread (state, thread)
     })
@@ -25,6 +26,11 @@ export default {
     } else {
       setCurrentThread(state, id)
     }
+  },
+  // 创建讨论组
+  [types.CREATE_THREAD](state, { thread }) {
+    // TODO: 创建讨论组mutations
+    createThread(state, thread)
   }
 }
 

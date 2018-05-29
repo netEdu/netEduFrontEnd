@@ -62,6 +62,7 @@ export default {
   methods: {
     // 刷新鼠标坐标，更改图层旋转角度
     updateXY(event) {
+      // 移除transition，计算角度，计算位移
       this.$refs.jumbotron.style.transition = ''
       this.$refs.windows.style.transition = ''
       this.$refs.jumbotron.style.transform = 'rotateY(' + (-event.offsetX + 450) / 480 + 'deg) rotateX(' + (event.offsetY - 250) / 480 + 'deg)'
@@ -69,6 +70,7 @@ export default {
     },
     // 鼠标离开时清空角度
     clearXY(event) {
+      // 角度还原，位移还原，添加transition
       this.$refs.jumbotron.style.transform = 'rotateY(0deg) rotateX(0deg)'
       this.$refs.windows.style.transform = 'matrix(1, 0, 0, 1, 0, 0)'
       this.$refs.jumbotron.style.transition = '300ms cubic-bezier(0.03, 0.98, 0.52, 0.99)'
@@ -114,7 +116,7 @@ export default {
                 person_id: res.data.split(':')[1]
               })
               sessionStorage.setItem('userId', res.data.split(':')[1])
-              this.$router.push({ path: '/Course' })
+              this.$router.push({ path: '/ChatRoom' })
               // 学生
             }else if(identified=='Student'){
               const ws = webSocket(SOCKET_IP)
@@ -161,6 +163,8 @@ export default {
   -webkit-box-shadow: 0px 0px 20px #969696;
   box-shadow: 0px 0px 20px #969696;
 }
+
+/* 需要进行图像旋转的元素的父节点 */
 .ms-title {
   position: relative;
   box-sizing: border-box;
@@ -209,6 +213,7 @@ export default {
   border-radius: 10px;
 }
 
+/* img结点 */
 .ms-banner-nav {
   box-sizing: border-box;
   border-radius: 10px;
@@ -217,10 +222,10 @@ export default {
   position: absolute;
 }
 .ms-banner-aside {
-  top: 80px;
-  left: 15px;
   box-sizing: border-box;
   border-radius: 10px;
+  top: 80px;
+  left: 15px;
   position: absolute;
 }
 .ms-banner-block {
@@ -241,6 +246,8 @@ export default {
   box-sizing: border-box;
   position: absolute;
 }
+
+/* 登录框 */
 .ms-login {
   position: absolute;
   left: 260px;
@@ -253,11 +260,9 @@ export default {
   border: 1px #cccccc solid;
   background: #ffffff;
 }
-
 .login-btn {
   text-align: center;
 }
-
 .login-btn button {
   width: 100%;
   height: 36px;

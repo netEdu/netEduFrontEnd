@@ -9,6 +9,7 @@ export default new Router({
       path: '/',
       redirect: '/login'
     },
+    
     {
       path: '/teacher',
       component: resolve => require(['../components/common/Home.vue'], resolve),
@@ -44,6 +45,10 @@ export default new Router({
         {
           path: '/question',
           component: resolve => require(['../components/page/question.vue'], resolve)
+        },
+        {
+          path: '/createQuestion',
+          component: resolve => require(['../components/page/createQuestion.vue'], resolve)
         }
       ]
     },

@@ -57,8 +57,8 @@ export default {
   watch: {
     objData: {
       handler(val) {
-        if(JSON.stringify(this.objData) !== '{}'){
-          this.formData = Object.assign({}, this.$store.getters['teacher/currentCourse'](this.objData.course_id))
+        if(JSON.stringify(val) !== '{}'){
+          this.formData = Object.assign({}, this.$store.getters['teacher/currentCourse'](val.course_id))
         }
       },
       deep: true

@@ -17,3 +17,8 @@ export const currentMessages = state => {
     : []
 }
 
+export const currentMembers = state => {
+  return state.currentThreadID
+    ? state.threads[state.currentThreadID].members
+    : []
+}

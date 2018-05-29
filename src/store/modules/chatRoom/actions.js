@@ -35,3 +35,11 @@ export const switchThread = ({ commit }, payload) => {
     commit(types.SWITCH_THREAD, { id: payload.id, members: [] })
   }
 }
+
+// 新建讨论组
+export const createGroup = ({ commit }, payload) => {
+  api.createGroup(payload, groupId => {
+    // TODO: 新增讨论组action
+    // commit(types.CREATE_GROUP, { groupId, ...payload })
+  })
+}

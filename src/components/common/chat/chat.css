@@ -17,7 +17,7 @@
   overflow: hidden;
 }
 
-.message-list, .thread-list {
+.message-list, .thread-list, .member-list {
   border-radius: 4px;
   font-size: 16px;
   margin: 0;
@@ -29,14 +29,28 @@
   height: 508px;
 }
 
-.thread-list {
+.thread-list, .member-list {
   height: 635px;
   margin-bottom: 10px;
 }
 
+.thread-list {
+  margin-right: 10px;
+}
+
 .message-section {
   float: right;
-  width: 75%;
+  width: 55%;
+}
+
+.member-section {
+  float: left;
+  width: 20%;
+}
+
+.message-section textarea {
+  border-radius: 4px;
+  padding: 5px;
 }
 
 .thread-section {
@@ -54,23 +68,30 @@
   margin: 0;
 }
 
-.message-list-item, .thread-list-item {
+.message-list-item, .thread-list-item, .member-list-item {
   list-style: none;
   padding: 12px 14px 14px;
 }
 
-.thread-list-item {
+.thread-list-item, .member-list-item {
   border-bottom: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.thread-list:hover .thread-list-item:hover {
+.member-list-item {
+  margin-bottom: 5px;
+  border-bottom: 0;
+  /* padding-bottom: 5px; */
+}
+
+.thread-list:hover
+.thread-list-item:hover {
   background-color: #dff3ff;
 }
 
-.thread-list:hover .thread-list-item {
-  background-color: #fff;
+.member-list:hover .member-list-item:hover {
+  background-color: #dff3ff;
 }
 
 .thread-list-item.active,
@@ -86,6 +107,10 @@
   float: left;
   font-size: 13px;
   margin: 0;
+}
+
+.member-name {
+  color: #66c;
 }
 
 .message-time, .thread-time {

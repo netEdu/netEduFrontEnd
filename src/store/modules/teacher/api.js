@@ -114,3 +114,25 @@ export function modifyCurrentPaper(payload, cb) {
     })
   }, LATENCY)
 }
+
+// 根据分页条件获取试卷题目
+export function receiveQuestions(payload, cp) {
+  setTimeout( () => {
+    axios({
+      method: 'post',
+      url: URL_DATA.RECEIVE_QUESTION,
+      data: {
+        ...payload.selectForm,
+        ...payload.pagement
+      }
+    }).then( res => {
+      cp(res.data.data.list)
+      payload.loading.close()
+    }).catch( err => {
+      console.log(err)
+      Message.error('网络错误')
+      payload.loadingMiddle.close()
+      payload.loadingRight.close()
+    })
+  }, LATENCY)
+}
