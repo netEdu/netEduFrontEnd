@@ -4,8 +4,6 @@
     <span>创建者:{{val.creator}}</span><br/>
     <span>试卷名称:{{val.questionnaire_name}}</span><br/>
     <span>试卷描述:{{val.remarks}}</span><br/>
-    <span>教师id:{{val.teacher_id}}</span><br/>
-    <span>教师姓名:{{val.name}}</span><br/>
     <el-button class="button-style" @click="editQuestionnaire(val.questionnaire_id)">编辑</el-button> <el-button class="button-style" type="danger" @click="deleteQuestionnaire(index,val.questionnaire_id)">删除</el-button>
   </el-card>
   <el-dialog title="修改教师评价试卷信息" :visible.sync="dialogFormVisible">
@@ -16,15 +14,8 @@
           :model="submitData">
           <el-row :gutter="24">
             <el-col :span="7"><div class="grid-content bg-purple">
-              <el-form-item prop="teacher_id" label="请选择教师：">
-                <el-select v-model="value" placeholder="请选择">
-                  <el-option
-                    v-for="item in teacherList"
-                    :key="item.teacher_id"
-                    :label="item.username"
-                    :value="item.teacher_id">
-                  </el-option>
-                </el-select>
+              <el-form-item prop="questionnaire_name" label="请输入试卷名称：" :rules="{required: true, message: '试卷名称不能为空'}">
+                <el-input v-model="submitData.questionnaire_name"  placeholder="请输入内容" class="input-widths"></el-input>
               </el-form-item>
             </div></el-col>
             <el-col :span="7"><div class="grid-content bg-purple">
@@ -117,7 +108,7 @@ export default {
         creator:"",
         remarks:"",
         survey_questions:"",
-        teacher_id:"",
+        questionnaire_name:"",
         create_time:new Date()
       },
       existQuestions:[],
@@ -153,9 +144,9 @@ export default {
         this.$axios.post(queryOneQuestionnaire)
       ]).then(this.$axios.spread((questionList, questionnaire)=> {
           // 上面两个请求都完成后，才执行这个回调方法
+        questionnaire.data.data.surveyQuestionList.forEach((questionnaireVal,questionnaireIndex)=>{
            questionList.data.data.Page.list.forEach((val,index)=>{
-             questionnaire.data.data.surveyQuestionList.forEach((questionnaireVal,questionnaireIndex)=>{
-             if (questionnaireVal.question_id==val.question_id){
+             if (questionnaireVal.question_id == val.question_id){
                questionList.data.data.Page.list.splice(index,1)
              }
            })
@@ -165,6 +156,7 @@ export default {
         this.value=questionnaire.data.data.teacher_id
         this.submitData.remarks=questionnaire.data.data.remarks
         this.submitData.creator=questionnaire.data.data.creator
+        this.submitData.questionnaire_name=questionnaire.data.data.questionnaire_name
         this.checkboxGroupInformation=questionList.data.data.Page.list
         this.existQuestions=questionnaire.data.data.surveyQuestionList
         }));
@@ -181,6 +173,13 @@ export default {
               type: 'error'
             });
             return;
+          }else if (this.existQuestions.length!=10){
+            this.$message({
+              showClose: true,
+              message: '题目满分为100分，请选择正确的题目数量',
+              type: 'error'
+            });
+            return;
           }
           this.existQuestions.forEach((val,index)=>{
             if (this.submitData.survey_questions==""){
@@ -192,7 +191,7 @@ export default {
           this.submitData.teacher_id=this.value
           const loading = this.$loading({
             lock: true,
-            text: '拼命修改、中',
+            text: '拼命修改中',
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.7)'
           })
