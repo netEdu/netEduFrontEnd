@@ -223,10 +223,10 @@
             case 2:
               return 'B'
               break
-            case 2:
+            case 3:
               return 'C'
               break
-            case 2:
+            case 4:
               return 'D'
               break
             default:

@@ -46,3 +46,10 @@ export const addQuestion = ({ commit }, payload) => {
     commit(types.ADD_QUESTION, { currentQuestion, idAfterModify, currentPaperId })
   })
 }
+
+// 根据分页条件所有的考题
+export const receiveQuestions = ({ commit }, payload) => {
+  api.receiveQuestions(payload, questions => {
+    commit(types.RECEIVE_QUESTION, { questions })
+  })
+}

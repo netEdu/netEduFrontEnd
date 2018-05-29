@@ -1,11 +1,9 @@
 <template>
   <div class="thread-section">
     <div class="thread-count">
-      <span v-show="unreadCount">
-        未读: {{ unreadCount }}
-      </span>
-      <span v-show="!unreadCount">
-        <h3>讨论组</h3>
+      <span>
+        <h3 style="display: inline-block">讨论组</h3>
+        <el-tag v-show="unreadCount">未读: {{ unreadCount }}</el-tag>
       </span>
     </div>
     <el-card class="thread-list">
@@ -30,9 +28,9 @@ export default {
   name: 'ThreadSection',
   components: { Thread },
   computed: {
-    ...mapGetters({
-      threads: 'chat/threads',
-      currentThread: 'chat/currentThread'
+    ...mapGetters('chat', {
+      threads: 'threads',
+      currentThread: 'currentThread'
     }),
     unreadCount () {
       const threads = this.threads

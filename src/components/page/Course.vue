@@ -6,7 +6,6 @@
 
 <script>
 import courseForm from '../teacherComponent/courseForm'
-
 export default {
   name: 'sidebar1',
   components: {

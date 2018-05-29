@@ -7,16 +7,18 @@
 // 4 学生互评
 // 5 警告
 // 6 班群信息
+// 7 举手提问   7,classId,msg
+// 8 添加老师   8,teacherID,classID
 
 // 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-const IPADDR = '192.168.137.1:8011'
+const IPADDR = 'localhost:8011'
 let WAR_NAME = ''
 const PROTOCOL_HTTP = 'http://'
 const PROTOCOL_WEBSOCKET = 'ws://'
 // '0,' + 字符串
-export const SOCKET_IP = PROTOCOL_WEBSOCKET + '192.168.137.1:7117' + WAR_NAME + '/websocket'
+export const SOCKET_IP = PROTOCOL_WEBSOCKET + 'localhost:7117' + WAR_NAME + '/websocket'
 
 export const URL_DATA = {
   LOGIN: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/login',
@@ -32,6 +34,10 @@ export const URL_DATA = {
   PAPER_SHOW: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/showPaper',
   QUESTION_NOT_EXIST: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/selectNotExistQuestion',
   PAPER_MODIFY: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Paper/updatePaper',
+  RECEIVE_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/queryAllQuestion',
+  MODIFY_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/updateQuestion',
+  ADD_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/addQuestion',
+  
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
   UPDATE_STUDENT_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/updateStudentInfo',
@@ -63,13 +69,14 @@ export const URL_DATA = {
   UPLOAD_MANY_FILES:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/StudentData/uploadMany',
   // 聊天室
   INIT_THREADS: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/getGroupById',
-  THREAD_PERSON: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/selectPersonWithId'
+  THREAD_PERSON: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/selectPersonWithId',
+  ADD_GROUP: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/addGroup'
 }
 
 // 教师端侧边索引
 export const TeacherSideBarItem = [
   {
-    icon: 'el-icon-menu',
+    icon: 'el-icon-news',
     index: '/ChatRoom',
     title: '聊天室'
   },
@@ -89,7 +96,7 @@ export const TeacherSideBarItem = [
     ]
   },
   {
-    icon: 'el-icon-menu',
+    icon: 'el-icon-document',
     index: '2',
     title: '试卷管理',
     subs: [
@@ -99,8 +106,12 @@ export const TeacherSideBarItem = [
       },
       {
         index: '/question',
-        title: '添加/编辑考题'
+        title: '查看/编辑考题'
       },
+      {
+        index: '/createQuestion',
+        title: '添加考题'
+      }
     ]
   }
 ]
@@ -250,7 +261,7 @@ export const courseRules = {
     { required: true, message: '请输入课程名称' }
   ],
   credit: [
-    { required: true, message: '请输入课程名称' }
+    { required: true, message: '请输入学分' }
   ],
   hours: [
     { required: true, message: '请输入学时' }
@@ -267,4 +278,30 @@ export const courseRules = {
   assessment_method: [
     { required: true, message: '请输入考核方法'}
   ]
+}
+// 试卷问题规则
+export const questionRules = {
+  question_type: [
+    { required: true, message: '请选择考题类型' }
+  ],
+  question_content: [
+    { required: true, message: '请输入题目' }
+  ],
+  question_answer: [
+    { required: true, message: '请输入正确答案' }
+  ],
+  difficulty: [
+    { required: true, message: '请选择难度' }
+  ]
+}
+
+// 函数节流
+export const throttle = function (fn, delay) {
+  var timer = null
+  return function () {
+    clearTimeout(timer)
+    timer = setTimeout(function() {
+      fn()
+    }, delay)
+  }
 }
