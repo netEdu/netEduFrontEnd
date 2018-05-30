@@ -62,9 +62,6 @@ export default {
       type: Object,
       default: () => { return {} }
     },
-    dialogFormVisible: {
-      type: Boolean
-    },
     title: {
       type: String
     }
@@ -134,21 +131,21 @@ export default {
     onSubmit(formName) {
       this.formData.teacher_id = sessionStorage.getItem('userId')
       this.$refs[formName].validate( valid => {
-        // const loading = this.$loading({
-        //   lock: true,
-        //   text: '拼命上传中',
-        //   spinner: 'el-icon-loading',
-        //   background: 'rgba(0, 0, 0, 0.7)'
-        // })
-        // console.log(JSON.stringify(this.objData))
         if(valid) {
+          const loading = this.$loading({
+            lock: true,
+            text: '拼命上传中',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          })
           console.log('valid')
-          // TODO: 编辑题目、添加题目提交接口
-          if(this.formData.question_id > 0) {
+          if(this.formData.question_type == 1) {
             this.formData.options = this.options1 + ',' 
               + this.options2 + ',' 
               + this.options3 + ',' 
               + this.options4
+          }
+          setTimeout( () => {
             this.$axios({
               method: 'put',
               url: URL_DATA.MODIFY_QUESTION,
@@ -156,12 +153,12 @@ export default {
             }).then( res => {
               loading.close()
               this.$message.success(JSON.stringify(this.objData) === '{}' ? '添加成功' : '编辑成功')
-              this.dialogFormVisible = false
+              this.$emit('close-dialog')
             }).catch( res => {
               loading.close()
               this.$message.error('网络错误')
             })
-          }
+          }, 500)
         } else {
           loading.close()
         }
@@ -177,16 +174,6 @@ export default {
         console.log(currentQuestion[param])
         this.formData[param] = currentQuestion[param]
       }
-      // 计算正确答案
-      this.formData.question_answer = (function() {
-        let correctAnswer = 0;
-        currentQuestion.questionOptionList.forEach( e => {
-          if(e.option_id == currentQuestion.question_answer){
-            correctAnswer = e.option_id
-          }
-        })
-        return correctAnswer
-      })()
       if(currentQuestion.questionOptionList.length > 0) {
         this.options1 = currentQuestion.questionOptionList[0].option_content
         this.options2 = currentQuestion.questionOptionList[1].option_content

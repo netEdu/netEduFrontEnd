@@ -1,13 +1,19 @@
 <template>
-  <el-dialog :title="title" :visible.sync="_this_dialogFormVisible">
+  <el-dialog 
+    :title="title" 
+    :visible.sync="_this_dialogFormVisible" 
+    :close-on-press-escape="closeOnPressEscape"
+    :close-on-click-modal="closeOnClickModal"
+    :show-close="showClose">
     <component :is="currentView" 
-               :obj-data="objData" 
-               :dialog-form-visible.sync="_this_dialogFormVisible"></component>
+               :obj-data="objData"
+               @close-dialog="closeDialog"></component>
   </el-dialog>
 </template>
 <script>
   import courseForm from '../teacherComponent/courseForm'
   import questionForm from '../teacherComponent/questionForm'
+  import classForm from './chat/ClassForm'
   export default {
     name: 'formDialog',
     props: {
@@ -20,6 +26,21 @@
       currentView: {
         type: String,
         required: true
+      },
+      // 是否显示关闭按钮
+      showClose: {
+        type: Boolean,
+        default: true
+      },
+      // 按esc是否能关闭模态框
+      closeOnPressEscape: {
+        type: Boolean,
+        default: true
+      },
+      // 点击模态框周围是否能关闭模态框
+      closeOnClickModal: {
+        type: Boolean,
+        default: true
       },
       // 用于给dialog中的组件传递数据，可以自由设置参数，默认值为空对象
       objData: {
@@ -48,10 +69,16 @@
         }
       }
     },
+    methods: {
+      closeDialog() {
+        this._this_dialogFormVisible = false
+      }
+    },
     // 组件都在这里注册
     components: {
       courseForm,
-      questionForm
+      questionForm,
+      classForm
     }
   }
 </script>

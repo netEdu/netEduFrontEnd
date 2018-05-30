@@ -1,6 +1,6 @@
 <template>
   <div class="message-section">
-    <h3 class="message-thread-heading">当前讨论组：{{ thread.group_name }}</h3>
+    <h3 class="message-thread-heading">{{ thread.group_name }}</h3>
     <el-card class="message-list-container">
       <ul class="message-list" ref="list">
         <message
@@ -36,9 +36,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      thread: 'chat/currentThread',
-      messages: 'chat/currentMessages'
+    ...mapGetters('chat', {
+      thread: 'currentThread',
+      messages: 'currentMessages',
     }),
     sortedMessages() {
       return this.messages
@@ -59,10 +59,11 @@ export default {
     sendMessage(e) {
       if( e.target.value.length > 1 ){
         let timestamp = Date.now()
+        let protocol = isNaN(this.thread.group_id) ? 6 : 1
         setTimeout(() => {
           webSocket().send(
             // 消息类型:index-0
-            '1,'+
+            protocol + ',' +
             // group-id:index-1
             this.thread.group_id + ',' +
             // msg-id:index-2

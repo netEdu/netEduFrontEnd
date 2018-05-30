@@ -12,9 +12,3 @@ export default {
   }
 }
 </script>
-<style>
-.el-card {
-  width: 70%;
-  margin: 0 auto;
-}
-</style>

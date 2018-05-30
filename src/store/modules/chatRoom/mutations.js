@@ -19,7 +19,6 @@ export default {
   },
   // 切换讨论组
   [types.SWITCH_THREAD] (state, { id, members }) {
-    console.log(members)
     if(members.length != 0) {
       addMember(state, members, id)
       setCurrentThread(state, id)
@@ -28,8 +27,7 @@ export default {
     }
   },
   // 创建讨论组
-  [types.CREATE_THREAD](state, { thread }) {
-    // TODO: 创建讨论组mutations
+  [types.CREATE_THREAD](state, thread) {
     createThread(state, thread)
   }
 }
@@ -39,7 +37,7 @@ function createThread (state, thread) {
   Vue.set(state.threads, thread.group_id, {
     ...thread,
     messages: [],
-    members: [],
+    members: thread.members ? thread.members : [],
     lastMessage: null
   })
 }
@@ -74,6 +72,9 @@ function setCurrentThread (state, id) {
     console.warn('[setCurrentThread]Unexist thread')
   }
   // mark thread as read
+  state.threads[id].messages.forEach( e => {
+    state.messages[e].isRead = true
+  })
   if(state.threads[id].lastMessage) {
     state.threads[id].lastMessage.isRead = true
   }

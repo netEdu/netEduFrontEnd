@@ -47,9 +47,6 @@ export default {
       type: Object,
       default: () => { return {} }
     },
-    dialogFormVisible: {
-      type: Boolean
-    },
     title: {
       type: String
     }
@@ -101,21 +98,21 @@ export default {
                 message: '课程：' + this.formData.course_name
               })
               loading.close()
-              this.dialogFormVisible = false
+              this.$emit('close-dialog')
             } else if (res.data === 'REPEAT') {
               this.$notify.warning({
                 title: '课程重复了',
                 message: '课程：' + this.formData.course_name
               })
               loading.close()
-              this.dialogFormVisible = false
+              this.$emit('close-dialog')
             } else {
               this.$notify.success({
                 title: '添加成功啦！',
                 message: '课程：' + this.formData.course_name
               })
               loading.close()
-              this.dialogFormVisible = false
+              this.$emit('close-dialog')
             }
           }).catch(err => {
             console.log(err)
@@ -124,7 +121,7 @@ export default {
           })
         } else {
           loading.close()
-          this.dialogFormVisible = false
+          this.$emit('close-dialog')
           return false
         }
       })

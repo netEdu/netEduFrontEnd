@@ -3,7 +3,7 @@
     <div class="thread-count">
       <span>
         <h3 style="display: inline-block">讨论组</h3>
-        <el-tag v-show="unreadCount">未读: {{ unreadCount }}</el-tag>
+        <el-tag v-show="unreadCount > 0">未读: {{ unreadCount }}</el-tag>
       </span>
     </div>
     <el-card class="thread-list">
@@ -30,24 +30,23 @@ export default {
   computed: {
     ...mapGetters('chat', {
       threads: 'threads',
-      currentThread: 'currentThread'
+      currentThread: 'currentThread',
+      currentMessage: 'currentMessage'
     }),
     unreadCount () {
       const threads = this.threads
-      return Object.keys(threads).reduce((count, id) => {
-        return threads[id].lastMessage == null 
-          ? 0 
-          : threads[id].lastMessage.isRead
-            ? count
-            : count + 1
-      }, 0)
+      let count = 0
+      Object.keys(threads).forEach( id => {
+        threads[id].messages.forEach( e => {
+          this.currentMessage[e].isRead ? count : count++
+        })
+      })
+      return count
     }
   },
   methods: {
     // 切换讨论组
     switchThread (id) {
-      console.log(id)
-      console.log(this.threads[id].members.length)
       this.$store.dispatch('chat/switchThread', { 
         id,
         membersId: this.threads[id].person_id,

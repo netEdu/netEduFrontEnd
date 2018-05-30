@@ -125,6 +125,12 @@
   padding-top: 10px;
 }
 
+.thread-last-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
 .message-composer {
   font-family: inherit;
   width: 100%;

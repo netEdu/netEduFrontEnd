@@ -7,10 +7,10 @@
         <el-input v-model="selectForm.name" placeholder="教师姓名" />
       </el-form-item>
       <el-form-item label="考题类型">
-        <el-select v-model="selectForm.question_type" placeholder="请选择活动区域">
+        <el-select v-model="selectForm.question_type" placeholder="请选择考题类型">
+          <el-option label="全部" value=""></el-option>
           <el-option label="判断" value="0"></el-option>
           <el-option label="选择" value="1"></el-option>
-          <el-option label="主观" value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item style="float: right">
@@ -23,7 +23,7 @@
         </el-switch>
       </el-form-item>
       <el-collapse-transition>
-        <div class="form-detial" v-show="expendDetial">
+        <div class="form-detial" v-if="expendDetial">
           <el-form-item label="出题次数">
             <el-input-number v-model="selectForm.frequency" controls-position="right" :min="0"></el-input-number>
           </el-form-item>
@@ -32,6 +32,7 @@
           </el-form-item>
           <el-form-item label="考题难度">
             <el-select v-model="selectForm.difficulty" placeholder="请选择考题难度">
+              <el-option label="全部" value=""></el-option>
               <el-option label="简单" value="1"></el-option>
               <el-option label="中等" value="2"></el-option>
               <el-option label="困难" value="3"></el-option>
@@ -79,7 +80,7 @@
               <span>{{ props.row.frequency }}次</span>
             </el-form-item>
             <el-form-item label="错误率:">
-              <span>{{ Math.floor(props.row.error_times/props.row.frequency * 100) }}%</span>
+              <span>{{ props.row.error_times == 0 ? '0' : Math.floor(props.row.error_times/props.row.frequency * 100) }}%</span>
             </el-form-item>
           </el-form>
         </template>

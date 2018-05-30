@@ -34,7 +34,10 @@ export function createGroup(payload, cb) {
       person_id: payload.person_id
     }
   }).then( res => {
-    // TODO
-    // cb(res)
+    cb({
+      group_name: payload.group_name,
+      group_id: res.data,
+      person_id: ',' + payload.person_id + ','
+    })
   })
 }

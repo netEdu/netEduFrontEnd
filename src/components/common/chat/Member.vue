@@ -1,7 +1,7 @@
 <template>
   <li 
     class="member-list-item"
-    @click="$emit('new-group', member.student_id)">
+    @click="$emit('new-group', { student_id: member.student_id, student_name: member.name })">
     <h4 class="member-name">
       {{ member.name }}
     </h4>

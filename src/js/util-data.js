@@ -70,7 +70,8 @@ export const URL_DATA = {
   // 聊天室
   INIT_THREADS: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/getGroupById',
   THREAD_PERSON: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/selectPersonWithId',
-  ADD_GROUP: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/addGroup'
+  ADD_GROUP: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/addGroup',
+  ENTER_CLASS: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/selectAllClassStudent'
 }
 
 // 教师端侧边索引
