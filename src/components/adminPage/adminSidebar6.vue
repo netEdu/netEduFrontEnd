@@ -124,11 +124,8 @@
         url: url,
         data: this.submitData
       }).then(res => {
-        this.total=res.data.data.count
-        setTimeout(()=>{
-          this.formData=res.data.data.list
-        })
-
+        this.total=res.data.data.Page.count
+          this.formData=res.data.data.Page.list
       })
     },
     methods: {
@@ -146,9 +143,9 @@
           url: url,
           data: this.submitData
         }).then(res => {
-          this.total=res.data.data.count
+          this.total=res.data.data.Page.count
           setTimeout(()=>{
-            this.formData=res.data.data.list
+            this.formData=res.data.data.Page.list
             loading.close()
           },1000)
         })
@@ -167,9 +164,9 @@
           url: url,
           data: this.submitData
         }).then(res => {
-          this.total=res.data.data.count
+          this.total=res.data.data.Page.count
           setTimeout(()=>{
-            this.formData=res.data.data.list
+            this.formData=res.data.data.Page.list
             loading.close()
           },1000)
         })
@@ -188,9 +185,9 @@
           url: url,
           data: this.submitData
         }).then(res => {
-          this.total=res.data.data.count
+          this.total=res.data.data.Page.count
           setTimeout(()=>{
-            this.formData=res.data.data.list
+            this.formData=res.data.data.Page.list
             loading.close()
           },1000)
         })
@@ -209,9 +206,9 @@
           url: url,
           data: this.submitData
         }).then(res => {
-          this.total=res.data.data.count
+          this.total=res.data.data.Page.count
           setTimeout(()=>{
-            this.formData=res.data.data.list
+            this.formData=res.res.data.data.Page.list
             loading.close()
           },1000)
         })

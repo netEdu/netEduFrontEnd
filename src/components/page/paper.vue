@@ -26,10 +26,10 @@
     <div class="table-container">
       <!-- 试卷列表 -->
       <div class="table-left">
-        <el-table 
-          :data="papers" 
-          max-height="500" 
-          height="500" 
+        <el-table
+          :data="papers"
+          max-height="500"
+          height="500"
           @row-click="showQuestions">
           <el-table-column type="expand" width="20">
             <template slot-scope="props">
@@ -41,11 +41,11 @@
           </el-table-column>
           <el-table-column prop="paper_name" label="试卷">
           </el-table-column>
-          <el-table-column 
-            label="试卷所属" 
-            width="100" 
+          <el-table-column
+            label="试卷所属"
+            width="100"
             prop="teacher_id"
-            :filter-method="filterPeople" 
+            :filter-method="filterPeople"
             :filter-multiple="false"
             :filters="[
               { text: '本人', value: '本人' },
@@ -54,6 +54,11 @@
               <el-tag class="my-tag"
                 :type="scope.row.teacher_id == currentTeacherId ? 'success' : 'warning'"
                 disable-transitions>{{scope.row.teacher_id == currentTeacherId ? '本人' : '他人'}}</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="80">
+            <template slot-scope="props">
+              <el-button type="text" @click="printPaper(props.row.paper_id)">打印</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -90,14 +95,14 @@
           </el-table-column>
           <el-table-column prop="question_content" label="已添加的考题">
           </el-table-column>
-          <el-table-column 
-            label="题目类型" 
-            width="100" 
-            prop="question_type" 
+          <el-table-column
+            label="题目类型"
+            width="100"
+            prop="question_type"
             :filter-multiple="false"
-            :filter-method="filterType" 
+            :filter-method="filterType"
             :filters="[
-              { text: '判断', value: '0' }, 
+              { text: '判断', value: '0' },
               { text: '选择', value: '1' }]">
             <template slot-scope="props">
               <el-tag
@@ -144,14 +149,14 @@
           </el-table-column>
           <el-table-column prop="question_content" label="未添加的考题">
           </el-table-column>
-          <el-table-column 
-            label="题目类型" 
-            width="100" 
+          <el-table-column
+            label="题目类型"
+            width="100"
             prop="question_type"
             :filter-multiple="false"
-            :filter-method="filterType" 
+            :filter-method="filterType"
             :filters="[
-              { text: '判断', value: '0' }, 
+              { text: '判断', value: '0' },
               { text: '选择', value: '1' }]">
             <template slot-scope="props">
               <el-tag
@@ -166,16 +171,51 @@
           </el-table-column>
         </el-table>
       </div>
+     <!-- <form-dialog :dialog-form-visible.sync="dialogFormVisible" :obj-data="objData" current-view="printPaper" title="打印试题">
+      </form-dialog>-->
     </div>
+    <el-dialog title="打印试题" :visible.sync="dialogFormVisible">
+      <div>
+        <!--startprint-->
+        <div id="printInformation">
+          <h2>选择题</h2>
+          <div v-for="(chooseVal,chooseIndex) in chooseQuestions" v-if="chooseVal.question_type =='1'" class="choose-style">
+           <span>{{chooseIndex+1}}. {{chooseVal.question_content}}  (  )</span>
+            <div v-for="(optionVal,optionIndex) in chooseVal.questionOptionList" class="option-style">
+              <div v-if="optionIndex == '0'">A.{{optionVal.option_content}}</div>
+              <div v-if="optionIndex == '1'">B.{{optionVal.option_content}}</div>
+              <div v-if="optionIndex == '2'">C.{{optionVal.option_content}}</div>
+              <div v-if="optionIndex == '3'">D.{{optionVal.option_content}}</div>
+            </div>
+          </div>
+          <h2 >判断题</h2>
+          <div v-for="(val,index) in decideQuestions" v-if="val.question_type =='0'" class="decide-style">
+            <span>{{index+1}}. {{val.question_content}}    (  )</span>
+          </div>
+        </div>
+        <!--endprint-->
+        <el-button @click="print()">打印</el-button>
+      </div>
+    </el-dialog>
   </el-card>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
+  import formDialog from '../common/dialog'
   export default {
     name: "paper",
+    components: {
+      formDialog
+    },
     data() {
       return {
+        choose_num:0,
+        decide_num:0,
+        objData:{
+          paper_id:1,
+        },
+        dialogFormVisible: false,
         selectForm: {
           paper_name: '',
           remarks: '',
@@ -201,9 +241,43 @@
       },
       isMyPaper() {
         return this.$store.getters['teacher/isLoginUserPaper'](this.currentTeacherId)
+      },
+      chooseQuestions() {
+        let array = []
+        this.existQuestions.forEach( e => {
+          if(e.question_type > 0) array.push(e)
+        })
+        return array
+      },
+      decideQuestions() {
+        let array = []
+        this.existQuestions.forEach( e => {
+          if(e.question_type < 1) array.push(e)
+        })
+        return array
       }
     },
     methods: {
+      printPaper(id){
+        this.existQuestions.forEach((val,$index)=>{
+          console.info(val)
+        })
+        this.dialogFormVisible=true
+      },
+      print(){
+        var newstr = document.getElementById('printInformation').innerHTML
+        this.dialogFormVisible=false
+        setTimeout(()=>{
+          // 2. 还原：将旧的页面储存起来，当打印完成后返给给页面。
+        var oldstr = document.body.innerHTML
+        // 3. 复制给body，并执行window.print打印功能
+        document.body.innerHTML = newstr
+        window.print();
+        document.body.innerHTML = oldstr
+        document.body.innerHTML=""
+        document.write(oldstr)
+        },1000)
+      },
       // 表单根据标签过滤（单选、多选）
       filterType(value, row) {
         return row.question_type === value
@@ -271,8 +345,8 @@
         let reg2 = new RegExp(',[' + row.question_id + '],')
         this.$store.dispatch('teacher/removeQuestion', {
           currentQuestion: row,
-          idAfterModify: reg2.exec(this.existQuestionsId) 
-            ? this.existQuestionsId.replace(reg1, ',') 
+          idAfterModify: reg2.exec(this.existQuestionsId)
+            ? this.existQuestionsId.replace(reg1, ',')
             : this.existQuestionsId.replace(reg1, ''),
           currentPaperId: this.currentPaperId,
           loadingMiddle,
@@ -297,8 +371,8 @@
         })
         this.$store.dispatch('teacher/addQuestion', {
           currentQuestion: row,
-          idAfterModify: this.existQuestionsId === '' 
-            ? row.question_id 
+          idAfterModify: this.existQuestionsId === ''
+            ? row.question_id
             : this.existQuestionsId + ',' + row.question_id,
           currentPaperId: this.currentPaperId,
           loadingMiddle,
@@ -356,6 +430,15 @@
 </script>
 
 <style scoped>
+  .choose-style{
+    margin:20px;
+  }
+  .decide-style{
+    margin: 20px;
+  }
+  .option-style{
+    margin: 5px;
+  }
   .el-card {
     padding-bottom: 20px;
   }
@@ -365,19 +448,19 @@
   }
   .table-left {
     box-sizing: border-box;
-    width: 20%;
+    width: 30%;
     border-right: 1px #ababab solid;
     float: left;
   }
   .table-middle {
     box-sizing: border-box;
-    width: 40%;
+    width: 35%;
     border-right: 1px #ababab solid;
     float: left;
   }
   .table-right {
     box-sizing: border-box;
-    width: 40%;
+    width: 35%;
     float: left;
   }
   /* 表单 */

@@ -89,7 +89,7 @@
         }
         this.formData.studentInformation=res.data
       })
-    },
+    }
 
   }
 

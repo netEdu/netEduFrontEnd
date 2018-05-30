@@ -6,15 +6,8 @@
       :model="submitData">
     <el-row :gutter="24">
       <el-col :span="7"><div class="grid-content bg-purple">
-        <el-form-item prop="teacher_id" label="请选择教师：">
-          <el-select v-model="value" placeholder="请选择">
-            <el-option
-              v-for="item in teacherList"
-              :key="item.teacher_id"
-              :label="item.username"
-              :value="item.teacher_id">
-            </el-option>
-          </el-select>
+        <el-form-item prop="questionnaire_name" label="请输入试卷名称：" :rules="{required: true, message: '试卷名称不能为空'}">
+          <el-input v-model="submitData.questionnaire_name"  placeholder="请输入内容" class="input-widths"></el-input>
         </el-form-item>
       </div></el-col>
       <el-col :span="7"><div class="grid-content bg-purple">
@@ -38,7 +31,7 @@
     <!-- 已添加考题列表 -->
     <div class="table-left">
       <el-table :data="existQuestions" max-height="500" height="500" border>
-        <el-table-column prop="survey_content" label="已添加的考题">
+        <el-table-column prop="survey_content" label="已添加的考题(每题10分，满分100分)">
         </el-table-column>
         <el-table-column
           label="题目类型"
@@ -65,7 +58,7 @@
     <!-- 未添加考题列表 -->
     <div class="table-right">
       <el-table :data="checkboxGroupInformation" max-height="500" height="500" border>
-        <el-table-column prop="survey_content" label="未添加的考题">
+        <el-table-column prop="survey_content" label="未添加的考题(每题10分，满分100分)">
         </el-table-column>
         <el-table-column
           label="题目类型"
@@ -102,10 +95,10 @@
         existQuestions:[],
         checkboxGroupInformation:[],
         submitData:{
+          questionnaire_name:"",
           creator:"",
           remarks:"",
           survey_questions:"",
-          teacher_id:"",
           create_time:new Date()
         }
       }
@@ -136,6 +129,13 @@
                 type: 'error'
               });
               return;
+            }else if (this.existQuestions.length!=10){
+              this.$message({
+                showClose: true,
+                message: '题目满分为100分，请选择正确的题目数量',
+                type: 'error'
+              });
+              return;
             }
             this.existQuestions.forEach((val,index)=>{
               if (this.submitData.survey_questions==""){
@@ -144,7 +144,7 @@
                 this.submitData.survey_questions+=","+val.question_id
               }
             })
-            this.submitData.teacher_id=this.value
+            console.info(this.submitData)
             const loading = this.$loading({
               lock: true,
               text: '拼命添加中',
@@ -222,7 +222,7 @@
 
 <style scoped>
   .input-widths{
-    width: 50%;
+    width: 40%;
   }
   .div-margins{
   margin: 20px;
