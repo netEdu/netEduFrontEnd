@@ -59,11 +59,15 @@ export default {
     sendMessage(e) {
       if( e.target.value.length > 1 ){
         let timestamp = Date.now()
-        let protocol = isNaN(this.thread.group_id) ? 6 : 1
+        let protocol = isNaN(this.thread.group_id) ? '6,' : '1,'
+        let class_num = isNaN(this.thread.group_id) 
+          ? this.thread.group_id.split('_')[1] + ',' 
+          : ''
         setTimeout(() => {
           webSocket().send(
             // 消息类型:index-0
-            protocol + ',' +
+            protocol +
+            class_num + 
             // group-id:index-1
             this.thread.group_id + ',' +
             // msg-id:index-2

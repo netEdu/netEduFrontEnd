@@ -119,8 +119,8 @@ export default {
         { label: 'D', key: 4 }
       ],
       correctAnswerOfJudge: [
-        { label: '正确', key: 1 },
-        { label: '错误', key: 0 }
+        { label: '正确', key: 0 },
+        { label: '错误', key: -1 }
       ],
       correctAnswer: [],
       // 表单规则

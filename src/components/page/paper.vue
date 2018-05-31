@@ -298,7 +298,7 @@
           }
         } else {
           console.log(row.question_answer)
-          return row.question_answer == 0 ? '错误' : '正确'
+          return row.question_answer == -1 ? '错误' : '正确'
         }
       },
       // 计算题目难度
