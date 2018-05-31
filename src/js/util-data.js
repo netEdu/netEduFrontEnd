@@ -38,8 +38,11 @@ export const URL_DATA = {
   MODIFY_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/updateQuestion',
   ADD_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/addQuestion',
   QUERY_STUDENT_DATA_TEACHER: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/queryStudentData',
+  QUERY_TEACHER_DATA_TEACHER: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/queryTeacherData',
+  DELETE_TEACHER_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/deleteFiles',
   MARK_STUDENT_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/markData',
   TEACHER_DOWNLOAD_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/downloadFile?',
+  TEACHER_UPLOAD_MANY: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/uploadMany',
 
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
@@ -123,6 +126,21 @@ export const TeacherSideBarItem = [
   {
     icon: 'el-icon-document',
     index: '3',
+    title: '文件管理',
+    subs: [
+      {
+        index: '/teacherUpload',
+        title: '资料上传'
+      },
+      {
+        index: '/teacherFiles',
+        title: '资料查看/下载'
+      },
+    ]
+  },
+  {
+    icon: 'el-icon-document',
+    index: '4',
     title: '学生信息管理',
     subs: [
       {

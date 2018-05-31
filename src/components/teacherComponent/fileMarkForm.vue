@@ -34,7 +34,7 @@ export default {
         method: 'post',
         data: {
           data_id: this.objData.data_id,
-          score: this.score
+          score: this.score + ''
         }
       }).then( res => {
         this.score = 0

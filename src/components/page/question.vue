@@ -238,18 +238,3 @@
     }
   }
 </script>
-
-<style scoped>
-  /* 表单 */
-  .card-form {
-    border: 1px #cccccc solid;
-    border-radius: 4px;
-    padding: 15px 10px 0 10px;
-    -moz-box-shadow: 0px 5px 10px #696969;
-    -webkit-box-shadow: 0px 5px 10px #696969;
-    box-shadow: 0px 5px 10px #696969;
-    margin-bottom: 0;
-    position: relative;
-    z-index: 101;
-  }
-</style>

@@ -22,7 +22,7 @@
       :close-on-press-escape="false"
       :close-on-click-modal="false"
       :show-close="false"
-      title="选择班级"></choose-dialog>
+      :title="dialogTitle"></choose-dialog>
   </el-card>
 </template>
 
@@ -39,6 +39,7 @@
       return {
         classExist: false,
         dialogFormVisible: false,
+        dialogTitle: '',
         hasBeenExam: false,
         hasBeenTeacherComment: false,
         hasBeenStudentComment: false,
@@ -47,6 +48,7 @@
     },
     methods: {
       openDialog() {
+        this.dialogTitle = '选择班级'
         this.dialogFormVisible = true
         this.classExist = true
       },

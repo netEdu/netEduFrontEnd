@@ -57,6 +57,20 @@ export default new Router({
       component: resolve => require(['../components/common/Home.vue'], resolve),
       children:[
         {
+          path: '/teacherFiles',
+          component: resolve => require(['../components/page/teacherFiles.vue'], resolve)
+        },
+        {
+          path: '/teacherUpload',
+          component: resolve => require(['../components/page/teacherUpload.vue'], resolve)
+        },
+      ]
+    },
+    {
+      path: '/teacher',
+      component: resolve => require(['../components/common/Home.vue'], resolve),
+      children:[
+        {
           path: '/studentFiles',
           component: resolve => require(['../components/page/studentFiles.vue'], resolve)
         }
