@@ -15,6 +15,7 @@
   import questionForm from '../teacherComponent/questionForm'
   import classForm from './chat/ClassForm'
   import beginTest from '../studentComponent/beginTest'
+  import fileMarkForm from '../teacherComponent/fileMarkForm'
   export default {
     name: 'formDialog',
     props: {
@@ -51,7 +52,8 @@
             // 自己要使用的参数在这里要返回空数据类型，避免undefined错误
             course_id: 0,
             question_id: 0,
-            paper_id:0
+            paper_id: 0,
+            file_id: 0
           }
         }
       },
@@ -81,7 +83,8 @@
       courseForm,
       questionForm,
       classForm,
-      beginTest
+      beginTest,
+      fileMarkForm
     }
   }
 </script>
