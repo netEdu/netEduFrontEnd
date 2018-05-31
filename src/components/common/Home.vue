@@ -19,6 +19,17 @@ export default {
   data() {
     webSocket().onmessage = (evt) => {
       let protocol = evt.data.split(']')[0]
+      switch(protocol){
+        case '1':
+          return null
+          break
+        case '6':
+          return null
+          break
+        case '7':
+          return null
+          break
+      }
       let text = evt.data.split(']')[1]
       // 组id
       let group_id = protocol.split(',')[1]

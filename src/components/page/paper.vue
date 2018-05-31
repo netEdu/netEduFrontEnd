@@ -176,24 +176,22 @@
     </div>
     <el-dialog title="打印试题" :visible.sync="dialogFormVisible">
       <div>
-        <!--startprint-->
         <div id="printInformation">
           <h2>选择题</h2>
           <div v-for="(chooseVal,chooseIndex) in chooseQuestions" v-if="chooseVal.question_type =='1'" class="choose-style">
-           <span>{{chooseIndex+1}}. {{chooseVal.question_content}}  (  )</span>
-            <div v-for="(optionVal,optionIndex) in chooseVal.questionOptionList" class="option-style">
-              <div v-if="optionIndex == '0'">A.{{optionVal.option_content}}</div>
-              <div v-if="optionIndex == '1'">B.{{optionVal.option_content}}</div>
-              <div v-if="optionIndex == '2'">C.{{optionVal.option_content}}</div>
-              <div v-if="optionIndex == '3'">D.{{optionVal.option_content}}</div>
-            </div>
+           <div>{{chooseIndex+1}}. {{chooseVal.question_content}}  (  )</div>
+            <span v-for="(optionVal,optionIndex) in chooseVal.questionOptionList" class="option-style">
+              <span v-if="optionIndex == '0'">A.{{optionVal.option_content}}</span>
+              <span v-if="optionIndex == '1'">B.{{optionVal.option_content}}</span>
+              <span v-if="optionIndex == '2'">C.{{optionVal.option_content}}</span>
+              <span v-if="optionIndex == '3'">D.{{optionVal.option_content}}</span>
+            </span>
           </div>
           <h2 >判断题</h2>
           <div v-for="(val,index) in decideQuestions" v-if="val.question_type =='0'" class="decide-style">
             <span>{{index+1}}. {{val.question_content}}    (  )</span>
           </div>
         </div>
-        <!--endprint-->
         <el-button @click="print()">打印</el-button>
       </div>
     </el-dialog>
@@ -259,24 +257,16 @@
     },
     methods: {
       printPaper(id){
-        this.existQuestions.forEach((val,$index)=>{
-          console.info(val)
-        })
         this.dialogFormVisible=true
       },
       print(){
         var newstr = document.getElementById('printInformation').innerHTML
         this.dialogFormVisible=false
-        setTimeout(()=>{
-          // 2. 还原：将旧的页面储存起来，当打印完成后返给给页面。
-        var oldstr = document.body.innerHTML
-        // 3. 复制给body，并执行window.print打印功能
-        document.body.innerHTML = newstr
-        window.print();
-        document.body.innerHTML = oldstr
-        document.body.innerHTML=""
-        document.write(oldstr)
-        },1000)
+        //打开一个新的标签，并将新标签对象赋予一个变量，通过变量写入html内容并将此标签页面打印
+        var w=window.open()
+        w.document.write(newstr)
+        w.print();
+        w.close()
       },
       // 表单根据标签过滤（单选、多选）
       filterType(value, row) {
@@ -438,6 +428,7 @@
   }
   .option-style{
     margin: 5px;
+    margin-left: 15px;
   }
   .el-card {
     padding-bottom: 20px;

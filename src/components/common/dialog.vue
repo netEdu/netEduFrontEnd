@@ -1,11 +1,11 @@
 <template>
-  <el-dialog 
-    :title="title" 
-    :visible.sync="_this_dialogFormVisible" 
+  <el-dialog
+    :title="title"
+    :visible.sync="_this_dialogFormVisible"
     :close-on-press-escape="closeOnPressEscape"
     :close-on-click-modal="closeOnClickModal"
     :show-close="showClose">
-    <component :is="currentView" 
+    <component :is="currentView"
                :obj-data="objData"
                @close-dialog="closeDialog"></component>
   </el-dialog>
@@ -14,6 +14,7 @@
   import courseForm from '../teacherComponent/courseForm'
   import questionForm from '../teacherComponent/questionForm'
   import classForm from './chat/ClassForm'
+  import beginTest from '../studentComponent/beginTest'
   export default {
     name: 'formDialog',
     props: {
@@ -79,7 +80,8 @@
     components: {
       courseForm,
       questionForm,
-      classForm
+      classForm,
+      beginTest
     }
   }
 </script>
