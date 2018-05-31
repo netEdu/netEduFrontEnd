@@ -52,7 +52,8 @@
       },
       // 发出警告
       giveWarn() {
-        let student_id = 2
+        console.log('giving warn')
+        let student_id = 1
         webSocket().send('5,' + student_id)
       },
       // 开始考试
@@ -63,8 +64,11 @@
           type: 'warning'
         }).then(() => {
           this.hasBeenExam = true
+          let paper_id = '1'
           // TODO: 开始考试ws逻辑
-        }).catch(() => {
+          webSocket().send('2,' + sessionStorage.getItem('class') + ',' + paper_id)
+        }).catch(e => {
+          console.log(e)
           this.$message({
             type: 'info',
             message: '已取消考试开始'
@@ -103,10 +107,6 @@
           });
         })
       },
-      // 发出警告
-      giveWarn() {
-
-      },
       // 举手
       giveQuestion() {
 
@@ -117,9 +117,6 @@
       MessageSection,
       MemberSection,
       ChooseDialog
-    },
-    created() {
-
     }
   }
 </script>

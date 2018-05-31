@@ -52,6 +52,7 @@ export default {
         })
         // 8,teacherID,classID
         webSocket().send('8,' + sessionStorage.getItem('userId') + ',' + this.chosenClass.classNumber)
+        sessionStorage.setItem('class', this.chosenClass.classNumber)
         this.$emit('close-dialog')
       })
     }
