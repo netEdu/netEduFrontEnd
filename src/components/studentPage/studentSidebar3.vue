@@ -4,12 +4,12 @@
       :model="allInfomation"
       ref="informationForm"
       status-icon>
-        <el-form-item
-          prop="formData.course_id"
-          label="请输入课程id:"
-          :rules="{required: true, message: '课程id不能为空', trigger: 'blur'}">
-          <el-input v-model="allInfomation.formData.course_id"/>
-        </el-form-item>
+      <el-form-item
+        prop="formData.course_id"
+        label="请输入课程id:"
+        :rules="{required: true, message: '课程id不能为空', trigger: 'blur'}">
+        <el-input v-model="allInfomation.formData.course_id"/>
+      </el-form-item>
       <el-form-item
         v-for="(val,index) in allInfomation.title"
         :label="'请输入'+val.name+'的文件标题'"
@@ -81,26 +81,25 @@
         })
 
     },
-      beforeUploadFile(file){
+    beforeUploadFile(file){
         const loading = this.$loading({
           lock: true,
           text: '上传中...',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         })
-        let data_titles=this.allInfomation.title[0].value
-        let course_id=this.allInfomation.formData.course_id
-        let student_id=sessionStorage.getItem("userId")
+        let data_titles = this.allInfomation.title[0].value
+        let course_id = this.allInfomation.formData.course_id
+        let student_id = sessionStorage.getItem("userId")
         let fd = new FormData()
-        fd.append('files',file)
-        var result=""
-        let url=URL_DATA.UPLOAD_MANY_FILES+'?course_id='+course_id+"&student_id="+student_id+"&data_titles="+data_titles
+        fd.append('files', file)
+        let url = URL_DATA.UPLOAD_MANY_FILES + '?course_id=' + course_id + "&student_id=" + student_id + "&data_titles=" + data_titles
         this.$axios({
-          url:url,
-          data:fd,
-          method:'post'
-        }).then(res=>{
-          setTimeout(_=>{
+          url: url,
+          data: fd,
+          method: 'post'
+        }).then(res => {
+          setTimeout(() => {
             loading.close()
             this.$message({
               showClose: true,
@@ -108,7 +107,7 @@
               type: 'success'
             });
             this.resetForm('informationForm')
-          },500)
+          }, 500)
         }).catch(() =>{
           this.$message({
             showClose: true,
@@ -123,7 +122,7 @@
           this.allInfomation.title.push({
             value: '',
             key: Date.now(),
-            name:fileNum[fileNum.length-1].name
+            name: fileNum[fileNum.length-1].name
           });
       },
       newhandleRemove(file,fileNum){

@@ -125,8 +125,8 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import { throttle } from '../../js/util-data';
+  import { mapGetters } from 'vuex'
+  import { throttle } from '../../js/util-data'
   import formDialog from '../common/dialog'
   export default {
     name: "question",

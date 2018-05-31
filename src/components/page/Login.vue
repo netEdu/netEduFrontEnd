@@ -98,14 +98,17 @@ export default {
           sessionStorage.setItem('username', username)
           // 管理员
           if (res.data=="ADMIN"){
+            sessionStorage.setItem('identity', res.data.split(':')[0])
             sessionStorage.setItem('userId',res.data)
             this.$router.push({path: '/adminSidebar1'})
-          }else{
-            var identified=res.data.split(':')[0]
+          }
+          // 非管理员
+          else{
+            var identified = res.data.split(':')[0]
             // 教师
             if (identified=='Teacher'){
               // 开启webSocket连接
-              const ws = webSocket(SOCKET_IP)
+              const ws = webSocket()
               ws.onopen = () => {
                 console.log('TEACHER CONNECTING')
                 // 添加  0,  并将字符串返回
@@ -115,11 +118,13 @@ export default {
               this.$store.dispatch('chat/initThreads', {
                 person_id: res.data.split(':')[1]
               })
+              sessionStorage.setItem('identity', res.data.split(':')[0])
               sessionStorage.setItem('userId', res.data.split(':')[1])
               this.$router.push({ path: '/ChatRoom' })
-              // 学生
-            }else if(identified=='Student'){
-              const ws = webSocket(SOCKET_IP)
+            }
+            // 学生
+            else if(identified=='Student'){
+              const ws = webSocket()
               ws.onopen = () => {
                 console.log('STUDENT CONNECTING')
                 // 添加  0,  并将字符串返回
@@ -127,8 +132,9 @@ export default {
               }
               // 初始化讨论组
               this.$store.dispatch('chat/initThreads', {
-                person_id: res.data.split(':')[1]
+                person_id: res.data.split(':')[1].split(',')[1]
               })
+              sessionStorage.setItem('identity', res.data.split(':')[0])
               sessionStorage.setItem('userId', res.data.split(':')[1].split(',')[1])
               this.$router.push({path: '/studentSidebar1'})
             }

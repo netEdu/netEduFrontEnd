@@ -37,7 +37,10 @@ export const URL_DATA = {
   RECEIVE_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/queryAllQuestion',
   MODIFY_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/updateQuestion',
   ADD_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/addQuestion',
-  
+  QUERY_STUDENT_DATA_TEACHER: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/queryStudentData',
+  MARK_STUDENT_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/markData',
+  TEACHER_DOWNLOAD_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/downloadFile?',
+
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
   UPDATE_STUDENT_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/updateStudentInfo',
@@ -112,6 +115,17 @@ export const TeacherSideBarItem = [
       {
         index: '/createQuestion',
         title: '添加考题'
+      }
+    ]
+  },
+  {
+    icon: 'el-icon-document',
+    index: '3',
+    title: '学生信息管理',
+    subs: [
+      {
+        index: '/studentFiles',
+        title: '资料查看/打分'
       }
     ]
   }
