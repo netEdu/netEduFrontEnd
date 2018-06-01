@@ -47,7 +47,7 @@ export default {
       }).then( res => {
         this.$store.dispatch('chat/createClassGroup', {
           group_name: this.chosenClass.classNumber + '班',
-          group_id: 'class_' + Date.now(),
+          group_id: 'class_' + this.chosenClass.classNumber,
           members: res.data.concat()
         })
         // 8,teacherID,classID

@@ -4,7 +4,9 @@
     <v-sidebar> </v-sidebar>
     <div class="content">
       <transition name="slide-fade" mode="out-in">
-	      <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </transition>
     </div>
   </div>
@@ -19,38 +21,34 @@ export default {
   data() {
     webSocket().onmessage = (evt) => {
       let protocol = evt.data.split(']')[0]
-      switch(protocol){
-        case '1':
-          return null
-          break
-        case '6':
-          return null
+      switch(protocol.split(',')[0]){
+        case '1': case '6':
+          let text = evt.data.split(']')[1]
+          // 组id
+          let group_id = protocol.split(',')[1]
+          // 消息id
+          let id = protocol.split(',')[2]
+          // 组名
+          let group_name = protocol.split(',')[3]
+          // 消息发送者
+          let author = protocol.split(',')[4]
+          // 时间戳
+          let timestamp = protocol.split(',')[5]
+          // let thread = _this.$store.state.threads[threadID]
+          console.log('onreceive')
+          this.updateMessage({
+            group_id,
+            id,
+            group_name,
+            author,
+            timestamp,
+            text
+          })
           break
         case '7':
           return null
           break
       }
-      let text = evt.data.split(']')[1]
-      // 组id
-      let group_id = protocol.split(',')[1]
-      // 消息id
-      let id = protocol.split(',')[2]
-      // 组名
-      let group_name = protocol.split(',')[3]
-      // 消息发送者
-      let author = protocol.split(',')[4]
-      // 时间戳
-      let timestamp = protocol.split(',')[5]
-      // let thread = _this.$store.state.threads[threadID]
-      console.log('onreceive')
-      this.updateMessage({
-        group_id,
-        id,
-        group_name,
-        author,
-        timestamp,
-        text
-      })
     }
     return {}
   },
