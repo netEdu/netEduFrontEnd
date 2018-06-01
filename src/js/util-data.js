@@ -38,6 +38,7 @@ export const URL_DATA = {
   RECEIVE_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/queryAllQuestion',
   MODIFY_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/updateQuestion',
   ADD_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/addQuestion',
+  REMOVE_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Question/deleteQuestion',
   QUERY_STUDENT_DATA_TEACHER: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/queryStudentData',
   QUERY_TEACHER_DATA_TEACHER: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/queryTeacherData',
   DELETE_TEACHER_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/deleteFiles',

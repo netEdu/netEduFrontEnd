@@ -48,7 +48,6 @@
     <el-table
       id="table-question"
       :data="questionsList"
-      @selection-change="handleSelectionChange"
       style="width: 100%">
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -110,10 +109,6 @@
           <el-button type="text" @click="alterQuestion(props.row)" :disabled="!isMyQuestion(props.row)">编辑</el-button>
         </template>
       </el-table-column>
-      <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
     </el-table>
     <!-- ****************************** 弹出框 ****************************** -->
     <form-dialog 
@@ -126,7 +121,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { throttle } from '../../js/util-data'
+  import { throttle, URL_DATA } from '../../js/util-data'
   import formDialog from '../common/dialog'
   export default {
     name: "question",
@@ -226,9 +221,32 @@
         this.objData.question_id = row.question_id
         this.dialogFormVisible = true
       },
-      handleSelectionChange(val) {
-        this.tableSelection = val
-      }
+      removeQuestion(row) {
+        this.$confirm('此操作将永久删除该题目, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$axios({
+            url: URL_DATA.REMOVE_QUESTION,
+            method: 'delete',
+            params: {
+              ids: row.question_id
+            }
+          }).then( res => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.onSubmit()
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })       
+        })
+      },
     },
     components: {
       formDialog
