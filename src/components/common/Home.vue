@@ -46,7 +46,11 @@ export default {
           })
           break
         case '7':
-          return null
+          this.$notify({
+            title: '学生举手',
+            message: protocol.split(',')[1],
+            type: 'success'
+          })
           break
       }
     }

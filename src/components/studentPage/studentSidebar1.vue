@@ -2,56 +2,52 @@
   <div class="student-information">
     <div class="el-card box-card">
       <div class="card-style">
-      <h2>查看学生个人资料</h2>
-      <el-row :gutter="20">
-        <el-col :span="12"><div class="grid-content">
-          <span class="fstyle">学生ID:</span><span class="fstyle">{{$data.formData.studentInformation.student_id}}</span>
-        </div></el-col>
-        <el-col :span="12">
-          <div class="grid-content">
-            <span class="fstyle">学生姓名:</span><span class="fstyle">{{$data.formData.studentInformation.name}}</span>
+        <h2>查看学生个人资料</h2>
+        <el-row :gutter="20">
+          <el-col :span="12"><div class="grid-content">
+            <span class="fstyle">学生ID:</span><span class="fstyle">{{$data.formData.studentInformation.student_id}}</span>
           </div></el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <div class="grid-content">
-            <span class="fstyle">性别:</span><span class="fstyle">{{$data.formData.studentInformation.sex}}</span>
-          </div></el-col>
-        <el-col :span="12">
-          <div class="grid-content">
-            <span class="fstyle">生日:</span><span class="fstyle">{{$data.formData.studentInformation.birth}}</span>
-          </div></el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <div class="grid-content">
-            <span class="fstyle">身份证号:</span><span class="fstyle">{{$data.formData.studentInformation.identity}}</span>
-          </div></el-col>
-        <el-col :span="12">
-          <div class="grid-content">
-            <span class="fstyle">邮箱:</span><span class="fstyle">{{$data.formData.studentInformation.email}}</span>
-          </div></el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <div class="grid-content">
-            <span class="fstyle">籍贯:</span><span class="fstyle">{{$data.formData.studentInformation.origin}}</span>
-          </div></el-col>
-        <el-col :span="12">
-          <div class="grid-content">
-            <span class="fstyle">电话:</span><span class="fstyle">{{$data.formData.studentInformation.phone}}</span>
-          </div></el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <div class="grid-content">
-            <span class="fstyle">班级:</span><span class="fstyle">{{$data.formData.studentInformation.class_num}}班</span>
-          </div></el-col>
-        <el-col :span="12">
-          <div class="grid-content">
-
-          </div></el-col>
-      </el-row>
+          <el-col :span="12">
+            <div class="grid-content">
+              <span class="fstyle">学生姓名:</span><span class="fstyle">{{$data.formData.studentInformation.name}}</span>
+            </div></el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <div class="grid-content">
+              <span class="fstyle">性别:</span><span class="fstyle">{{$data.formData.studentInformation.sex}}</span>
+            </div></el-col>
+          <el-col :span="12">
+            <div class="grid-content">
+              <span class="fstyle">生日:</span><span class="fstyle">{{$data.formData.studentInformation.birth}}</span>
+            </div></el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <div class="grid-content">
+              <span class="fstyle">身份证号:</span><span class="fstyle">{{$data.formData.studentInformation.identity}}</span>
+            </div></el-col>
+          <el-col :span="12">
+            <div class="grid-content">
+              <span class="fstyle">邮箱:</span><span class="fstyle">{{$data.formData.studentInformation.email}}</span>
+            </div></el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <div class="grid-content">
+              <span class="fstyle">籍贯:</span><span class="fstyle">{{$data.formData.studentInformation.origin}}</span>
+            </div></el-col>
+          <el-col :span="12">
+            <div class="grid-content">
+              <span class="fstyle">电话:</span><span class="fstyle">{{$data.formData.studentInformation.phone}}</span>
+            </div></el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <div class="grid-content">
+              <span class="fstyle">班级:</span><span class="fstyle">{{$data.formData.studentInformation.class_num}}班</span>
+            </div></el-col>
+        </el-row>
       </div>
     </div>
   </div>
@@ -84,12 +80,11 @@
         }
         if ("birth" in res.data){
           var birth= res.data.birth
-          //birth=birth.substring(0,9)
-         // res.data.birth=birth.split('-')[0]+"年"+birth.split('-')[1]+"月"+birth.split('-')[2]+"日"
+          // birth=birth.substring(0,9)
+          // res.data.birth=birth.split('-')[0]+"年"+birth.split('-')[1]+"月"+birth.split('-')[2]+"日"
         }
         this.formData.studentInformation=res.data
         sessionStorage.setItem('class_num', res.data.class_num)
-        console.info(sessionStorage.getItem('class_num'))
       })
     }
 
@@ -107,14 +102,13 @@
     padding: 40px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    content: 'center';
   }
   .el-row {
     margin-bottom: 20px;
-  &:last-child {
+  }
+  .el-row:last-child {
      margin-bottom: 0;
    }
-  }
   .el-col {
     border-radius: 4px;
   }

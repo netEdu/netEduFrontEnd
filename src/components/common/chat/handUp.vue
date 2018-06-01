@@ -6,10 +6,11 @@
       prop="message">
       <el-input type="textarea" v-model="handUpInfo.message"></el-input>
     </el-form-item>
-    <el-button type="primary">提交</el-button>
+    <el-button type="primary" @click.prevent="submitHandUp">举手</el-button>
   </el-form>
 </template>
 <script>
+import { webSocket } from '../../../js/web-socket'
 export default {
   name: 'HandUp',
   data() {
@@ -22,6 +23,13 @@ export default {
   methods: {
     submitHandUp() {
       // TODO: 举手逻辑
+      webSocket().send(
+        '7,' + 
+        sessionStorage.getItem('class_num') + ',' + 
+        this.handUpInfo.message
+      )
+      this.$message.success('举手成功')
+      this.$emit('close-dialog')
     }
   }
 }
