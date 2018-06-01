@@ -7,18 +7,18 @@
       <div v-for="(chooseVal,chooseIndex) in chooseQuestions" class="choose-style">
         <div>{{chooseIndex+1}}. {{chooseVal.question_content}}</div>
         <span v-for="(optionVal,optionIndex) in chooseVal.questionOptionList" class="option-style">
-          <span v-if="optionIndex == '0'"><el-radio v-model="chooseVal.question_answer" label="0">A.{{optionVal.option_content}}</el-radio></span>
-          <span v-if="optionIndex == '1'"><el-radio v-model="chooseVal.question_answer" label="1">B.{{optionVal.option_content}}</el-radio></span>
-          <span v-if="optionIndex == '2'"><el-radio v-model="chooseVal.question_answer" label="2">C.{{optionVal.option_content}}</el-radio></span>
-          <span v-if="optionIndex == '3'"><el-radio v-model="chooseVal.question_answer" label="3">D.{{optionVal.option_content}}</el-radio></span>
+          <span v-if="optionIndex == '1'"><el-radio v-model="chooseVal.question_answer" label="0">A.{{optionVal.option_content}}</el-radio></span>
+          <span v-if="optionIndex == '2'"><el-radio v-model="chooseVal.question_answer" label="1">B.{{optionVal.option_content}}</el-radio></span>
+          <span v-if="optionIndex == '3'"><el-radio v-model="chooseVal.question_answer" label="2">C.{{optionVal.option_content}}</el-radio></span>
+          <span v-if="optionIndex == '4'"><el-radio v-model="chooseVal.question_answer" label="3">D.{{optionVal.option_content}}</el-radio></span>
         </span>
       </div>
       <h2 >判断题</h2>
       <div v-for="(val,index) in decideQuestions" class="decide-style">
         <span>{{index+1}}. {{val.question_content}}</span>
         <span class="option-style">
-          <el-radio v-model="val.question_answer" label="1">正确</el-radio>
-          <el-radio v-model="val.question_answer" label="0">错误</el-radio>
+          <el-radio v-model="val.question_answer" label="0">正确</el-radio>
+          <el-radio v-model="val.question_answer" label="-1">错误</el-radio>
         </span>
       </div>
     </div>
@@ -125,7 +125,7 @@ export default {
       let resultArray=this.quickSort(arr)
       resultArray.forEach((val,index)=>{
           if (val.question_answer == null){
-            val.question_answer=""
+            val.question_answer="error"
           }
           student_answers+=val.question_answer+","
       })
@@ -133,18 +133,31 @@ export default {
       this.submitData.paper_id=this.objData.paper_id
       this.submitData.student_answers=student_answers
       this.submitData.student_id=sessionStorage.getItem('userId')
-      console.info(this.submitData)
       let url=URL_DATA.CHECK_PAPER
       this.$axios({
         url:url,
         method:'post',
         data:this.submitData
       }).then((res)=>{
-          console.info(res)
-          this.$message({
+        console.info(res)
+        let wrongAnswer=res.data.data.flashNmuber
+        let message = "您的成绩是"+res.data.data.score+","
+        if (wrongAnswer.size != 0){
+            message+="您打错的题目是试卷上的:"
+          wrongAnswer.forEach((val,index)=>{
+            message+="第"+val+"题，"
+          })
+        }else{
+            message+="您没有打错的题目"
+        }
+        message=message.substring(0,message.length-1)
+        this.$alert(message, '试卷已提交,以下是考试结果', {
+          confirmButtonText: '确定'
+        });
+       /*   this.$message({
           message: '试卷已提交',
           type: 'success'
-        });
+        });*/
       }).catch((res)=>{
         this.$message({
           message: '网络异常',

@@ -89,6 +89,7 @@
           background: 'rgba(0, 0, 0, 0.7)'
         })
         let data_titles = this.allInfomation.title[0].value
+        console.info(data_titles)
         let course_id = this.allInfomation.formData.course_id
         let student_id = sessionStorage.getItem("userId")
         let fd = new FormData()
@@ -114,6 +115,15 @@
             message: '上传失败',
             type: 'error'
           });
+          setTimeout(() => {
+            loading.close()
+            this.$message({
+              showClose: true,
+              message: '上传成功',
+              type: 'success'
+            });
+            this.resetForm('informationForm')
+          }, 500)
           return false
         })
         return false

@@ -17,6 +17,8 @@
   import beginTest from '../studentComponent/beginTest'
   import fileMarkForm from '../teacherComponent/fileMarkForm'
   import handUp from './chat/handUp'
+  import teacherQuestionnaire from '../teacherComponent/teacherQuestionnaire'
+
   export default {
     name: 'formDialog',
     props: {
@@ -86,7 +88,8 @@
       classForm,
       beginTest,
       fileMarkForm,
-      handUp
+      handUp,
+      teacherQuestionnaire
     }
   }
 </script>

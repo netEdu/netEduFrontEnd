@@ -14,6 +14,13 @@
       :close-on-click-modal="false"
       :show-close="false"
       title="开始测试"></form-dialog>
+    <form-dialog
+      :dialog-form-visible.sync="teacherDialogFormVisible" :obj-data="objData"
+      current-view="teacherQuestionnaire"
+      :close-on-press-escape="false"
+      :close-on-click-modal="false"
+      :show-close="false"
+      title="开始教师评价"></form-dialog>
   </div>
 </template>
 
@@ -55,7 +62,7 @@
             })
             break
           case '2':
-            this.objData.paper_id=paper_id
+            this.objData.paper_id=2
             this.dialogFormVisible=true
             break
           case '3':
@@ -75,8 +82,11 @@
       }
       return {
         dialogFormVisible:false,
+        teacherDialogFormVisible:true,
         objData:{
-          paper_id:1
+          paper_id:1,
+          teacher_id:1001,
+          questionnaire_id:3
         }
       }
     },
