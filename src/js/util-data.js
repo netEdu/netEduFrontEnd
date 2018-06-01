@@ -40,6 +40,9 @@ export const URL_DATA = {
   QUERY_STUDENT_DATA_TEACHER: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/queryStudentData',
   MARK_STUDENT_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/markData',
   TEACHER_DOWNLOAD_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/downloadFile?',
+  QUERY_ALL_STUDENT_AVG_SCORE:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Score/AVGAllStudent',
+  QUERY_MY_STUDENT:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/queryMyStudent',
+  QUERY_ONE_STUDENT_ALL_PAPER:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/queryMyStudentPaper',
 
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
@@ -51,6 +54,7 @@ export const URL_DATA = {
   DELETE_PERSON_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/deleteFiles',
   QUERY_STUDENT_EXAM_INFORMATION:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Exam/showExam',
   CHECK_PAPER:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Check/checkPaper',
+  ADD_TEACHER_QUESTIONNAIRE:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherEvaluate/addTeacherEvaluate',
 
   // 管理员端
   QUERY_TEACHER_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/queryTeacher',
@@ -128,6 +132,14 @@ export const TeacherSideBarItem = [
       {
         index: '/studentFiles',
         title: '资料查看/打分'
+      },
+      {
+        index: '/Sidebar7',
+        title:'查看/打印学生平均成绩'
+      },
+      {
+        index: '/Sidebar8',
+        title:'查看学生答题情况'
       }
     ]
   }
