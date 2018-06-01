@@ -109,9 +109,12 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .label-style{
   float: left;
   width: 70%;
+}
+.card-form{
+  margin: 20px;
 }
 </style>

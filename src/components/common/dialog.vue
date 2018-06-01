@@ -17,6 +17,7 @@
   import beginTest from '../studentComponent/beginTest'
   import fileMarkForm from '../teacherComponent/fileMarkForm'
   import teacherQuestionnaire from '../teacherComponent/teacherQuestionnaire'
+  import studentQuestionnaire from '../studentComponent/studentQuestionnaire'
 
   export default {
     name: 'formDialog',
@@ -87,7 +88,8 @@
       classForm,
       beginTest,
       fileMarkForm,
-      teacherQuestionnaire
+      teacherQuestionnaire,
+      studentQuestionnaire
     }
   }
 </script>
