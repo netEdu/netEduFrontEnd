@@ -31,8 +31,28 @@
         let state=protocol.split(",")[0]
         let paper_id=protocol.split(",")[1]
         switch(state){
-          case '1':
-            return null
+          case '1': case '6': 
+            let text = evt.data.split(']')[1]
+            // 组id
+            let group_id = protocol.split(',')[1]
+            // 消息id
+            let id = protocol.split(',')[2]
+            // 组名
+            let group_name = protocol.split(',')[3]
+            // 消息发送者
+            let author = protocol.split(',')[4]
+            // 时间戳
+            let timestamp = protocol.split(',')[5]
+            // let thread = _this.$store.state.threads[threadID]
+            console.log('onreceive')
+            this.updateMessage({
+              group_id,
+              id,
+              group_name,
+              author,
+              timestamp,
+              text
+            })
             break
           case '2':
             this.objData.paper_id=paper_id
@@ -51,31 +71,7 @@
               type: 'warning'
             });
             break
-          case '6':
-            return null
-            break
         }
-          let text = evt.data.split(']')[1]
-          // 组id
-          let group_id = protocol.split(',')[1]
-          // 消息id
-          let id = protocol.split(',')[2]
-          // 组名
-          let group_name = protocol.split(',')[3]
-          // 消息发送者
-          let author = protocol.split(',')[4]
-          // 时间戳
-          let timestamp = protocol.split(',')[5]
-          // let thread = _this.$store.state.threads[threadID]
-          console.log('onreceive')
-          this.updateMessage({
-            group_id,
-            id,
-            group_name,
-            author,
-            timestamp,
-            text
-          })
       }
       return {
         dialogFormVisible:false,

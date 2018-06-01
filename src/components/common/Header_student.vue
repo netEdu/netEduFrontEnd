@@ -15,6 +15,7 @@
   </div>
 </template>
 <script>
+  import { LOCAL_IPADDR } from '../../js/util-data'
   export default {
     data() {
       return {
@@ -30,9 +31,7 @@
     methods:{
       handleCommand(command) {
         if(command == 'loginout'){
-          localStorage.removeItem('username')
-          sessionStorage.removeItem('authKey')
-          this.$router.push('/login')
+          location.href = 'http://' + LOCAL_IPADDR
         }
       }
     }

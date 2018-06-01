@@ -1,6 +1,9 @@
 <template>
   <el-card>
-    <h2>查看/编辑试卷</h2>
+    <h2>
+      查看/编辑试卷
+      <el-button type="text" @click.prevent="createPaper">添加试卷</el-button>
+    </h2>
     <el-form class="card-form" :model="selectForm" :inline="true" ref="courseList">
       <el-form-item label="试卷标题">
         <el-input v-model="selectForm.paper_name" placeholder="试卷标题" />
@@ -20,7 +23,7 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item style="float: right">
-        <el-button type="primary" @click="onSubmit()">查询</el-button>
+        <el-button type="primary" @click="throttleSubmit()">查询</el-button>
       </el-form-item>
     </el-form>
     <div class="table-container">
@@ -53,7 +56,7 @@
             <template slot-scope="scope">
               <el-tag class="my-tag"
                 :type="scope.row.teacher_id == currentTeacherId ? 'success' : 'warning'"
-                disable-transitions>{{scope.row.teacher_id == currentTeacherId ? '本人' : '他人'}}</el-tag>
+                disable-transitions>{{ scope.row.teacher_id == currentTeacherId ? '本人' : '他人' }}</el-tag>
             </template>
           </el-table-column>
           <el-table-column label="操作" width="80">
@@ -171,41 +174,64 @@
           </el-table-column>
         </el-table>
       </div>
-     <!-- <form-dialog :dialog-form-visible.sync="dialogFormVisible" :obj-data="objData" current-view="printPaper" title="打印试题">
-      </form-dialog>-->
     </div>
     <el-dialog title="打印试题" :visible.sync="dialogFormVisible">
       <div>
         <div id="printInformation">
           <h2>选择题</h2>
-          <div v-for="(chooseVal,chooseIndex) in chooseQuestions" v-if="chooseVal.question_type =='1'" class="choose-style">
+          <div v-for="(chooseVal, chooseIndex) in chooseQuestions" 
+            v-if="chooseVal.question_type =='1'" 
+            :key="chooseIndex"
+            class="choose-style">
            <div>{{chooseIndex+1}}. {{chooseVal.question_content}}  (  )</div>
-            <span v-for="(optionVal,optionIndex) in chooseVal.questionOptionList" class="option-style">
-              <span v-if="optionIndex == '0'">A.{{optionVal.option_content}}</span>
-              <span v-if="optionIndex == '1'">B.{{optionVal.option_content}}</span>
-              <span v-if="optionIndex == '2'">C.{{optionVal.option_content}}</span>
-              <span v-if="optionIndex == '3'">D.{{optionVal.option_content}}</span>
+            <span v-for="(optionVal, optionIndex) in chooseVal.questionOptionList" 
+              :key="optionIndex + 1000"
+              class="option-style">
+              <span v-if="optionIndex == '0'">A.{{ optionVal.option_content }}</span>
+              <span v-if="optionIndex == '1'">B.{{ optionVal.option_content }}</span>
+              <span v-if="optionIndex == '2'">C.{{ optionVal.option_content }}</span>
+              <span v-if="optionIndex == '3'">D.{{ optionVal.option_content }}</span>
             </span>
           </div>
           <h2 >判断题</h2>
-          <div v-for="(val,index) in decideQuestions" v-if="val.question_type =='0'" class="decide-style">
+          <div v-for="(val, index) in decideQuestions" 
+            v-if="val.question_type == '0'" 
+            :key="index + 2000"
+            class="decide-style">
             <span>{{index+1}}. {{val.question_content}}    (  )</span>
           </div>
         </div>
         <el-button @click="print()">打印</el-button>
       </div>
     </el-dialog>
+    <el-dialog title="添加试卷" :visible.sync="createPaperVisible">
+      <el-form 
+        :model="paperForm" 
+        ref="paperForm" 
+        label-width="100px" 
+        label-position="top">
+        <el-form-item 
+          label="试卷名称"
+          prop="paper_name"
+          :rules="{
+            required: true, message: '请填写试卷名称'
+          }">
+          <el-input v-model="paperForm.paper_name" placeholder="试卷名称"></el-input>
+        </el-form-item>
+        <el-form-item label="试卷备注">
+          <el-input :rows="4" type="textarea" v-model="paperForm.remarks" placeholder="试卷备注"></el-input>
+        </el-form-item>
+        <el-button @click.prevent="createPaperSubmit">提交</el-button>
+      </el-form>
+    </el-dialog>
   </el-card>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
-  import formDialog from '../common/dialog'
+  import { throttle, URL_DATA } from '../../js/util-data'
   export default {
     name: "paper",
-    components: {
-      formDialog
-    },
     data() {
       return {
         choose_num:0,
@@ -214,11 +240,18 @@
           paper_id:1,
         },
         dialogFormVisible: false,
+        createPaperVisible: false,
         selectForm: {
           paper_name: '',
           remarks: '',
           startDate: '',
           endDate: ''
+        },
+        paperForm: {
+          paper_name: '',
+          remarks: '无',
+          questions: '',
+          teacher_id: sessionStorage.getItem('userId')
         },
         // 时间范围，是一个数组
         selectDate: null
@@ -392,6 +425,10 @@
           loadingRight
         })
       },
+      // 提交节流
+      throttleSubmit() {
+        this.throttle_submit()
+      },
       // 查询表单提交
       onSubmit() {
         // 处理表单
@@ -414,7 +451,25 @@
           selectForm: this.selectForm,
           loading: loadingLeft
         })
+      },
+      createPaper() {
+        this.createPaperVisible = true
+      },
+      createPaperSubmit() {
+        this.$axios({
+          url: URL_DATA.PAPER_ADD,
+          method: 'post',
+          data: this.paperForm
+        }).then( res => {
+          this.$message.success('添加成功')
+          this.throttleSubmit()
+        }).catch( err => {
+          this.$message.error('网络错误')
+        })
       }
+    },
+    created() {
+      this.throttle_submit = throttle(this.onSubmit, 500)
     }
   }
 </script>

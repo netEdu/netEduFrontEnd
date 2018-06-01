@@ -15,6 +15,7 @@
   </div>
 </template>
 <script>
+import { LOCAL_IPADDR } from '../../js/util-data'
 export default {
   data() {
     return {
@@ -30,7 +31,7 @@ export default {
   methods: {
     handleCommand(command) {
       if (command === 'loginout') {
-        this.$router.push('/login')
+        location.href = 'http://' + LOCAL_IPADDR
       }
     }
   }

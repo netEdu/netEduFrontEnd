@@ -2,16 +2,16 @@
   <el-form :model="formData" :rules="rules" ref="courseForm" label-width="100px" label-position="left">
     <h2 v-if="title">{{ title }}</h2>
     <el-form-item prop="course_name" label="课程名称">
-      <el-input v-model="formData.course_name" placeholder="请输入课程名称" />
+      <el-input v-model="formData.course_name" placeholder="请输入课程名称"/>
     </el-form-item>
     <el-form-item prop="credit" label="课程学分">
-      <el-input v-model="formData.credit" placeholder="请输入课程学分" />
+      <el-input v-model="formData.credit" placeholder="请输入课程学分"/>
     </el-form-item>
     <el-form-item prop="hours" label="学时">
-      <el-input v-model="formData.hours" placeholder="请输入学时" />
+      <el-input v-model="formData.hours" placeholder="请输入学时"/>
     </el-form-item>
     <el-form-item prop="class_time" label="课时">
-      <el-input v-model="formData.class_time" placeholder="请输入课时" />
+      <el-input v-model="formData.class_time" placeholder="请输入课时"/>
     </el-form-item>
     <el-form-item prop="class_num" label="上课班级">
       <el-select v-model="formData.class_num" placeholder="请选择上课班级" clearable>

@@ -13,6 +13,7 @@
 // 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
+export const LOCAL_IPADDR = 'localhost:8888'
 const IPADDR = 'localhost:8011'
 let WAR_NAME = ''
 const PROTOCOL_HTTP = 'http://'

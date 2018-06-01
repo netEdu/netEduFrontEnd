@@ -18,10 +18,10 @@
     <message-section></message-section>
     <choose-dialog 
       :dialog-form-visible.sync="dialogFormVisible" 
-      current-view="classForm" 
-      :close-on-press-escape="false"
-      :close-on-click-modal="false"
-      :show-close="false"
+      :current-view="view" 
+      :close-on-press-escape="dialogControl.closeOnPressEscape"
+      :close-on-click-modal="dialogControl.closeOnClickModal"
+      :show-close="dialogControl.showClose"
       :title="dialogTitle"></choose-dialog>
   </el-card>
 </template>
@@ -37,6 +37,12 @@
     name: 'chatRoom',
     data() {
       return {
+        view: '',
+        dialogControl: {
+          closeOnPressEscape: false,
+          closeOnClickModal: false,
+          showClose: false
+        },
         classExist: false,
         dialogFormVisible: false,
         dialogTitle: '',
@@ -48,6 +54,10 @@
     },
     methods: {
       openDialog() {
+        this.dialogControl.closeOnClickModal = false
+        this.dialogControl.closeOnPressEscape = false,
+        this.dialogControl.showClose = false
+        this.view = 'classForm'
         this.dialogTitle = '选择班级'
         this.dialogFormVisible = true
         this.classExist = true
@@ -111,7 +121,12 @@
       },
       // 举手
       giveQuestion() {
-
+        this.dialogControl.closeOnClickModal = true
+        this.dialogControl.closeOnPressEscape = true,
+        this.dialogControl.showClose = true
+        this.view = 'handUp'
+        this.dialogTitle = '举手消息'
+        this.dialogFormVisible = true
       }
     },
     components: {
