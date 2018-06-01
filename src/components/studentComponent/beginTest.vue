@@ -171,7 +171,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .choose-style{
     margin:20px;
   }

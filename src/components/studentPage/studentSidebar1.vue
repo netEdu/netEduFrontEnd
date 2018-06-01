@@ -88,6 +88,8 @@
          // res.data.birth=birth.split('-')[0]+"年"+birth.split('-')[1]+"月"+birth.split('-')[2]+"日"
         }
         this.formData.studentInformation=res.data
+        sessionStorage.setItem('class_num', res.data.class_num)
+        console.info(sessionStorage.getItem('class_num'))
       })
     }
 
