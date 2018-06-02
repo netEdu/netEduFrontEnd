@@ -73,10 +73,12 @@
             this.dialogFormVisible = true
             break
           case '3':
-            return null
+            this.objData.questionnaire_id = protocol.split(',')[2]
+            this.objData.teacher_id = protocol.split(',')[1]
+            this.teacherDialogFormVisible = true
             break
           case '4':
-            return null
+            this.studentDialogFormVisible = true
             break
           case '5':
             this.$notify({
@@ -101,7 +103,7 @@
           teacher_id: 0,
           questionnaire_id: 0,
           //学生互评的班号
-          class_num: 0
+          class_num: sessionStorage.getItem('class_num')
         }
       }
     },

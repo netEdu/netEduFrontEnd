@@ -38,7 +38,7 @@ export default {
   watch: {
     objData: {
       handler(val) {
-        if(this.objData.type == 3){
+        if(val == 3){
           this.questionaires = []
           this.$axios({
             method: 'post',
@@ -48,7 +48,12 @@ export default {
             this.questionaires = res.data.data.list.concat()
           })
         } else {
-          this.questionaires = []
+          this.questionaires = [
+            { questionnaire_name: '学生互评问卷1', questionnaire_id: 1 },
+            { questionnaire_name: '学生互评问卷2', questionnaire_id: 2 },
+            { questionnaire_name: '学生互评问卷3', questionnaire_id: 3 }
+          ]
+          this.questionaireForm.selectedQuestionaireId = null
         }
       },
       deep: true
@@ -58,6 +63,7 @@ export default {
     startExam() {
       webSocket().send(
         this.objData.type + ',' + 
+        (this.objData.type == 3 ? (sessionStorage.getItem('userId') + ',') : '') +
         sessionStorage.getItem('class') + ',' + 
         this.questionaireForm.selectedQuestionaireId)
 
