@@ -82,9 +82,9 @@
           this.hasBeenExam = true
           let paper_id = '1'
           // TODO: 开始考试ws逻辑
-          this.dialogControl.closeOnClickModal = true
-          this.dialogControl.closeOnPressEscape = true,
-          this.dialogControl.showClose = true
+          this.dialogControl.closeOnClickModal = false
+          this.dialogControl.closeOnPressEscape = false,
+          this.dialogControl.showClose = false
           this.view = 'paperForm'
           this.dialogTitle = '选择试卷'
           this.dialogFormVisible = true
@@ -107,9 +107,9 @@
           this.hasBeenTeacherComment = true
           // TODO: 教师评价ws逻辑
           this.dialogObjData.type = 3
-          this.dialogControl.closeOnClickModal = true
-          this.dialogControl.closeOnPressEscape = true
-          this.dialogControl.showClose = true
+          this.dialogControl.closeOnClickModal = false
+          this.dialogControl.closeOnPressEscape = false
+          this.dialogControl.showClose = false
           this.view = 'commentForm'
           this.dialogTitle = '选择评教问卷'
           this.dialogFormVisible = true

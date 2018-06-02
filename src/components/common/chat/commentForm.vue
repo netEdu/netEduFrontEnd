@@ -82,7 +82,12 @@ export default {
         this.questionaires = res.data.data.list.concat()
       })
     } else {
-      this.questionaires = []
+      this.questionaires = this.questionaires = [
+        { questionnaire_name: '学生互评问卷1', questionnaire_id: 1 },
+        { questionnaire_name: '学生互评问卷2', questionnaire_id: 2 },
+        { questionnaire_name: '学生互评问卷3', questionnaire_id: 3 }
+      ]
+      this.questionaireForm.selectedQuestionaireId = null
     }
   }
 }
