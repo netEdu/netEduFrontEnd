@@ -12,8 +12,12 @@ export default {
   // 接收单个消息
   [types.RECEIVE_MESSAGE] (state, { message }) {
     // 如果这个组不存在，就创建新的组
+    console.log(message)
     if (!state.threads[message.group_id]) {
-      createThread(state, message.group_id, message.group_name)
+      createThread(state, { 
+        group_id: message.group_id, 
+        group_name: message.group_name
+      })
     }
     addMessage(state, message)
   },

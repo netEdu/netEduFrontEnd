@@ -26,6 +26,8 @@ export default {
         group_id,
         // 组名
         group_name,
+        // 人员id
+        person_id,
         // 讨论组参与者
         members: [...{personInfo}],
         // 信息流

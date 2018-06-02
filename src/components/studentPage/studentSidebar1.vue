@@ -85,6 +85,22 @@
         }
         this.formData.studentInformation=res.data
         sessionStorage.setItem('class_num', res.data.class_num)
+        this.$axios({
+          method: 'post',
+          url: URL_DATA.ENTER_CLASS,
+          params: {
+            id: res.data.class_num
+          }
+        }).then( enterRes => {
+          this.$store.dispatch('chat/createClassGroup', {
+            group_name: res.data.class_num + '班',
+            group_id: 'class_' + res.data.class_num,
+            members: enterRes.data.concat()
+          })
+        }).catch( err => {
+          this.$message.error('网络错误')
+        })
+
       })
     }
 

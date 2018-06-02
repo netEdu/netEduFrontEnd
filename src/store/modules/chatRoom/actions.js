@@ -10,6 +10,7 @@ export const initThreads = ({ commit }, payload) => {
 
 // 接收到消息
 export const receiveMessage = ({ commit }, payload) => {
+  console.log(payload)
   commit(types.RECEIVE_MESSAGE, { message: payload })
 }
 

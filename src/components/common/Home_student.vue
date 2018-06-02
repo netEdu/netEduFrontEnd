@@ -90,19 +90,19 @@
         }
       }
       return {
-        //控制开始测试的模态框弹出
+        // 控制开始测试的模态框弹出
         dialogFormVisible:false,
-        //控制教师评价的模态框弹出
+        // 控制教师评价的模态框弹出
         teacherDialogFormVisible:false,
-        //控制学生互评的模态框弹出
+        // 控制学生互评的模态框弹出
         studentDialogFormVisible:false,
         objData:{
-          //开始测试的试卷id
+          // 开始测试的试卷id
           paper_id: 0,
-          //学生评价教师的教师id和试卷id
+          // 学生评价教师的教师id和试卷id
           teacher_id: 0,
           questionnaire_id: 0,
-          //学生互评的班号
+          // 学生互评的班号
           class_num: sessionStorage.getItem('class_num')
         }
       }
