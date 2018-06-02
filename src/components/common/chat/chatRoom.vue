@@ -4,7 +4,7 @@
   <el-card>
     <h2>
       讨论组
-      <el-button v-if="!classExist && !isStudent" type="text" @click.prevent="openDialog">加入课堂讨论组</el-button>
+      <el-button v-if="!classExist && !isStudent" type="text" @click.prevent="chooseClass">加入课堂讨论组</el-button>
       
       <el-button v-if="classExist && !isStudent" :disabled="hasBeenExam" type="text" @click.prevent="startExam">开始考试</el-button>
       <el-button v-if="classExist && !isStudent" :disabled="hasBeenTeacherComment" type="text" @click.prevent="startTeacherComment">开始教师评价</el-button>
@@ -19,6 +19,7 @@
     <choose-dialog 
       :dialog-form-visible.sync="dialogFormVisible" 
       :current-view="view" 
+      :obj-data="dialogObjData"
       :close-on-press-escape="dialogControl.closeOnPressEscape"
       :close-on-click-modal="dialogControl.closeOnClickModal"
       :show-close="dialogControl.showClose"
@@ -43,6 +44,9 @@
           closeOnClickModal: false,
           showClose: false
         },
+        dialogObjData: {
+          type: 0
+        },
         classExist: false,
         dialogFormVisible: false,
         dialogTitle: '',
@@ -53,7 +57,7 @@
       }
     },
     methods: {
-      openDialog() {
+      chooseClass() {
         this.dialogControl.closeOnClickModal = false
         this.dialogControl.closeOnPressEscape = false,
         this.dialogControl.showClose = false
@@ -78,7 +82,13 @@
           this.hasBeenExam = true
           let paper_id = '1'
           // TODO: 开始考试ws逻辑
-          webSocket().send('2,' + sessionStorage.getItem('class') + ',' + paper_id)
+          this.dialogControl.closeOnClickModal = true
+          this.dialogControl.closeOnPressEscape = true,
+          this.dialogControl.showClose = true
+          this.view = 'paperForm'
+          this.dialogTitle = '选择试卷'
+          this.dialogFormVisible = true
+          // webSocket().send('2,' + sessionStorage.getItem('class') + ',' + paper_id)
         }).catch(e => {
           console.log(e)
           this.$message({
@@ -96,6 +106,13 @@
         }).then(() => {
           this.hasBeenTeacherComment = true
           // TODO: 教师评价ws逻辑
+          this.dialogObjData.type = 3
+          this.dialogControl.closeOnClickModal = true
+          this.dialogControl.closeOnPressEscape = true
+          this.dialogControl.showClose = true
+          this.view = 'commentForm'
+          this.dialogTitle = '选择评教问卷'
+          this.dialogFormVisible = true
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -112,6 +129,13 @@
         }).then(() => {
           this.hasBeenStudentComment = true
           // TODO: 开始考试ws逻辑
+          this.dialogObjData.type = 4
+          this.dialogControl.closeOnClickModal = true
+          this.dialogControl.closeOnPressEscape = true
+          this.dialogControl.showClose = true
+          this.view = 'commentForm'
+          this.dialogTitle = '选择评教问卷'
+          this.dialogFormVisible = true
         }).catch(() => {
           this.$message({
             type: 'info',

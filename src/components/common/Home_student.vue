@@ -69,8 +69,8 @@
             })
             break
           case '2':
-            //this.objData.paper_id=2
-            this.dialogFormVisible=true
+            this.objData.paper_id = protocol.split(',')[1]
+            this.dialogFormVisible = true
             break
           case '3':
             return null
@@ -96,12 +96,12 @@
         studentDialogFormVisible:false,
         objData:{
           //开始测试的试卷id
-          paper_id:0,
+          paper_id: 0,
           //学生评价教师的教师id和试卷id
-          teacher_id:0,
-          questionnaire_id:0,
+          teacher_id: 0,
+          questionnaire_id: 0,
           //学生互评的班号
-          class_num:0
+          class_num: 0
         }
       }
     },

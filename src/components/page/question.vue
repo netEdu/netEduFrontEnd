@@ -221,6 +221,7 @@
         this.objData.question_id = row.question_id
         this.dialogFormVisible = true
       },
+      // 删除题目
       removeQuestion(row) {
         this.$confirm('此操作将永久删除该题目, 是否继续?', '提示', {
           confirmButtonText: '确定',

@@ -3,8 +3,9 @@
 		<div class="ms-title"><strong>网络教学管理系统</strong></div>
     <div ref="jumbotron" class="ms-jumbotron" @mousemove="updateXY" @mouseout="clearXY">
       <div class="banner-components" ref="bannerComponents">
-        <img class="ms-banner-nav ms-shadow" src="../../../static/img/header.png"/>
-        <img class="ms-banner-aside ms-shadow" src="../../../static/img/aside.png"/>
+        <img class="ms-banner ms-shadow" src="../../../static/img/bg.png"/>
+        <img class="ms-banner-nav" src="../../../static/img/header.png"/>
+        <img class="ms-banner-aside" src="../../../static/img/aside.png"/>
       </div>
 
       <div class="banner-windows" ref="windows">
@@ -13,12 +14,8 @@
         <img class="ms-banner-window-2" src="../../../static/img/window2.png"/>
       </div>
 
-      <div class="banner-container" ref="bannerContainer">
-        <img class="ms-banner ms-shadow" src="../../../static/img/bg.png"/>
-      </div>
-
       <div class="banner-blocker" ref="bannerBlocker">
-        <div class="ms-login ms-shadow" @mouseover="clearXY" @mousemove.stop>
+        <div class="ms-login" @mouseover="clearXY" @mousemove.stop>
           <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="0px" class="demo-ruleForm">
             <el-form-item prop="username">
               <el-input v-model="loginForm.username" placeholder="用户名（您的姓名）"/>
@@ -189,25 +186,16 @@ export default {
 }
 .banner-components {
   position: absolute;
-  z-index: 91;
   width: 100%;
   height: 100%;
 }
 .banner-windows {
   position: absolute;
-  z-index: 92;
-  width: 100%;
-  height: 100%;
-}
-.banner-container {
-  position: absolute;
-  z-index: 90;
   width: 100%;
   height: 100%;
 }
 .banner-blocker {
   position: absolute;
-  z-index: 94;
   width: 100%;
   height: 100%;
 }

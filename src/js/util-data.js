@@ -48,6 +48,7 @@ export const URL_DATA = {
   QUERY_MY_STUDENT:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/queryMyStudent',
   QUERY_ONE_STUDENT_ALL_PAPER:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/queryMyStudentPaper',
   TEACHER_UPLOAD_MANY: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/uploadMany',
+  QUERY_QUESTIONNAIRES: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Questionnaire/pageQuestionnaire',
 
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',

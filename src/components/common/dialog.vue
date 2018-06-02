@@ -14,6 +14,8 @@
   import courseForm from '../teacherComponent/courseForm'
   import questionForm from '../teacherComponent/questionForm'
   import classForm from './chat/ClassForm'
+  import paperForm from './chat/paperForm'
+  import commentForm from './chat/commentForm'
   import beginTest from '../studentComponent/beginTest'
   import fileMarkForm from '../teacherComponent/fileMarkForm'
   import handUp from './chat/handUp'
@@ -91,7 +93,9 @@
       fileMarkForm,
       handUp,
       teacherQuestionnaire,
-      studentQuestionnaire
+      studentQuestionnaire,
+      paperForm,
+      commentForm
     }
   }
 </script>
