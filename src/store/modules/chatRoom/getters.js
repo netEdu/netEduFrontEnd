@@ -32,3 +32,11 @@ export const ifExistThread = state => person_id => {
   }
   return null
 }
+
+export const classThread = state => {
+  for(let thread in state.threads) {
+    if(isNaN(thread)){
+      return state.threads[thread]
+    }
+  }
+}

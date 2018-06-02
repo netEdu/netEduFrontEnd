@@ -81,11 +81,13 @@
             this.studentDialogFormVisible = true
             break
           case '5':
-            this.$notify({
-              title: '警告',
-              message: '您收到了老师的警告',
-              type: 'warning'
-            });
+            if(protocol.split(',')[1].split('_').some(e => sessionStorage.getItem('userId') == e)) {
+              this.$notify({
+                title: '教师警告',
+                message: '您收到了老师的警告，请遵守课堂纪律！',
+                type: 'warning'
+              });
+            }
             break
         }
       }

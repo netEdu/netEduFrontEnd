@@ -68,9 +68,12 @@
       },
       // 发出警告
       giveWarn() {
-        console.log('giving warn')
-        let student_id = 1
-        webSocket().send('5,' + student_id)
+        this.dialogControl.closeOnClickModal = true
+        this.dialogControl.closeOnPressEscape = true,
+        this.dialogControl.showClose = true
+        this.view = 'warnForm'
+        this.dialogTitle = '向学生发出警告'
+        this.dialogFormVisible = true
       },
       // 开始考试
       startExam() {
