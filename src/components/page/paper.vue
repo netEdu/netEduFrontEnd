@@ -39,6 +39,7 @@
               <div>
                 <div>试卷编号: {{ props.row.paper_id }}</div>
               </div>
+              <br>
               <div>
                 <div>试卷备注: </div>
                 <div>{{ props.row.remarks }}</div>
