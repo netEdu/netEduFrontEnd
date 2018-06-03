@@ -12,7 +12,8 @@
                 <span>{{ props.row.creator }}</span>
               </el-form-item>
               <el-form-item label="题型:">
-                <span>{{ props.row.survey_type }}</span>
+                <span v-if=" props.row.survey_type == '0'">单选</span>
+                <span v-else>简答</span>
               </el-form-item>
               <el-form-item label="问题内容:">
                 <span>{{ props.row.survey_content }}</span>
@@ -31,6 +32,10 @@
         <el-table-column
           label="题型"
           prop="survey_type">
+          <template slot-scope="scope">
+            <span v-if=" scope.row.survey_type == '0'">单选</span>
+            <span v-else>简答</span>
+          </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
