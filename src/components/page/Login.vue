@@ -2,19 +2,19 @@
 	<div class="login-wrap">
 		<div class="ms-title"><strong>网络教学管理系统</strong></div>
     <div ref="jumbotron" class="ms-jumbotron" @mousemove="updateXY" @mouseout="clearXY">
-      <div class="banner-components" ref="bannerComponents">
+      <div class="banner-img" ref="bannerComponents">
         <img class="ms-banner ms-shadow" src="../../../static/img/bg.png"/>
         <img class="ms-banner-nav" src="../../../static/img/header.png"/>
         <img class="ms-banner-aside" src="../../../static/img/aside.png"/>
       </div>
 
-      <div class="banner-windows" ref="windows">
+      <div class="banner-img" ref="windows">
         <img class="ms-banner-block ms-shadow" src="../../../static/img/block.png"/>
         <img class="ms-banner-window-1" src="../../../static/img/window1.png"/>
         <img class="ms-banner-window-2" src="../../../static/img/window2.png"/>
       </div>
 
-      <div class="banner-blocker" ref="bannerBlocker">
+      <div class="banner-img">
         <div class="ms-login" @mouseover="clearXY" @mousemove.stop>
           <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="0px" class="demo-ruleForm">
             <el-form-item prop="username">
@@ -62,8 +62,8 @@ export default {
       // 移除transition，计算角度，计算位移
       this.$refs.jumbotron.style.transition = ''
       this.$refs.windows.style.transition = ''
-      this.$refs.jumbotron.style.transform = 'rotateY(' + (-event.offsetX + 450) / 480 + 'deg) rotateX(' + (event.offsetY - 250) / 480 + 'deg)'
-      this.$refs.windows.style.transform = 'matrix(1, 0, 0, 1, '+ Math.round((-event.offsetX + 450) / 45) +', ' + Math.round(-(event.offsetY - 250) / 45) + ')'
+      this.$refs.jumbotron.style.transform = `rotateY(${ (-event.offsetX + 450) / 480 }deg) rotateX(${ (event.offsetY - 250) / 480 }deg)`
+      this.$refs.windows.style.transform = `matrix(1, 0, 0, 1, ${ Math.round((-event.offsetX + 450) / 45) }, ${ Math.round(-(event.offsetY - 250) / 45) })`
     },
     // 鼠标离开时清空角度
     clearXY(event) {
@@ -184,17 +184,7 @@ export default {
   height: 550px;
   margin: 30px auto;
 }
-.banner-components {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.banner-windows {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.banner-blocker {
+.banner-img {
   position: absolute;
   width: 100%;
   height: 100%;

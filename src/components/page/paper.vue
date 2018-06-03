@@ -36,7 +36,10 @@
           @row-click="showQuestions">
           <el-table-column type="expand" width="20">
             <template slot-scope="props">
-              <div class="table-expand-remarks-card">
+              <div>
+                <div>试卷编号: {{ props.row.paper_id }}</div>
+              </div>
+              <div>
                 <div>试卷备注: </div>
                 <div>{{ props.row.remarks }}</div>
               </div>
