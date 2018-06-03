@@ -60,7 +60,7 @@
               <span>{{ props.row.upload_time }}</span>
             </el-form-item>
             <el-form-item label="得分">
-              <span>{{ props.row.scroll ? props.row.scroll : '未打分' }}</span>
+              <span>{{ props.row.score ? props.row.score + '分' : '未打分' }}</span>
             </el-form-item>
           </el-form>
         </template>
