@@ -50,7 +50,7 @@
         </el-table-column>
         <el-table-column label="操作" width="80">
           <template slot-scope="props">
-            <el-button type="text" @click="removeQuestion(props.$index,props.row)">移除</el-button>
+            <el-button type="text" @click="removeQuestion(props.row)">移除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -76,7 +76,7 @@
         </el-table-column>
         <el-table-column label="操作" width="60">
           <template slot-scope="props">
-            <el-button type="text" @click="addQuestion(props.$index,props.row)">添加</el-button>
+            <el-button type="text" @click="addQuestion(props.row)">添加</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -186,8 +186,12 @@
       filterType(value, row) {
         return row.survey_type === value
       },
-      addQuestion(index,row){
-        this.checkboxGroupInformation.splice(index,1)
+      addQuestion(row){
+        this.checkboxGroupInformation.forEach( (e, index) => {
+          if(e.question_id == row.question_id ){
+            this.checkboxGroupInformation.splice(index, 1)
+          }
+        })
         this.existQuestions.push(row)
         this.existQuestions.sort(this.condition("question_id"))
       },
@@ -210,8 +214,12 @@
           }
         }
       },
-      removeQuestion(index,row){
-        this.existQuestions.splice(index,1)
+      removeQuestion(row){
+        this.existQuestions.forEach( (e, index) => {
+          if(e.question_id == row.question_id ){
+            this.existQuestions.splice(index, 1)
+          }
+        })
         this.checkboxGroupInformation.push(row)
         this.checkboxGroupInformation.sort(this.condition("question_id"))
       }
