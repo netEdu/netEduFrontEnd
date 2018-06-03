@@ -118,24 +118,48 @@
         window.location.href=url
       },
       deleteFile(dataId,index){
-        const loading = this.$loading({
-          lock: true,
-          text: '删除中...',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        })
-        var url=URL_DATA.DELETE_PERSON_FILE
-        this.$axios({
-          method:'delete',
-          url:url,
-          params:{data_ids:dataId}
-        }).then(res=>{
-          setTimeout(_=>{
-            loading.close()
-            this.formData.splice(index, 1)
-          },500)
+        this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          const loading = this.$loading({
+            lock: true,
+            text: '删除中...',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          })
+          var url=URL_DATA.DELETE_PERSON_FILE
+          this.$axios({
+            method:'delete',
+            url:url,
+            params:{data_ids:dataId}
+          }).then(res=>{
+            setTimeout(_=>{
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              });
+              loading.close()
+              this.formData.splice(index, 1)
+            },500)
 
-        })
+          }).catch((res)=>{
+            setTimeout(_=>{
+              this.$message({
+                type: 'error',
+                message: '删除失败!'
+              });
+              loading.close()
+            },500)
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+
       }
     }
   }

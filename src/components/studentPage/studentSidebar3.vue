@@ -82,6 +82,26 @@
 
     },
     beforeUploadFile(file){
+      var fileName=new Array()
+      fileName =file.name.split('.');
+      const extension = ['xls','docx','doc','txt','swf','ppt']
+      if (!extension.some(e => fileName[fileName.length - 1] === e)){
+        this.$notify.error({
+          title: '错误',
+          message: file.name+'文件上传失败，上传模板只能是xls、docx,doc,txt,swf,ppt格式!',
+        });
+        this.allInfomation.title.splice(0,1)
+        return false
+      }
+      const isLt2M = file.size / 1024 / 1024 < 50
+      if(!isLt2M){
+        this.$notify.error({
+          title: '错误',
+          message: file.name+'文件上传失败，文件上传最大为50MB!',
+        });
+        this.allInfomation.title.splice(0,1)
+        return false
+      }
         const loading = this.$loading({
           lock: true,
           text: '上传中...',
@@ -89,7 +109,6 @@
           background: 'rgba(0, 0, 0, 0.7)'
         })
         let data_titles = this.allInfomation.title[0].value
-        console.info(data_titles)
         let course_id = this.allInfomation.formData.course_id
         let student_id = sessionStorage.getItem("userId")
         let fd = new FormData()
@@ -107,7 +126,7 @@
               message: '上传成功',
               type: 'success'
             });
-            this.resetForm('informationForm')
+            this.allInfomation.title.splice(0,1)
           }, 500)
         }).catch(() =>{
           this.$message({
@@ -122,14 +141,15 @@
               message: '上传成功',
               type: 'success'
             });
-            this.resetForm('informationForm')
+            this.allInfomation.title.splice(0,1)
           }, 500)
           return false
         })
         return false
       },
       newhandleChange(file,fileNum){
-          this.allInfomation.title.push({
+
+        this.allInfomation.title.push({
             value: '',
             key: Date.now(),
             name: fileNum[fileNum.length-1].name

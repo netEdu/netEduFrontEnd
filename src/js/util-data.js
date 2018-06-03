@@ -211,29 +211,6 @@ export const StudentSideBarItem = [
         title: '批量添加资料'
       }
     ]
-  },
-  {
-    icon: 'el-icon-menu',
-    index: '2',
-    title: '评价教师',
-    subs:[
-      {
-        index:'/studentSidebar4',
-        title:'添加教师评价'
-      },
-      {
-        index:'/studentSidebar4',
-        title:'删除教师评价'
-      },
-      {
-        index:'/studentSidebar4',
-        title:'查询教师评价'
-      },
-      {
-        index:'/studentSidebar4',
-        title:'修改教师评价'
-      }
-    ]
   }
 ]
 
