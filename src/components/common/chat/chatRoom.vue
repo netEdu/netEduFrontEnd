@@ -16,14 +16,34 @@
     <thread-section></thread-section>
     <member-section></member-section>
     <message-section></message-section>
-    <choose-dialog 
-      :dialog-form-visible.sync="dialogFormVisible" 
-      :current-view="view" 
+    <choose-dialog
+      :dialog-form-visible.sync="dialogFormVisible"
+      :current-view="view"
       :obj-data="dialogObjData"
       :close-on-press-escape="dialogControl.closeOnPressEscape"
       :close-on-click-modal="dialogControl.closeOnClickModal"
       :show-close="dialogControl.showClose"
       :title="dialogTitle"></choose-dialog>
+    <el-dialog
+      :visible.sync="classFormDialogFormVisible"
+      title="选择班级">
+      <center>
+        <el-form :model="chosenClass">
+          <el-select v-model="chosenClass.classNumber" placeholder="请选择班级">
+            <el-option
+              :rules="[
+            { required: true, message: '请选择班级' }
+          ]"
+              v-for="item of classes"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+          <el-button type="primary" @click.prevent="enterClass">选择</el-button>
+        </el-form>
+      </center>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -33,6 +53,7 @@
   import MemberSection from './MemberSection.vue'
   import ChooseDialog from '../dialog.vue'
   import { webSocket } from '../../../js/web-socket'
+  import {URL_DATA} from "../../../js/util-data";
 
   export default {
     name: 'chatRoom',
@@ -44,8 +65,21 @@
           closeOnClickModal: false,
           showClose: false
         },
+        classFormView:"",
+        classFormDialogFormVisible:false,
         dialogObjData: {
           type: 0
+        },
+        classes: [
+          { label: '一班', value: 1 },
+          { label: '二班', value: 2 },
+          { label: '三班', value: 3 },
+          { label: '四班', value: 4 },
+          { label: '五班', value: 5 },
+          { label: '六班', value: 6 }
+        ],
+        chosenClass: {
+          classNumber: null
         },
         classExist: false,
         dialogFormVisible: false,
@@ -57,14 +91,30 @@
       }
     },
     methods: {
+      enterClass() {
+        this.$axios({
+          method: 'post',
+          url: URL_DATA.ENTER_CLASS,
+          params: {
+            id: this.chosenClass.classNumber
+          }
+        }).then( res => {
+          this.$store.dispatch('chat/createClassGroup', {
+            group_name: this.chosenClass.classNumber + '班',
+            group_id: 'class_' + this.chosenClass.classNumber,
+            members: res.data.concat()
+          })
+          // 8,teacherID,classID
+          webSocket().send('8,' + sessionStorage.getItem('userId') + ',' + this.chosenClass.classNumber)
+          sessionStorage.setItem('class', this.chosenClass.classNumber)
+          this.classExist=true
+          this.classFormDialogFormVisible=false
+          this.$emit('close-dialog')
+        })
+      },
       chooseClass() {
-        this.dialogControl.closeOnClickModal = false
-        this.dialogControl.closeOnPressEscape = false,
-        this.dialogControl.showClose = false
-        this.view = 'classForm'
-        this.dialogTitle = '选择班级'
-        this.dialogFormVisible = true
-        this.classExist = true
+        this.classFormView = 'classForm'
+        this.classFormDialogFormVisible = true
       },
       // 发出警告
       giveWarn() {
