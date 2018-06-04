@@ -14,12 +14,16 @@ export default {
     // 如果这个组不存在，就创建新的组
     console.log(message)
     if (!state.threads[message.group_id]) {
-      createThread(state, { 
-        group_id: message.group_id, 
+      createThread(state, {
+        group_id: message.group_id,
         group_name: message.group_name
       })
     }
     addMessage(state, message)
+  },
+  //删除讨论组
+  [types.DELETE_THREAD](state,payload){
+    Vue.delete(payload.threads,payload.id)
   },
   // 切换讨论组
   [types.SWITCH_THREAD] (state, { id, members }) {

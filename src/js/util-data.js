@@ -13,13 +13,13 @@
 // 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-export const LOCAL_IPADDR = '192.168.3.2:8888'
-const IPADDR = '192.168.3.2:8011'
+export const LOCAL_IPADDR = '192.168.3.9:8888'
+const IPADDR = '192.168.3.9:8011'
 let WAR_NAME = ''
 const PROTOCOL_HTTP = 'http://'
 const PROTOCOL_WEBSOCKET = 'ws://'
 // '0,' + 字符串
-export const SOCKET_IP = PROTOCOL_WEBSOCKET + '192.168.3.2:7117' + WAR_NAME + '/websocket'
+export const SOCKET_IP = PROTOCOL_WEBSOCKET + '192.168.3.9:7117' + WAR_NAME + '/websocket'
 
 export const URL_DATA = {
   LOGIN: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/login',
@@ -49,7 +49,7 @@ export const URL_DATA = {
   QUERY_ONE_STUDENT_ALL_PAPER:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/queryMyStudentPaper',
   TEACHER_UPLOAD_MANY: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/uploadMany',
   QUERY_QUESTIONNAIRES: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Questionnaire/pageQuestionnaire',
-
+  DELETE_THREAD: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/delGroup',
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
   UPDATE_STUDENT_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/updateStudentInfo',
