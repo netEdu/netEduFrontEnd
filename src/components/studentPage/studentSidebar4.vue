@@ -36,10 +36,6 @@
           label="上传时间"
           prop="upload_time">
         </el-table-column>
-        <el-table-column
-          label="资料类型"
-          prop="data_type">
-        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button
