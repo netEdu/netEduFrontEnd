@@ -51,7 +51,6 @@ export const URL_DATA = {
   QUERY_QUESTIONNAIRES: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Questionnaire/pageQuestionnaire',
   STUDENT_EVALUATE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentEvaluate/SelectByStudentId',
   MULTI_EVALUATE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/MEvaluate/SelectByStudentId',
-
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
   UPDATE_STUDENT_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/updateStudentInfo',
@@ -90,7 +89,8 @@ export const URL_DATA = {
   INIT_THREADS: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/getGroupById',
   THREAD_PERSON: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/selectPersonWithId',
   ADD_GROUP: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/addGroup',
-  ENTER_CLASS: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/selectAllClassStudent'
+  ENTER_CLASS: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/selectAllClassStudent',
+  DELETE_THREAD: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/delGroup'
 }
 
 // 教师端侧边索引
