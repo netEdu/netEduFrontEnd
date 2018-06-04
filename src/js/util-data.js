@@ -162,6 +162,10 @@ export const TeacherSideBarItem = [
       {
         index: '/Sidebar8',
         title:'查看学生答题情况'
+      },
+      {
+        index: '/Sidebar9',
+        title:'查看学生互评'
       }
     ]
   }
