@@ -58,8 +58,12 @@
       label="小测成绩">
     </el-table-column>
     <el-table-column
-      prop="data_score"
-      label="成果成绩">
+      label="成果成绩"
+      prop="survey_type">
+      <template slot-scope="scope">
+        <span v-if=" scope.row.data_score == null">暂时没有成功成绩</span>
+        <span v-else>{{scope.row.data_score}}</span>
+      </template>
     </el-table-column>
     <el-table-column
       label="操作">
@@ -98,6 +102,9 @@
       methods:{
         printScore(index){
           let studentScore=this.allStudentScore[index]
+          if(studentScore.data_score == null){
+            studentScore.data_score='暂时没有成果成绩'
+          }
           let newstr="<table border='1'>" +
             "<th>学生姓名</th>" +
             "<th>试卷成绩</th>" +
@@ -150,7 +157,11 @@
           }
           let studentScore=this.allStudentScore
           let studentScoreInformation=""
+
           studentScore.forEach((val,index)=>{
+            if(val.data_score == null){
+              val.data_score='暂时没有成果成绩'
+            }
             studentScoreInformation+=
               "<tr>"+
             "<td>"+(index+1)+"</td>"+
