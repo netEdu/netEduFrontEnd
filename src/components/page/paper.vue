@@ -97,6 +97,9 @@
                 <el-form-item label="难度:">
                   <span>{{ showDifficulty(props.row) }}</span>
                 </el-form-item>
+                <el-form-item label="错误率:">
+                  <span>{{ props.row.error_times == 0 ? '0' : Math.floor(props.row.error_times/props.row.frequency * 100) }}%</span>
+                </el-form-item>
               </el-form>
             </template>
           </el-table-column>
@@ -150,6 +153,9 @@
                 </el-form-item>
                 <el-form-item label="难度:">
                   <span>{{ showDifficulty(props.row) }}</span>
+                </el-form-item>
+                <el-form-item label="错误率:">
+                  <span>{{ props.row.error_times == 0 ? '0' : Math.floor(props.row.error_times/props.row.frequency * 100) }}%</span>
                 </el-form-item>
               </el-form>
             </template>
