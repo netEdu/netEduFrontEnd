@@ -138,7 +138,7 @@
         // 分页参数
         pagement: {
           page: 1,
-          pageSize: 10
+          pageSize: 10000
         },
         // 表格选中项
         tableSelection: [],

@@ -77,16 +77,14 @@ export default new Router({
         {
           path: '/Sidebar7',
           component: resolve => require(['../components/page/Sidebar7.vue'], resolve)
-        }
-      ]
-    },
-    {
-      path: '/teacher',
-      component: resolve => require(['../components/common/Home.vue'], resolve),
-      children:[
+        },
         {
           path: '/Sidebar8',
           component: resolve => require(['../components/page/Sidebar8.vue'], resolve)
+        },
+        {
+          path: '/Sidebar9',
+          component: resolve => require(['../components/page/Sidebar9.vue'], resolve)
         }
       ]
     },
