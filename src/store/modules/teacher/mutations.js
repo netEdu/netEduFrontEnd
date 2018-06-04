@@ -75,8 +75,9 @@ export default {
 
   /*************************************** 考题 ***************************************/
   // 获取所有的考题
-  [types.RECEIVE_QUESTION] (state, { questions }) {
+  [types.RECEIVE_QUESTION] (state, { questions, count }) {
     Vue.set(state, 'questions', {})
+    Vue.set(state, 'questionsCount', count)
     questions.forEach( question => {
       Vue.set(state.questions, question.question_id, question)
     })

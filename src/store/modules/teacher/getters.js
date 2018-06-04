@@ -52,6 +52,8 @@ export const unExistQuestions = (state) => {
 
 
 /*************************************** 题目 ***************************************/
+// 获取考题总数
+export const questionsCount = state => state.questionsCount
 // 获取考题列表
 export const questionsList = (state) => {
   let questionsList = []

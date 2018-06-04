@@ -110,6 +110,15 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pagement.pageNo"
+      :page-sizes="[5, 10, 20]"
+      :page-size="pagement.pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="questionsCount">
+    </el-pagination>
     <!-- ****************************** 弹出框 ****************************** -->
     <form-dialog 
       :dialog-form-visible.sync="dialogFormVisible" 
@@ -138,7 +147,7 @@
         // 分页参数
         pagement: {
           page: 1,
-          pageSize: 10000
+          pageSize: 5
         },
         // 表格选中项
         tableSelection: [],
@@ -151,10 +160,19 @@
     },
     computed: {
       ...mapGetters('teacher', {
-        questionsList: 'questionsList'
+        questionsList: 'questionsList',
+        questionsCount: 'questionsCount'
       })
     },
     methods: {
+      handleSizeChange(val) {
+        this.pagement.pageSize = val
+        this.onSubmit()
+      },
+      handleCurrentChange(val) {
+        this.pagement.page = val
+        this.onSubmit()
+      },
       // 表单提交
       submitMethod() {
         const loading = this.$loading({
@@ -254,6 +272,7 @@
     },
     created() {
       this.throttle = throttle(this.submitMethod, 500)
+      this.onSubmit()
     }
   }
 </script>

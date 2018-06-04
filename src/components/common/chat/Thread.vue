@@ -2,7 +2,7 @@
 
   <li
     class="thread-list-item"
-    :class="{ active: active }" style="height:50px;">
+    :class="{ active: active }" style="height: 50px;">
     <div @click="$emit('switch-thread', thread.group_id)" style="float: left;width: 100px;margin: 0px;padding: 0px">
     <h5 class="thread-name">{{ thread.group_name }}</h5>
     <div class="thread-time">
@@ -12,8 +12,8 @@
       {{ thread.lastMessage === null ? '暂时没有消息' : thread.lastMessage.text }}
     </div>
     </div>
-    <div style="float: left;width: 80px" v-if="thread.group_id.toString().indexOf('_') == -1">
-    <el-button type="danger" icon="el-icon-delete" circle @click="$emit('delete-thread', thread.group_id)"></el-button>
+    <div class="delete-thread" v-if="thread.group_id.toString().indexOf('_') == -1">
+      <el-button type="danger" icon="el-icon-delete" circle @click="$emit('delete-thread', thread.group_id)"></el-button>
     </div>
   </li>
 
