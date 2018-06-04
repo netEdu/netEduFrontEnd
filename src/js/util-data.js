@@ -49,6 +49,8 @@ export const URL_DATA = {
   QUERY_ONE_STUDENT_ALL_PAPER:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/queryMyStudentPaper',
   TEACHER_UPLOAD_MANY: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/uploadMany',
   QUERY_QUESTIONNAIRES: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Questionnaire/pageQuestionnaire',
+  STUDENT_EVALUATE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentEvaluate/SelectByStudentId',
+  MULTI_EVALUATE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/MEvaluate/SelectByStudentId',
 
   // 学生端
   QUERY_STUDENT_INFO: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/studentInfo',
@@ -83,6 +85,7 @@ export const URL_DATA = {
   QUERY_ONE_QUESTIONNAIRE:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/selectByQuestionnaireId',
   UPADTE_TEACHER_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/upQuestionnaire',
   UPLOAD_MANY_FILES:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/StudentData/uploadMany',
+
   // 聊天室
   INIT_THREADS: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/getGroupById',
   THREAD_PERSON: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/selectPersonWithId',
@@ -166,6 +169,10 @@ export const TeacherSideBarItem = [
       {
         index: '/Sidebar9',
         title:'查看学生互评'
+      },
+      {
+        index: '/Sidebar10',
+        title:'查看学生自评'
       }
     ]
   }
