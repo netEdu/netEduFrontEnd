@@ -100,6 +100,9 @@
                 <el-form-item label="错误率:">
                   <span>{{ props.row.error_times == 0 ? '0' : Math.floor(props.row.error_times/props.row.frequency * 100) }}%</span>
                 </el-form-item>
+                <el-form-item label="出题人:">
+                  <span>{{ props.row.name}}</span>
+                </el-form-item>
               </el-form>
             </template>
           </el-table-column>
@@ -157,6 +160,9 @@
                 <el-form-item label="错误率:">
                   <span>{{ props.row.error_times == 0 ? '0' : Math.floor(props.row.error_times/props.row.frequency * 100) }}%</span>
                 </el-form-item>
+                <el-form-item label="出题人:">
+                  <span>{{ props.row.name}}</span>
+                </el-form-item>
               </el-form>
             </template>
           </el-table-column>
@@ -189,12 +195,12 @@
       <div>
         <div id="printInformation">
           <h2>选择题</h2>
-          <div v-for="(chooseVal, chooseIndex) in chooseQuestions" 
-            v-if="chooseVal.question_type =='1'" 
+          <div v-for="(chooseVal, chooseIndex) in chooseQuestions"
+            v-if="chooseVal.question_type =='1'"
             :key="chooseIndex"
             class="choose-style">
            <div>{{chooseIndex+1}}. {{chooseVal.question_content}}  (  )</div>
-            <span v-for="(optionVal, optionIndex) in chooseVal.questionOptionList" 
+            <span v-for="(optionVal, optionIndex) in chooseVal.questionOptionList"
               :key="optionIndex + 1000"
               class="option-style">
               <span v-if="optionIndex == '0'">A.{{ optionVal.option_content }}</span>
@@ -204,8 +210,8 @@
             </span>
           </div>
           <h2 >判断题</h2>
-          <div v-for="(val, index) in decideQuestions" 
-            v-if="val.question_type == '0'" 
+          <div v-for="(val, index) in decideQuestions"
+            v-if="val.question_type == '0'"
             :key="index + 2000"
             class="decide-style">
             <span>{{index+1}}. {{val.question_content}}    (  )</span>
@@ -215,12 +221,12 @@
       </div>
     </el-dialog>
     <el-dialog title="添加试卷" :visible.sync="createPaperVisible">
-      <el-form 
-        :model="paperForm" 
-        ref="paperForm" 
-        label-width="100px" 
+      <el-form
+        :model="paperForm"
+        ref="paperForm"
+        label-width="100px"
         label-position="top">
-        <el-form-item 
+        <el-form-item
           label="试卷名称"
           prop="paper_name"
           :rules="{

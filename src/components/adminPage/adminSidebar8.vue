@@ -131,7 +131,11 @@ export default {
       return row.survey_type === value
     },
     addQuestion(index,row){
-      this.checkboxGroupInformation.splice(index,1)
+      this.checkboxGroupInformation.forEach( (e, index) => {
+        if(e.question_id == row.question_id ){
+          this.checkboxGroupInformation.splice(index, 1)
+        }
+      })
       this.existQuestions.push(row)
       this.existQuestions.sort(this.condition("question_id"))
     },
@@ -236,7 +240,11 @@ export default {
       })
     },
     removeQuestion(index,row){
-      this.existQuestions.splice(index,1)
+      this.existQuestions.forEach( (e, index) => {
+        if(e.question_id == row.question_id ){
+          this.existQuestions.splice(index, 1)
+        }
+      })
       this.checkboxGroupInformation.push(row)
       this.checkboxGroupInformation.sort(this.condition("question_id"))
     },
@@ -261,34 +269,47 @@ export default {
     },
     deleteQuestionnaire(index,id){
       var url=URL_DATA.DELETE_TEACHER_QUESTION_LIST+"?ids="+id
-      const loading=this.$loading({
-        lock: true,
-        text: '拼命添加中',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
+      this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const loading=this.$loading({
+          lock: true,
+          text: '拼命添加中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        })
+        this.$axios({
+          url:url,
+          method:"delete",
+        }).then((res)=>{
+          setTimeout(()=>{
+            if (res.status==200){
+              this.$message({
+                showClose: true,
+                message: '删除成功',
+                type: 'success'
+              });
+            }else{
+              this.$message({
+                showClose: true,
+                message: '删除失败',
+                type: 'error'
+              });
+            }
+            loading.close()
+            this.questionnaireList.splice(index,1)
+          },1000)
+        })
+      }).catch((res)=>{
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
       })
-      this.$axios({
-        url:url,
-        method:"delete",
-      }).then((res)=>{
-        setTimeout(()=>{
-          if (res.status==200){
-            this.$message({
-              showClose: true,
-              message: '删除成功',
-              type: 'success'
-            });
-          }else{
-            this.$message({
-              showClose: true,
-              message: '删除失败',
-              type: 'error'
-            });
-          }
-          loading.close()
-          this.questionnaireList.splice(index,1)
-        },1000)
-      })
+
+
     }
   }
 }
