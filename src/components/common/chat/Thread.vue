@@ -2,7 +2,7 @@
 
   <li
     class="thread-list-item"
-    :class="{ active: active }" style="height: 50px;">
+    :class="{ active: active }">
     <div @click="$emit('switch-thread', thread.group_id)" style="float: left;width: 100px;margin: 0px;padding: 0px">
     <h5 class="thread-name">{{ thread.group_name }}</h5>
     <div class="thread-time">
