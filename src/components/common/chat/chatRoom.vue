@@ -5,14 +5,14 @@
     <h2>
       讨论组
       <el-button v-if="!classExist && !isStudent" type="text" @click.prevent="chooseClass">加入课堂讨论组</el-button>
-      
+      <el-button v-if="!isStudent" type="text" @click.prevent="createClass">组讨论组</el-button>
       <el-button v-if="classExist && !isStudent" :disabled="hasBeenExam" type="text" @click.prevent="startExam">开始考试</el-button>
       <el-button v-if="classExist && !isStudent" :disabled="hasBeenTeacherComment" type="text" @click.prevent="startTeacherComment">开始教师评价</el-button>
       <el-button v-if="classExist && !isStudent" :disabled="hasBeenStudentComment" type="text" @click.prevent="startStudentComment">开始学生互评</el-button>
       <el-button v-if="classExist && !isStudent" type="text" @click.prevent="giveWarn">发出警告</el-button>
       <el-button v-if="isStudent" type="text" @click.prevent="giveQuestion">举手</el-button>
     </h2>
-    
+
     <thread-section></thread-section>
     <member-section></member-section>
     <message-section></message-section>
@@ -44,6 +44,33 @@
         </el-form>
       </center>
     </el-dialog>
+
+    <el-dialog
+      :visible.sync="classMumber.dialogFormVisible"
+      title="选择成员">
+      <center>
+        <el-form :model="classMumber" ref="classMum" :inline="true">
+          <el-form-item label="请输入组名:" prop="className" :rules="[{required:true,message:'组名不能为空'}]">
+          <el-input type="text" placeholder="组名" v-model="classMumber.className"
+          ></el-input>
+          </el-form-item>
+          <el-form-item label="请选择成员:" prop="hasChoosePeople" :rules="[
+            { required: true, message: '请选择成员' }
+          ]">
+          <el-select  multiple v-model="classMumber.hasChoosePeople" placeholder="请选择成员">
+            <el-option
+              v-for="item of classMumber.people"
+              :key="item.student_id"
+              :label="item.name"
+              :value="item.student_id">
+            </el-option>
+          </el-select>
+          </el-form-item>
+          <el-button type="primary" @click.prevent="choosePeople('classMum')">确定</el-button>
+        </el-form>
+      </center>
+    </el-dialog>
+
   </el-card>
 </template>
 
@@ -70,6 +97,12 @@
         dialogObjData: {
           type: 0
         },
+        classMumber:{
+          people:[],
+          dialogFormVisible:false,
+          hasChoosePeople:[],
+          className:""
+        },
         classes: [
           { label: '一班', value: 1 },
           { label: '二班', value: 2 },
@@ -91,6 +124,49 @@
       }
     },
     methods: {
+      //查询所有学生(不包括自己)
+      createClass(){
+        this.classMumber.dialogFormVisible=true
+        if (this.isStudent){
+          let url = URL_DATA.QUERY_ALL_STUDENT_WITHOUT_MYSELF
+          this.$axios({
+            url:url,
+            method:'post',
+            params:{myId:sessionStorage.getItem("userId")}
+          }).then((res)=>{
+            console.info(res)
+            this.classMumber.people = res.data
+          })
+        }else{
+          let url = URL_DATA.QUERY_STUDENT_INFORMATION
+          this.$axios({
+            url:url,
+            method:'post',
+            data:{pageSize:200}
+          }).then((res)=>{
+            this.classMumber.people = res.data.data.list
+          })
+        }
+
+      },
+      //得到所有的学生并拼接成字符串
+      choosePeople(formName){
+        this.$refs[formName].validate( valid => {
+            if(valid) {{
+              let resultPeople = ''
+              this.classMumber.hasChoosePeople.forEach((val,index)=>{
+                resultPeople+=val+','
+              })
+              resultPeople +=sessionStorage.getItem("userId")
+              this.$store.dispatch('chat/createGroup', {
+                group_name: this.classMumber.className,
+                person_id: resultPeople
+              })
+              this.classMumber.dialogFormVisible = false
+            }
+        }
+        })
+      },
       enterClass() {
         this.$axios({
           method: 'post',

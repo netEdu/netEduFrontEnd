@@ -30,23 +30,23 @@ export default {
   methods: {
     // 在以前的基础上新建讨论组
     newGroup(student) {
-      // 判断是否存在该讨论组
-      let group_id = this.$store.getters['chat/ifExistThread'](
-        ',' + sessionStorage.getItem('userId') + 
-        ',' + student.student_id + 
-        ',')
-      if(group_id == null) {
-        this.$store.dispatch('chat/createGroup', {
-          group_name: sessionStorage.getItem('username') + '和' + student.student_name,
-          person_id: sessionStorage.getItem('userId') + ',' + student.student_id
-        })
-      } else {
-        this.$store.dispatch('chat/switchThread', { 
-          id: group_id,
-          membersId: this.threads[group_id].person_id,
-          membersLength: this.threads[group_id].members.length,
-        })
-      }
+        // 判断是否存在该讨论组
+        let group_id = this.$store.getters['chat/ifExistThread'](
+          ',' + sessionStorage.getItem('userId') +
+          ',' + student.student_id +
+          ',')
+        if(group_id == null) {
+          this.$store.dispatch('chat/createGroup', {
+            group_name: sessionStorage.getItem('username') + '和' + student.student_name,
+            person_id: sessionStorage.getItem('userId') + ',' + student.student_id
+          })
+        } else {
+          this.$store.dispatch('chat/switchThread', {
+            id: group_id,
+            membersId: this.threads[group_id].person_id,
+            membersLength: this.threads[group_id].members.length,
+          })
+        }
     }
   }
 }

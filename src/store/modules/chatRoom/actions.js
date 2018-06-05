@@ -14,11 +14,6 @@ export const receiveMessage = ({ commit }, payload) => {
   commit(types.RECEIVE_MESSAGE, { message: payload })
 }
 
-//删除讨论组
-export const deleteThread = ({ commit },payload)=>{
-  commit(types.DELETE_THREAD, payload)
-
-}
 
 // 切换讨论组
 export const switchThread = ({ commit }, payload) => {

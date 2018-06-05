@@ -13,8 +13,7 @@
           :key="thread.group_id"
           :thread="thread"
           :active="thread.group_id === currentThread.group_id"
-          @switch-thread="switchThread"
-          @delete-thread="deleteThread">
+          @switch-thread="switchThread">
 
         </thread>
       </ul>
@@ -48,38 +47,6 @@ export default {
     }
   },
   methods: {
-    //删除讨论组
-    deleteThread(id){
-      const loading = this.$loading({
-        lock: true,
-        text: '删除中...',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
-      })
-      let url=URL_DATA.DELETE_THREAD
-        this.$store.dispatch('chat/deleteThread', {id:id,threads:this.threads})
-        this.$axios({
-          url:url,
-          method:'delete',
-          data:{group_id:id}
-        }).then((res)=>{
-          setTimeout(()=>{
-            loading.close()
-            this.$message({
-              message:'删除成功',
-              type:'success'
-            })
-          },500)
-        }).catch((res)=>{
-          setTimeout(()=>{
-            loading.close()
-            this.$message({
-              message:'网络异常',
-              type:'error'
-            })
-          },500)
-        })
-    },
     // 切换讨论组
     switchThread (id) {
       this.$store.dispatch('chat/switchThread', {

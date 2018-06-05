@@ -15,13 +15,30 @@ export function receiveAllThreads(payload, cb) {
 
 // 接收讨论组成员
 export function receiveAllMembers(payload, cb){
-  axios({
-    method: 'post',
-    url: URL_DATA.THREAD_PERSON,
-    params: { ids: payload.membersId }
-  }).then( res => {
-    cb(res.data.studentList)
-  })
+  if (payload.membersId == undefined){
+    axios({
+      url:URL_DATA.INIT_THREADS,
+      method:'post',
+      data:{group_id:payload.id}
+    }).then((res)=>{
+      payload.membersId=res.data[0].person_id
+      axios({
+        method: 'post',
+        url: URL_DATA.THREAD_PERSON,
+        params: { ids: payload.membersId }
+      }).then( res => {
+        cb(res.data.studentList)
+      })
+    })
+  }else{
+    axios({
+      method: 'post',
+      url: URL_DATA.THREAD_PERSON,
+      params: { ids: payload.membersId }
+    }).then( res => {
+      cb(res.data.studentList)
+    })
+  }
 }
 
 // 新建讨论组
