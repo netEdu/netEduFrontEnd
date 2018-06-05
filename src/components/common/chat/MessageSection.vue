@@ -63,7 +63,9 @@ export default {
         let class_num = isNaN(this.thread.group_id) 
           ? this.thread.group_id.split('_')[1] + ',' 
           : ''
-        let existPerson = this.thread.person_id + ','
+        console.log(this.thread.person_id)
+        let existPerson = this.thread.person_id.replace(/\,/g, '_') + ','
+        console.log(existPerson)
         setTimeout(() => {
           webSocket().send(
             // 消息类型:index-0
@@ -76,10 +78,10 @@ export default {
             // group_name:index-3
             this.thread.group_name + ',' + 
             // author:index-4
-            this.author + 
+            this.author + ',' +
             // person_id:index-5
             // timestamp:index-6
-            person_id + ']' + 
+            existPerson + ']' + 
             // msg
             e.target.value
           )
