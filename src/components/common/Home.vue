@@ -32,8 +32,9 @@ export default {
           let group_name = protocol.split(',')[3]
           // 消息发送者
           let author = protocol.split(',')[4]
+          let person_id = protocol.split(',')[5]
           // 时间戳
-          let timestamp = protocol.split(',')[5]
+          let timestamp = protocol.split(',')[6]
           // let thread = _this.$store.state.threads[threadID]
           console.log('onreceive')
           this.updateMessage({
@@ -42,6 +43,7 @@ export default {
             group_name,
             author,
             timestamp,
+            person_id,
             text
           })
           break

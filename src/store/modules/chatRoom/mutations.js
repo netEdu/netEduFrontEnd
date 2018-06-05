@@ -6,6 +6,7 @@ export default {
   [types.INIT_THREADS] (state, { threads }) {
     Vue.set(state, 'threads', {})
     threads.forEach(thread => {
+      thread.members = []
       createThread (state, thread)
     })
   },
@@ -16,7 +17,9 @@ export default {
     if (!state.threads[message.group_id]) {
       createThread(state, {
         group_id: message.group_id,
-        group_name: message.group_name
+        group_name: message.group_name,
+        person_id: message.person_id,
+        members: []
       })
     }
     addMessage(state, message)
@@ -45,7 +48,6 @@ function createThread (state, thread) {
   Vue.set(state.threads, thread.group_id, {
     ...thread,
     messages: [],
-    members: thread.members ? thread.members : [],
     lastMessage: null
   })
 }

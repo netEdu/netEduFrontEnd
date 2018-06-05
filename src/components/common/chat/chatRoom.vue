@@ -32,8 +32,8 @@
           <el-select v-model="chosenClass.classNumber" placeholder="请选择班级">
             <el-option
               :rules="[
-            { required: true, message: '请选择班级' }
-          ]"
+                { required: true, message: '请选择班级' }
+              ]"
               v-for="item of classes"
               :key="item.value"
               :label="item.label"
@@ -70,7 +70,6 @@
         </el-form>
       </center>
     </el-dialog>
-
   </el-card>
 </template>
 
@@ -155,9 +154,9 @@
             if(valid) {{
               let resultPeople = ''
               this.classMumber.hasChoosePeople.forEach((val,index)=>{
-                resultPeople+=val+','
+                resultPeople += val+','
               })
-              resultPeople +=sessionStorage.getItem("userId")
+              resultPeople += sessionStorage.getItem("userId")
               this.$store.dispatch('chat/createGroup', {
                 group_name: this.classMumber.className,
                 person_id: resultPeople
