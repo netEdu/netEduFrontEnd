@@ -29,7 +29,7 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pagement.pageNo"
+      :current-page="pagement.page"
       :page-sizes="[5, 10, 20]"
       :page-size="pagement.pageSize"
       layout="total, sizes, prev, pager, next, jumper"
@@ -47,7 +47,7 @@
         studentCommentData: [],
         pagement: {
           count: null,
-          pageNo: 1,
+          page: 1,
           pageSize: 5
         }
       }
@@ -58,7 +58,7 @@
         this.submit()
       },
       handleCurrentChange(val) {
-        this.pagement.pageNo = val
+        this.pagement.page = val
         this.submit()
       },
       submit() {

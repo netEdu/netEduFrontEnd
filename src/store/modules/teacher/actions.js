@@ -49,7 +49,7 @@ export const addQuestion = ({ commit }, payload) => {
 
 // 根据分页条件所有的考题
 export const receiveQuestions = ({ commit }, payload) => {
-  api.receiveQuestions(payload, questions => {
-    commit(types.RECEIVE_QUESTION, { questions })
+  api.receiveQuestions(payload, (questions, count) => {
+    commit(types.RECEIVE_QUESTION, { questions, count })
   })
 }

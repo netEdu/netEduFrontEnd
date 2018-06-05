@@ -79,6 +79,14 @@
   cursor: pointer;
 }
 
+.thread-list-item {
+  height: 50px;
+}
+.thread-list-item>.delete-thread {
+  float: left; 
+  width: 80px;
+}
+
 .member-list-item {
   margin-bottom: 5px;
   border-bottom: 0;

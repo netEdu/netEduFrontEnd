@@ -126,7 +126,7 @@ export function receiveQuestions(payload, cp) {
         ...payload.pagement
       }
     }).then( res => {
-      cp(res.data.data.list)
+      cp(res.data.data.list, res.data.data.count)
       payload.loading.close()
     }).catch( err => {
       console.log(err)
