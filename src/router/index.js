@@ -3,17 +3,17 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 export default new Router({
-  mode:'history',
+  mode: 'history',
   routes: [
     {
       path: '/',
       redirect: '/login'
     },
-    
+
     {
       path: '/teacher',
       component: resolve => require(['../components/common/Home.vue'], resolve),
-      children:[
+      children: [
         {
           path: '/Course',
           component: resolve => require(['../components/page/course.vue'], resolve)
@@ -27,7 +27,7 @@ export default new Router({
     {
       path: '/teacher',
       component: resolve => require(['../components/common/Home.vue'], resolve),
-      children:[
+      children: [
         {
           path: '/ChatRoom',
           component: resolve => require(['../components/common/chat/chatRoom.vue'], resolve)
@@ -37,7 +37,7 @@ export default new Router({
     {
       path: '/teacher',
       component: resolve => require(['../components/common/Home.vue'], resolve),
-      children:[
+      children: [
         {
           path: '/paper',
           component: resolve => require(['../components/page/paper.vue'], resolve)
@@ -55,7 +55,7 @@ export default new Router({
     {
       path: '/teacher',
       component: resolve => require(['../components/common/Home.vue'], resolve),
-      children:[
+      children: [
         {
           path: '/teacherFiles',
           component: resolve => require(['../components/page/teacherFiles.vue'], resolve)
@@ -63,13 +63,13 @@ export default new Router({
         {
           path: '/teacherUpload',
           component: resolve => require(['../components/page/teacherUpload.vue'], resolve)
-        },
+        }
       ]
     },
     {
       path: '/teacher',
       component: resolve => require(['../components/common/Home.vue'], resolve),
-      children:[
+      children: [
         {
           path: '/studentFiles',
           component: resolve => require(['../components/page/studentFiles.vue'], resolve)
@@ -93,51 +93,51 @@ export default new Router({
       ]
     },
     {
-      path:'/student',
-      component: resole => require(['../components/common/Home_student.vue'],resole),
-      children:[
+      path: '/student',
+      component: resole => require(['../components/common/Home_student.vue'], resole),
+      children: [
         {
-          path:'/studentSidebar1',
-          component:resole=>require(['../components/studentPage/studentSidebar1.vue'],resole)
+          path: '/studentSidebar1',
+          component: resole => require(['../components/studentPage/studentSidebar1.vue'], resole)
         },
         {
-          path:'/studentSidebar2',
-          component:resolve=>require(['../components/studentPage/studentSidebar2.vue'],resolve)
+          path: '/studentSidebar2',
+          component: resolve => require(['../components/studentPage/studentSidebar2.vue'], resolve)
         }
       ]
     },
     {
-      path:'/student',
-      component:resole=>require(['../components/common/Home_student.vue'],resole),
-      children:[
+      path: '/student',
+      component: resole => require(['../components/common/Home_student.vue'], resole),
+      children: [
         {
-          path:'/studentSidebar3',
-          component:resole=>require(['../components/studentPage/studentSidebar3.vue'],resole)
+          path: '/studentSidebar3',
+          component: resole => require(['../components/studentPage/studentSidebar3.vue'], resole)
         },
         {
-          path:'/studentSidebar4',
-          component:resolve=>require(['../components/studentPage/studentSidebar4.vue'],resolve)
+          path: '/studentSidebar4',
+          component: resolve => require(['../components/studentPage/studentSidebar4.vue'], resolve)
         }
       ]
     },
     {
-      path:'/student',
-      component:resole=>require(['../components/common/Home_student.vue'],resole),
-      children:[
+      path: '/student',
+      component: resole => require(['../components/common/Home_student.vue'], resole),
+      children: [
         {
-          path:'/studentSidebar5',
-          component:resole=>require(['../components/studentPage/studentSidebar5.vue'],resole)
+          path: '/studentSidebar5',
+          component: resole => require(['../components/studentPage/studentSidebar5.vue'], resole)
         },
         {
-          path:'/studentSidebar6',
-          component:resolve=>require(['../components/studentPage/studentSidebar6.vue'],resolve)
+          path: '/studentSidebar6',
+          component: resolve => require(['../components/studentPage/studentSidebar6.vue'], resolve)
         }
       ]
     },
     {
-      path:'/student',
-      component:resole=>require(['../components/common/Home_student.vue'],resole),
-      children:[
+      path: '/student',
+      component: resole => require(['../components/common/Home_student.vue'], resole),
+      children: [
         {
           path: '/ChatStudentRoom',
           component: resolve => require(['../components/common/chat/chatRoom.vue'], resolve)
@@ -145,85 +145,85 @@ export default new Router({
       ]
     },
     {
-      path:'/student',
-      component:resole=>require(['../components/common/Home_student.vue'],resole),
-      children:[
+      path: '/student',
+      component: resole => require(['../components/common/Home_student.vue'], resole),
+      children: [
         {
-          path:'/studentSidebar3',
-          component:resole=>require(['../components/studentPage/studentSidebar3.vue'],resole)
+          path: '/studentSidebar3',
+          component: resole => require(['../components/studentPage/studentSidebar3.vue'], resole)
         }
       ]
     },
     {
-      path:'/admin',
-      component:resole=>require(['../components/common/Home_admin.vue'],resole),
-      children:[
+      path: '/admin',
+      component: resole => require(['../components/common/Home_admin.vue'], resole),
+      children: [
         {
-          path:'/adminSidebar1',
-          component:resole=>require(['../components/adminPage/adminSidebar1.vue'],resole)
+          path: '/adminSidebar1',
+          component: resole => require(['../components/adminPage/adminSidebar1.vue'], resole)
         },
         {
-          path:'/adminSidebar2',
-          component:resolve=>require(['../components/adminPage/adminSidebar2.vue'],resolve)
+          path: '/adminSidebar2',
+          component: resolve => require(['../components/adminPage/adminSidebar2.vue'], resolve)
         }
       ]
     },
     {
-      path:'/admin',
-      component:resole=>require(['../components/common/Home_admin.vue'],resole),
-      children:[
+      path: '/admin',
+      component: resole => require(['../components/common/Home_admin.vue'], resole),
+      children: [
         {
-          path:'/adminSidebar3',
-          component:resole=>require(['../components/adminPage/adminSidebar3.vue'],resole)
+          path: '/adminSidebar3',
+          component: resole => require(['../components/adminPage/adminSidebar3.vue'], resole)
         },
         {
-          path:'/adminSidebar4',
-          component:resolve=>require(['../components/adminPage/adminSidebar4.vue'],resolve)
+          path: '/adminSidebar4',
+          component: resolve => require(['../components/adminPage/adminSidebar4.vue'], resolve)
         }
       ]
     },
     {
-      path:'/admin',
-      component:resole=>require(['../components/common/Home_admin.vue'],resole),
-      children:[
+      path: '/admin',
+      component: resole => require(['../components/common/Home_admin.vue'], resole),
+      children: [
         {
-          path:'/adminSidebar5',
-          component:resole=>require(['../components/adminPage/adminSidebar5.vue'],resole)
+          path: '/adminSidebar5',
+          component: resole => require(['../components/adminPage/adminSidebar5.vue'], resole)
         }
       ]
     },
     {
-      path:'/admin',
-      component:resole=>require(['../components/common/Home_admin.vue'],resole),
-      children:[
+      path: '/admin',
+      component: resole => require(['../components/common/Home_admin.vue'], resole),
+      children: [
         {
-          path:'/adminSidebar6',
-          component:resole=>require(['../components/adminPage/adminSidebar6.vue'],resole)
+          path: '/adminSidebar6',
+          component: resole => require(['../components/adminPage/adminSidebar6.vue'], resole)
         },
         {
-          path:'/adminSidebar7',
-          component:resole=>require(['../components/adminPage/adminSidebar7.vue'],resole)
+          path: '/adminSidebar7',
+          component: resole => require(['../components/adminPage/adminSidebar7.vue'], resole)
         }
       ]
     },
     {
-      path:'/admin',
-      component:resole=>require(['../components/common/Home_admin.vue'],resole),
-      children:[
+      path: '/admin',
+      component: resole => require(['../components/common/Home_admin.vue'], resole),
+      children: [
         {
-          path:'/adminSidebar8',
-          component:resole=>require(['../components/adminPage/adminSidebar8.vue'],resole)
+          path: '/adminSidebar8',
+          component: resole => require(['../components/adminPage/adminSidebar8.vue'], resole)
         },
         {
-          path:'/adminSidebar9',
-          component:resole=>require(['../components/adminPage/adminSidebar9.vue'],resole)
+          path: '/adminSidebar9',
+          component: resole => require(['../components/adminPage/adminSidebar9.vue'], resole)
         }
       ]
     },
     {
       path: '/login',
       component: resolve => require(['../components/page/Login.vue'], resolve)
-    },
+    }
   ]
 })
 

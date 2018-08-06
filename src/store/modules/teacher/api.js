@@ -5,16 +5,16 @@ import { Message } from 'element-ui'
 const LATENCY = 500
 
 // 获得所有的课程
-export function getAllCourses(payload, cb) {
+export function getAllCourses (payload, cb) {
   setTimeout(() => {
     axios({
       method: 'post',
       url: URL_DATA.COURSE_LIST,
       data: payload.selectForm
-    }).then( res => {
+    }).then(res => {
       payload.loading.close()
       cb(res.data)
-    }).catch( err => {
+    }).catch(err => {
       console.log(err)
       Message.error('网络错误')
       payload.loading.close()
@@ -23,68 +23,66 @@ export function getAllCourses(payload, cb) {
 }
 
 // 取消课程申请
-export function cancelCourse(payload, cb) {
+export function cancelCourse (payload, cb) {
   axios({
     method: 'delete',
     url: URL_DATA.CANCEL_COURSE,
     params: { ids: payload.ids }
-  }).then( () => {
+  }).then(() => {
     Message.success('取消申请成功')
     cb()
-  }).catch( () => {
+  }).catch(() => {
     Message.error('网络错误')
   })
 }
 
 // 获取所有试卷
-export function getAllPapers(payload, cb) {
-  setTimeout( () => {
+export function getAllPapers (payload, cb) {
+  setTimeout(() => {
     axios({
       method: 'post',
       url: URL_DATA.PAPER_LIST,
       data: payload.selectForm
-    }).then( res => {
+    }).then(res => {
       payload.loading.close()
       cb(res.data.data.list)
-    }).catch( err => {
+    }).catch(err => {
       console.log(err)
       Message.error('网络错误')
       payload.loading.close()
     })
   }, LATENCY)
-
 }
 
 // 获取试卷已添加的考题
-export function getExistQuestions(payload, cb) {
-  setTimeout( () => {
+export function getExistQuestions (payload, cb) {
+  setTimeout(() => {
     axios({
       method: 'get',
       url: URL_DATA.PAPER_SHOW,
       params: { id: payload.paper_id }
-    }).then( res => {
+    }).then(res => {
       cb(res.data, payload.paper_id)
       payload.loadingMiddle.close()
-    }).catch( err => {
+    }).catch(err => {
       console.log(err)
       Message.error('网络错误')
       payload.loadingMiddle.close()
     })
   }, LATENCY)
-
 }
 
 // 获取试卷未添加的考题
-export function getUnExistQuestsions(payload, cb) {
-  setTimeout( () => {
+export function getUnExistQuestsions (payload, cb) {
+  setTimeout(() => {
     axios({
       method: 'post',
       url: URL_DATA.QUESTION_NOT_EXIST,
       params: { existIds: payload.questions }
-    }).then( res => {
+    }).then(res => {
       cb(res.data.data, payload.questions)
       payload.loadingRight.close()
-    }).catch( err => {
+    }).catch(err => {
       console.log(err)
       Message.error('网络错误')
       payload.loadingRight.close()
@@ -93,8 +91,8 @@ export function getUnExistQuestsions(payload, cb) {
 }
 
 // 编辑当前试卷
-export function modifyCurrentPaper(payload, cb) {
-  setTimeout( () => {
+export function modifyCurrentPaper (payload, cb) {
+  setTimeout(() => {
     axios({
       method: 'put',
       url: URL_DATA.PAPER_MODIFY,
@@ -102,11 +100,11 @@ export function modifyCurrentPaper(payload, cb) {
         paper_id: payload.currentPaperId,
         questions: payload.idAfterModify
       }
-    }).then( () => {
+    }).then(() => {
       cb(payload.currentQuestion, payload.idAfterModify, payload.currentPaperId)
       payload.loadingMiddle.close()
       payload.loadingRight.close()
-    }).catch( err => {
+    }).catch(err => {
       console.log(err)
       Message.error('网络错误')
       payload.loadingMiddle.close()
@@ -116,8 +114,8 @@ export function modifyCurrentPaper(payload, cb) {
 }
 
 // 根据分页条件获取试卷题目
-export function receiveQuestions(payload, cp) {
-  setTimeout( () => {
+export function receiveQuestions (payload, cp) {
+  setTimeout(() => {
     axios({
       method: 'post',
       url: URL_DATA.RECEIVE_QUESTION,
@@ -125,10 +123,10 @@ export function receiveQuestions(payload, cp) {
         ...payload.selectForm,
         ...payload.pagement
       }
-    }).then( res => {
+    }).then(res => {
       cp(res.data.data.list, res.data.data.count)
       payload.loading.close()
-    }).catch( err => {
+    }).catch(err => {
       console.log(err)
       Message.error('网络错误')
       payload.loadingMiddle.close()

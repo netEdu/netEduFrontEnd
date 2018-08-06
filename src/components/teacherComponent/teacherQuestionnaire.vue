@@ -75,6 +75,7 @@ export default {
             message:'请完成所有评价',
             type:'error'
           })
+          loading.close()
           return false
         }
         this.submitData.answers+=val.answers+","

@@ -13,13 +13,13 @@
 // 公网ip和war包前缀
 // 39.105.58.192
 // /netEdu-1.0-SNAPSHOT
-export const LOCAL_IPADDR = 'localhost:8888'
-const IPADDR = 'localhost:8011'
-let WAR_NAME = ''
+export const LOCAL_IPADDR = '192.168.43.40:8888'
+const IPADDR = '192.168.43.40:8011'
+const WAR_NAME = ''
 const PROTOCOL_HTTP = 'http://'
 const PROTOCOL_WEBSOCKET = 'ws://'
 // '0,' + 字符串
-export const SOCKET_IP = PROTOCOL_WEBSOCKET + 'localhost:7117' + WAR_NAME + '/websocket'
+export const SOCKET_IP = PROTOCOL_WEBSOCKET + '192.168.43.40:7117' + WAR_NAME + '/websocket'
 
 export const URL_DATA = {
   LOGIN: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/login',
@@ -44,9 +44,9 @@ export const URL_DATA = {
   DELETE_TEACHER_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/deleteFiles',
   MARK_STUDENT_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/markData',
   TEACHER_DOWNLOAD_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/downloadFile?',
-  QUERY_ALL_STUDENT_AVG_SCORE:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Score/AVGAllStudent',
-  QUERY_MY_STUDENT:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/queryMyStudent',
-  QUERY_ONE_STUDENT_ALL_PAPER:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/queryMyStudentPaper',
+  QUERY_ALL_STUDENT_AVG_SCORE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Score/AVGAllStudent',
+  QUERY_MY_STUDENT: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/queryMyStudent',
+  QUERY_ONE_STUDENT_ALL_PAPER: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Client/queryMyStudentPaper',
   TEACHER_UPLOAD_MANY: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherData/uploadMany',
   QUERY_QUESTIONNAIRES: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Questionnaire/pageQuestionnaire',
   STUDENT_EVALUATE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentEvaluate/SelectByStudentId',
@@ -59,31 +59,31 @@ export const URL_DATA = {
   QUERY_TEACHER_DATA: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/queryTeacherData',
   STUDENT_DOWNLOAD_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/downloadFile',
   DELETE_PERSON_FILE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/deleteFiles',
-  QUERY_STUDENT_EXAM_INFORMATION:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Exam/showExam',
-  CHECK_PAPER:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Check/checkPaper',
-  ADD_TEACHER_QUESTIONNAIRE:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherEvaluate/addTeacherEvaluate',
-  ADD_STUDENT_QUESTIONNAIRE:PROTOCOL_HTTP + IPADDR + WAR_NAME + '/MEvaluate/addMEvaluate',
+  QUERY_STUDENT_EXAM_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Exam/showExam',
+  CHECK_PAPER: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Check/checkPaper',
+  ADD_TEACHER_QUESTIONNAIRE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/TeacherEvaluate/addTeacherEvaluate',
+  ADD_STUDENT_QUESTIONNAIRE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/MEvaluate/addMEvaluate',
 
   // 管理员端
-  QUERY_TEACHER_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/queryTeacher',
-  ADD_TEACHER_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/addTeacher',
-  TEST_TEACHER_USERNAME_REPEAT:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/checkTeacher',
-  QUERY_STUDENT_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/queryStudent',
-  ADD_STUDENT_INFORMATION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/addStudent',
-  TEST_STUDENT_USERNAME_REPEAT:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Person/checkStudent',
-  QUERY_COURSE_LIST:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Admin/courseList',
-  VERIFY_COURSE:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Admin/verify',
-  ADD_SURVEY_QUESTION: PROTOCOL_HTTP+IPADDR+WAR_NAME+'/SurveyQuestion/addSurveyQuestion',
-  QUERY_SURVEY_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/SurveyQuestion/selectBypage',
-  DELETE_SURVEY_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/SurveyQuestion/delSurveyQuestion',
-  QUERY_ONE_SURVEY_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/SurveyQuestion/selectByQuestionid',
-  UPDATE_SURVEY_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/SurveyQuestion/upSurveyQuestion',
-  ADD_TEACHER_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/addQuestionnaire',
-  QUERY_TEACHER_QUESTION_LIST:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/pageQuestionnaire',
-  DELETE_TEACHER_QUESTION_LIST:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/deleteQuestionnaire',
-  QUERY_ONE_QUESTIONNAIRE:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/selectByQuestionnaireId',
-  UPADTE_TEACHER_QUESTION:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/Questionnaire/upQuestionnaire',
-  UPLOAD_MANY_FILES:PROTOCOL_HTTP+IPADDR+WAR_NAME+'/StudentData/uploadMany',
+  QUERY_TEACHER_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Person/queryTeacher',
+  ADD_TEACHER_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Person/addTeacher',
+  TEST_TEACHER_USERNAME_REPEAT: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Person/checkTeacher',
+  QUERY_STUDENT_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Person/queryStudent',
+  ADD_STUDENT_INFORMATION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Person/addStudent',
+  TEST_STUDENT_USERNAME_REPEAT: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Person/checkStudent',
+  QUERY_COURSE_LIST: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Admin/courseList',
+  VERIFY_COURSE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Admin/verify',
+  ADD_SURVEY_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/SurveyQuestion/addSurveyQuestion',
+  QUERY_SURVEY_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/SurveyQuestion/selectBypage',
+  DELETE_SURVEY_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/SurveyQuestion/delSurveyQuestion',
+  QUERY_ONE_SURVEY_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/SurveyQuestion/selectByQuestionid',
+  UPDATE_SURVEY_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/SurveyQuestion/upSurveyQuestion',
+  ADD_TEACHER_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Questionnaire/addQuestionnaire',
+  QUERY_TEACHER_QUESTION_LIST: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Questionnaire/pageQuestionnaire',
+  DELETE_TEACHER_QUESTION_LIST: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Questionnaire/deleteQuestionnaire',
+  QUERY_ONE_QUESTIONNAIRE: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Questionnaire/selectByQuestionnaireId',
+  UPADTE_TEACHER_QUESTION: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/Questionnaire/upQuestionnaire',
+  UPLOAD_MANY_FILES: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/StudentData/uploadMany',
 
   // 聊天室
   INIT_THREADS: PROTOCOL_HTTP + IPADDR + WAR_NAME + '/group/getGroupById',
@@ -146,7 +146,7 @@ export const TeacherSideBarItem = [
       {
         index: '/teacherFiles',
         title: '资料查看/下载'
-      },
+      }
     ]
   },
   {
@@ -160,19 +160,19 @@ export const TeacherSideBarItem = [
       },
       {
         index: '/Sidebar7',
-        title:'查看/打印学生平均成绩'
+        title: '查看/打印学生平均成绩'
       },
       {
         index: '/Sidebar8',
-        title:'查看学生答题情况'
+        title: '查看学生答题情况'
       },
       {
         index: '/Sidebar9',
-        title:'查看学生互评'
+        title: '查看学生互评'
       },
       {
         index: '/Sidebar10',
-        title:'查看学生自评'
+        title: '查看学生自评'
       }
     ]
   }
@@ -225,7 +225,7 @@ export const StudentSideBarItem = [
   }
 ]
 
-//管理员侧边索引栏
+// 管理员侧边索引栏
 export const AdminSideBarItem = [
   {
     icon: 'el-icon-menu',
@@ -299,6 +299,7 @@ export const AdminSideBarItem = [
     ]
   }
 ]
+
 // 申请课程规则
 export const courseRules = {
   course_name: [
@@ -320,9 +321,10 @@ export const courseRules = {
     { required: true, message: '请选择上课班级' }
   ],
   assessment_method: [
-    { required: true, message: '请输入考核方法'}
+    { required: true, message: '请输入考核方法' }
   ]
 }
+
 // 试卷问题规则
 export const questionRules = {
   question_type: [
@@ -344,7 +346,7 @@ export const throttle = function (fn, delay) {
   var timer = null
   return function () {
     clearTimeout(timer)
-    timer = setTimeout(function() {
+    timer = setTimeout(function () {
       fn()
     }, delay)
   }

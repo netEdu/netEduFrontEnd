@@ -75,6 +75,8 @@
          res.data.forEach((val,index)=>{
            this.submitData.push({student_id:val.student_id,student_name:val.name,ideology:1,study:1,morality:1})
          })
+      }).catch( err => {
+        this.$message.error('网络错误')
       })
     },
     methods:{
