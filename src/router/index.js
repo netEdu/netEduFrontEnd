@@ -16,11 +16,11 @@ export default new Router({
       children: [
         {
           path: '/Course',
-          component: resolve => require(['../components/page/course.vue'], resolve)
+          component: resolve => require(['../components/page/Course.vue'], resolve)
         },
         {
           path: '/ShowCourse',
-          component: resolve => require(['../components/page/showCourse.vue'], resolve)
+          component: resolve => require(['../components/page/ShowCourse.vue'], resolve)
         }
       ]
     },
